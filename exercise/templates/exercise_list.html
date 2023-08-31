@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <a href="{% url 'home' %}">
+            <button class="wo-button">Close</button>
+        </a>
+    </div>    
+    <div class="row">
+        <div class="col">
+            Name
+        </div>
+        <div class="col">
+            Type
+        </div>
+        <div class="col">
+            Goal
+        </div>
+    </div>
+    {% for exercise in exercise_list %}
+    <div class="row">
+        <div class="col">
+            {{ exercise.name }}
+        </div>
+        <div class="col">
+            {% if exercise.type == 0 %}
+            Strength
+            {% else %} 
+            Cardio
+            {% endif %}
+        </div>
+        <div class="col">
+            {% if exercise.goal == 0 %} 
+            Repetitions
+            {% else %} 
+            Destance 
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -155,3 +155,11 @@ look different from the default allauth design, I need to edit them and apply th
 **static/css/stlyes.css**.
 Furthermore, I need to remove a few things from those forms and add a different layout using **bootstrap**.
 
+---
+## EXERCISE APP
+The exercise app contains the model for exercises, which the user can define lor later use their workouts.
+There will be three types of exercsies:
+1) Weight Liftig - Can be used for anything that envolves lifting weights over a number of repetitions.
+2) Running - Can be used for any activity that envolvs running or jogging over time
+3) Endurance - Can be used for exercises that require to do a number of repetitions over time
+
