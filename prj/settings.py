@@ -41,8 +41,19 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sites", # Added for django.allauth
+    "allauth",  # Added for django.allauth
+    "allauth.account", # Added for django.allauth
+    "allauth.socialaccount",  # Added for django.allauth
     "django.contrib.staticfiles",
 ]
+
+# SETTINGS FOR ALLAUTH
+SITE_ID = 1
+# DEPLOYMENT : MIGHT NEED TO CHANGE THE TWO FOLLOWING URLS
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -59,7 +70,7 @@ ROOT_URLCONF = "prj.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'prj/templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

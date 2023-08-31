@@ -97,3 +97,40 @@ In the terminal I enter the following intructions:
 2) <code>python manage.py createsuperuser</code>
 2) Enter username, password and confirm password
 
+## Setting up a folder for templates
+1) Create templates forlder in the project folder: **prj/templates**
+2) Add thhe folder to settings.py under TEMPLATES 
+3) Create base template for the project under **prj/templates/base.html**
+
+<code>
+TEMPLATES = [
+
+    {
+
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / 'prj/templates'],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+
+        },
+
+    },
+
+]
+</code>
+
+
+## Setting up Allauth
+1) Register django-allauth in settings.py under INSTALLED_APPS
+2) Register alluth.url in urls.py in the project folder
+3) Copy the folder /lib/site-packages/allauth/templates to the project's template folder
+4) Run the **migrate** command for allauth to commit its tables to the database
+5) In settings.py set SITE_ID, LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
+6) See if it works (Test)
+
