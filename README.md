@@ -97,7 +97,7 @@ In the terminal I enter the following intructions:
 2) <code>python manage.py createsuperuser</code>
 2) Enter username, password and confirm password
 
-## Setting up a folder for templates
+### Setting up a folder for templates
 1) Create templates forlder in the project folder: **prj/templates**
 2) Add thhe folder to settings.py under TEMPLATES 
 3) Create base template for the project under **prj/templates/base.html**
@@ -126,11 +126,32 @@ TEMPLATES = [
 </code>
 
 
-## Setting up Allauth
+### Setting up Allauth
 1) Register django-allauth in settings.py under INSTALLED_APPS
 2) Register alluth.url in urls.py in the project folder
 3) Copy the folder /lib/site-packages/allauth/templates to the project's template folder
 4) Run the **migrate** command for allauth to commit its tables to the database
 5) In settings.py set SITE_ID, LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
 6) See if it works (Test)
+
+---
+## Styles and CSS
+I will store all styles for the application in a single file that will be contained in the **static/css** folder.
+
+It is mandatory that the location of static files be specified in settings.py like so:
+
+<code>
+STATICFILES_DIRS = [
+    BASE_DIR / "static",    
+]
+</code>
+
+---
+## Authentication forms
+Allauth offers an application that handles authentication, so it is not necessary to create everything from scratch.
+In order to modify the looks of the forms used in the process I copied all the templates from the app in to the projects 
+teamplates folder, as documented two sections above in **Setting up Allauth**. To make the login, logout and signup forms
+look different from the default allauth design, I need to edit them and apply the styles that I previously prepared in
+**static/css/stlyes.css**.
+Furthermore, I need to remove a few things from those forms and add a different layout using **bootstrap**.
 
