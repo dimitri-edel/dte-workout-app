@@ -3,34 +3,75 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <a href="{% url 'home' %}">
-            <button class="wo-button">Close</button>
+        <a href="{% url 'create_exercise' %}" class="wo-button url-link">
+
+            <i class="fa-solid fa-circle-plus"></i>
+            New Exercise
+
         </a>
-    </div>    
-    <div class="row">
+    </div>
+    <div class="row">        
         <div class="col">
             Name
         </div>
         <div class="col">
             Type
-        </div>       
+        </div>
+        <div class="col"></div>
     </div>
     {% for exercise in exercise_list %}
-    <div class="row">
+    <div class="row">        
         <div class="col">
-            {{ exercise.name }}
+            <a href="{% url 'edit_exercise' exercise.id %}" class="url-link"><i class="fa-solid fa-pen-to-square"></i>
+                {{ exercise.name }}</a>
         </div>
         <div class="col">
             {% if exercise.exercise_type == 0 %}
+            <i class="fa-solid fa-dumbbell"></i>
             Weight-Lifting
-            {% elif exercise.exercise_type == 1 %} 
+            {% elif exercise.exercise_type == 1 %}
+            <i class="fa-solid fa-person-running"></i>
             Running
             {% else %}
+            <i class="fa-solid fa-stopwatch-20"></i>
             Endurance
             {% endif %}
-        </div>        
+        </div>
+        <div class="col centered-text">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{exercise.id}}" class="url-link"><i
+                    class="fa-solid fa-trash-can"></i></a>
+        </div>
+        <!-- Modal Structure : Confirm Delete -->
+        <div id="modal{{exercise.id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete {{ exercise.name }}?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure you want to delete {{ exercise.name }}?</h4>
+                        <p><i class="medium red material-icons">warning</i> <br>This action cannot be undone!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{% url 'delete_exercise' exercise.id %}" class="url-link wo-button">Yes</a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="wo-button url-link" data-bs-dismiss="modal">No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     {% endfor %}
+
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">

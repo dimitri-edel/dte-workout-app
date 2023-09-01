@@ -119,6 +119,21 @@ a.url-link {
     width: 100%;
     margin-top: 5px;
 }
+
+input.url-link{
+    text-decoration: none;
+    background-color: #f4f4f4d9;
+    color: rgb(7 58 22);
+    display: inline-block;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.5 em;
+    font-weight: bold;
+    border: 3px solid;
+    border-color: #144a3521;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 5px;
+}
 /* Icons */
 i {
     margin: 3px;

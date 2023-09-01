@@ -162,31 +162,83 @@ Furthermore, I need to remove a few things from those forms and add a different 
 ## EXERCISE APP
 
 ### Model
-The exercise app contains the model for exercises, which the user can define lor later use their workouts.
+The exercise app contains the model for exercises, which the user can define lor later use in their workouts.
 There will be three types of exercsies:
 1) Weight Liftig - Can be used for anything that envolves lifting weights over a number of repetitions.
 2) Running - Can be used for any activity that envolvs running or jogging over time
 3) Endurance - Can be used for exercises that require to do a number of repetitions over time
 
 **Fields:**
+
 **owner** - User who created the exercise
+
 **name** - Name of the exercie such as jogging, squat, etc.
+
 **exercise_type** - Is one of the types mentioned above: Weight-Lifting, Running, Endurance
+
+[See exercise.models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/models.py)
 
 ---
 ### Exercise Form
 For creating and editting an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
-![See exercise.forms.py]
+
+[See exercise.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/forms.py)
 
 ---
 ### Views
 The views will cover the CRUD functionality and use templates for rendering, and be mapped to URLs.
 All views for this django-app will be defined in **exercise/views.py**
-![See exercise.views.py ]
+
+[See exercise.views.py ](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/views.py)
 
 ---
 #### Create Exercise
 I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets instanciated and passed to the template for rendering. And one for processing the POST-Request where the form gets commited to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
+
+<code>
+
+class CreateExercise(View):
+
+    """ View for creating an exercise """
+    # Reference to the form
+    exercise_form_class = ExerciseForm
+    # Reference to the template
+    template_name = "create_exercise.html"
+
+    def get(self, request, *args, **kwargs):
+        """ Process a GET-Request and return a rendered teamlate"""
+        # Check if the user is authenticated, if not redirect them to home page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('home'))
+        # Instanciate the form
+        exercise_form = self.exercise_form_class()
+        # Render the specified template
+        return render(request, self.template_name, {"exercise_form": exercise_form})
+
+    def post(self, request,  *args, **kwargs):
+        """Process a POST-Request" for creating an exercise"""
+        # Retrieve form from REQUEST
+        exercise_form = self.exercise_form_class(request.POST)
+        # If the form is valid
+        if exercise_form.is_valid():
+            # Assign the form to the current user.
+            # The instance property of the forms is a reference to the model class
+            # that is being used and allows us to access its properties and methods
+            exercise_form.instance.owner = request.user
+            # Commit the model object to the database
+            exercise_form.save()
+            messages.add_message(
+            request, messages.SUCCESS, f"A new exdercise: '{exercise_form.instance.name}'\
+                 has been created   !")
+            return HttpResponseRedirect(reverse("exercise_list"))
+        # If the form was not valid, render the template. The workout_from will contain the
+        # validation messages for the user, which had been generated upon calling the 
+        # is_valid() method
+        return render(request, self.template_name, {"exercise_form": exercise_form})
+</code>
+
+#### Template
+[See the template exercise.teamplates.create_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)
 
 ##### Authentication check
 The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
@@ -196,7 +248,149 @@ I have created a few exercises and they were correctly commited to the database.
 
 ---
 #### Exercise List
+I named the view **ExerciseList**. The class inherits from **django.views.generic.ListView**. 
+The view returns a list of exercises that belong to the user. 
+The view is paginated by 5 items per page.
 
+<code>
+class ExerciseList(generic.ListView):
 
+    """ List of exercises that belong to the user"""
+    model = Exercise
+    template_name = "exercise_list.html"
+    paginate_by = 5
 
+    def get_queryset(self):
+        # Only retrieve datasets related to the user
+        return self.model.objects.filter(owner=self.request.user.id)
+</code>
 
+##### Template
+The template uses **pagination** facilities at the bottom. 
+
+The template provides a **delete button** for each exercise.There is also a **Modal** Dialog from **bootstrap** that prompts the user to confirm deletion of an exercise.
+
+The **name** of each exercise is wrapped inside a **link** with a fontawsome **icon**, that allows the user to open the exercise and edit it.
+
+[See exercise.teamplates.exercise_list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
+
+##### Test
+The list shows exercises that belong to the user that is logged in, otherwise it comes up empty(Meaning if I enter the URL whilest not authenticated)
+
+After adding the **DeleteExercise** view and **EditExercise** view I have tested the links in the list and they worked.
+The **delete button** works. **Confirm dialog** before deleting the exercise shows up and works properly.
+The items get deleted and a message that informs me about the successful deletion appears.
+Clicking on the **name** of the exercise opens the **edit** page as intended.
+
+---
+#### Edit Exercise
+This class is named **EditExercise**. 
+The class inherits from **django.views.View**.
+The **get** method extracts an object from the database and renders a template.
+The **post** method extracts the form from the request and commits the data to the database.
+If updating the data was successful a message will be passed to the user.
+If validation errors encur then the form will be rerendered with those validation messages.
+
+<code>
+class EditExercise(View):
+
+    """ View for editting an exercise """
+    # Reference to the form
+    exercise_form_class = ExerciseForm
+    # Reference to the template
+    template_name = "edit_exercise.html"
+
+    def get(self, request, *args, **kwargs):
+        """ Process a GET-Request"""
+        exercise_id = kwargs["exercise_id"]
+        # Retrieve dataset
+        exercise = Exercise.objects.get(id=exercise_id)        
+        # Store the id of the last object in the session
+        request.session["edit_exercise_id"] = exercise_id
+        # Instanciate the form
+        exercise_form = self.exercise_form_class(instance=exercise)
+        # Render the specified template
+        return render(request, self.template_name, {"exercise_form": exercise_form})
+
+    def post(self, request,  *args, **kwargs):
+        """Process a POST-Request"""
+        # Retrieve the object using the id stored in session
+        edit_exercise = Exercise.objects.get(
+            id=request.session["edit_exercise_id"])
+        # Instanciate the form
+        exercise_form = self.exercise_form_class(
+            request.POST, instance=edit_exercise)
+        # If the form is valid
+        if exercise_form.is_valid():
+            # Assign the form to the current user.
+            # The instance property of the forms is a reference to the model class
+            # that is being used and allows us to access its properties and methods
+            exercise_form.instance.user = request.user
+            # Commit the model object to the database
+            exercise_form.save()
+            # Let the user know about the successful update
+            messages.add_message(
+                request, messages.SUCCESS, f"{exercise_form.instance.name} has been updated!")
+            return HttpResponseRedirect(reverse("exercise_list"))
+        # If the form was not valid, render the template. The workout_from will contain
+        # the validation messages for the user, which had been generated upon calling
+        # the is_valid() method
+        return render(request, self.template_name, {"exercise_form": exercise_form})
+</code>
+
+##### Template
+The template simply renders the two fields of the form name and exercise_type. Which allows the user to change the values of these fields. It also provides a **save button** and a **Go back** button.
+
+[See exercise.templates.edit_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html)
+
+##### Testing
+If the name is empty, validation message appears.
+When the form is valid and gets commited to the database, a feedback message is passed to the user.
+
+---
+#### Delete Exercise
+Name of class is **DeleteExercise**. 
+The class inherits from **django.views.View**.
+It only has one method: **get**. 
+Inside the method first thing, the requested object is retrieved from the database.
+Secondly, the code checks if the user requesting the delete is the actual owner of
+the exercise. If not an error message is passed to the user.
+Further on, the code willl try to delete the exercise If there is no issues and
+the exercise can be deleted, a feedback message is passed to the user.
+If the deletion would conflict with data integrity, an according message will be
+relayed to the user.
+
+This view does **not** require a **template**.
+
+<code>
+class DeleteExercise(View):
+
+    """Delete an exercise from the list of available exercises"""
+    def get(self, request, exercise_id):
+        """Process the GET-request for delete"""
+        exercise = Exercise.objects.get(id=exercise_id)
+        if exercise.owner != request.user:
+            # Relay the error message to the user
+            messages.add_message(
+                request, messages.ERROR, "This exercise connot be deleted because \
+                you are not the owner!")
+            return HttpResponseRedirect(reverse("exercise_list"))
+
+        try:
+            exercise.delete()
+            messages.add_message(
+                request, messages.SUCCESS, f"{exercise.name} has been deleted!")
+        except ProtectedError:
+            # ProtectedError is raised because if the exercise is used in a workout
+            # In the model WorkoutExercise the foreign key to the exercise states  
+            # on_delete=models.PROTECT
+            messages.add_message(
+                request, messages.ERROR, "This exercise connot be deleted because \
+                it is being used in a workout!")
+        
+        return HttpResponseRedirect(reverse("exercise_list"))
+
+</code>
+
+##### Testing
+I have succesfully deleted sevaral exercises and the messages were relayed as expected.

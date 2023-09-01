@@ -32,7 +32,7 @@
                     <a class="nav-link" href="#"><i class="fa-solid fa-list"></i>Workouts</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#"><i
+                    <a class="nav-link" href="{% url 'exercise_list' %}"><i
                             class="fa-solid fa-list"></i>Exercises</a>
                 </li>
                 <li>
@@ -63,7 +63,7 @@
             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="" Close"></button>
-    </div>
+        </div>
     {% endfor %}
     </div>
     {% endif %}
