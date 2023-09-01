@@ -14,11 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+#pylint: disable=no-name-in-module
 from django.contrib import admin
 from django.urls import path, include
+from .views import HomePage
 
 urlpatterns = [    
     path("admin/", admin.site.urls),
+    path('', HomePage.as_view(), name='home'),
     path("", include('exercise.urls')),
     path('accounts/', include('allauth.urls')),
 ]

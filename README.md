@@ -1,6 +1,9 @@
 # dte-workout-app
 Workout journal with django
 
+## Pylint and PEP8
+For some reason pylint gives me the no-name-in-module error for some packages, even though the classes are clearly defined in those files. I have not figured out why yet. So I decided to supress the warnings in the code base.
+
 ## Creating django project
 First and foremost, because I work locally it is good practice to set up a virtual environment, so that the packages for this project are installed into the project folder(a sub-folder named 'venv') instead of having them  installed globally on this machine.
 
@@ -157,9 +160,43 @@ Furthermore, I need to remove a few things from those forms and add a different 
 
 ---
 ## EXERCISE APP
+
+### Model
 The exercise app contains the model for exercises, which the user can define lor later use their workouts.
 There will be three types of exercsies:
 1) Weight Liftig - Can be used for anything that envolves lifting weights over a number of repetitions.
 2) Running - Can be used for any activity that envolvs running or jogging over time
 3) Endurance - Can be used for exercises that require to do a number of repetitions over time
+
+**Fields:**
+**owner** - User who created the exercise
+**name** - Name of the exercie such as jogging, squat, etc.
+**exercise_type** - Is one of the types mentioned above: Weight-Lifting, Running, Endurance
+
+---
+### Exercise Form
+For creating and editting an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
+![See exercise.forms.py]
+
+---
+### Views
+The views will cover the CRUD functionality and use templates for rendering, and be mapped to URLs.
+All views for this django-app will be defined in **exercise/views.py**
+![See exercise.views.py ]
+
+---
+#### Create Exercise
+I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets instanciated and passed to the template for rendering. And one for processing the POST-Request where the form gets commited to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
+
+##### Authentication check
+The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
+
+##### Test
+I have created a few exercises and they were correctly commited to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as exected.
+
+---
+#### Exercise List
+
+
+
 

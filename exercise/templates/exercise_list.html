@@ -13,10 +13,7 @@
         </div>
         <div class="col">
             Type
-        </div>
-        <div class="col">
-            Goal
-        </div>
+        </div>       
     </div>
     {% for exercise in exercise_list %}
     <div class="row">
@@ -24,19 +21,14 @@
             {{ exercise.name }}
         </div>
         <div class="col">
-            {% if exercise.type == 0 %}
-            Strength
-            {% else %} 
-            Cardio
+            {% if exercise.exercise_type == 0 %}
+            Weight-Lifting
+            {% elif exercise.exercise_type == 1 %} 
+            Running
+            {% else %}
+            Endurance
             {% endif %}
-        </div>
-        <div class="col">
-            {% if exercise.goal == 0 %} 
-            Repetitions
-            {% else %} 
-            Destance 
-            {% endif %}
-        </div>
+        </div>        
     </div>
     {% endfor %}
     {% if is_paginated %}
