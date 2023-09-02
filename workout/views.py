@@ -7,8 +7,10 @@ from django.shortcuts import render, reverse
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .models import Workout, WorkoutExercise
 from .forms import WorkoutForm, WorkoutExerciseForm
+from .reports import WorkoutReport, ExerciseReport
 
 
 class StartWorkout(View):
@@ -133,3 +135,75 @@ class EditWorkout(View):
 
         return HttpResponseRedirect(reverse('edit_workout',\
             kwargs={'workout_id': workout_form.instance.id}))
+
+
+class DeleteWorkoutExercise(View):
+    """Remove an exercise from a workout session"""
+    def get(self, request, workout_exercise_id, workout_id, *args, **kwargs):
+        """Process a GET-Request to remove an exercise from a workout session"""
+        workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
+        # Only allow owners of the workout to remove exercises from the list
+        if workout_exercise.owner == request.user:
+            workout_exercise.delete()
+        return HttpResponseRedirect(reverse('edit_workout', kwargs={'workout_id': workout_id}))
+
+
+class WorkoutList(View):
+    """List of workout sessions"""
+
+    model = Workout
+    template_name = "workout_list.html"
+    paginate_by = 2
+    # Constants for exercise.type
+    STRENGTH = 0
+    CARDIO = 1
+    # Constants for exercise.goal
+    REPETITIONS = 0
+    DISTANCE = 1
+
+    def get(self, request, *args, **kwargs):
+        """Process GET-Request"""
+        # If the user is not logged in, then redirect them to the login page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("accounts/login/")
+
+        # Only retrieve datasets related to the user
+        self.model.objects.filter(user_id=self.request.user.id)
+        # Generate Roports
+        reports = self.__generate_reports()
+        # Create paginator and load it with reports
+        paginator = Paginator(reports, self.paginate_by)
+        # Retrieve page number from the GET-Request-object
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        context = {
+            "page_obj": page_obj,
+        }
+        return render(request, self.template_name, context=context)
+
+    # Create Reports
+
+    def __generate_reports(self):
+        reports = []
+        workout_list = self.model.objects.filter(user_id=self.request.user.id)
+        for workout in workout_list:
+            # Create w wokrout report for each workout
+            workout_exercises = WorkoutExercise.objects.filter(
+                workout_id=workout.id)
+            report = WorkoutReport()
+            report.workout_id = workout.id
+            report.date = workout.date
+            report.name = workout.name
+
+            for workout_exercise in workout_exercises:
+                # Create an exercise report for each exercise
+                # and attach it to the workout report
+                exercise_report = ExerciseReport()
+                exercise_report.workout_exercise_id = workout_exercise.id
+                exercise_report.report += f"{workout_exercise.exercise.name}:"
+                # exercise_report.report += self.__generate_report(
+                #     workout_exercise)
+                report.exercise_reports.append(exercise_report)
+
+            reports.append(report)
+        return reports

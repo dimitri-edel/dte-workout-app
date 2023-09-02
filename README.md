@@ -442,7 +442,36 @@ When the user clicks on **start workout** in the **Navigation Bar**, the **Start
 ##### Templates
 Template for creating a workout is called **start_workout.html**. Basically, all it does is provide a form in which user can **name** the workout session.
 
-[See workout.templates.start_workout.html]()
+[See workout.templates.start_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html)
 
+Template for editing a workout session is called **edit_workout.html**. The template has an editable field for the name of the workout session. It also displays a list of exercises for the workout session, provided that there is a list. If there is no list yet, then the user now has the chance to define one. It uses two forms for submitting changes, one for the **Workout** model and another for the **WorkooutExercise** model. **WorkoutExerciseForm** allows the user to pick one of the exercises they defined and add them to the workout session. If they pick an exercise from from the list of the exercises they defined and click on the **add** button, the exercises will be added to the list and appear in the list above.
+
+[See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
+
+##### Testing
+I have created several workouts and they showed up in the page for editing. I could rename the workout session and also successfully add exercises to the list. I yet have to define a view for **deleting** the exercises and insert the corresponding URL into the template.
+
+---
+#### Remove an Exercise from a Workout session
+The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed two it via **URL**. One is the id of the workout session and the other is the id of the dataset in **WorkoutExercise** . 
+
+##### Template
+It is used in the template from editing a workout session. The link is placed inside a Modal dialog, that makes sure that the user confirms the delete.
+
+[See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
+
+##### Testing
+I have opened a workout for editing and deleted a few items from it.
+
+#### List of workout sessions
+
+
+##### Reports
+The reports are a set of summaries for each workout session. The reason for this approach is because I have have to do computations on three models. So instead of doing that inside the template and using the queries on the model objects, I extract the information that I need and put them inside an array that uses two classes that I defined in [reports.py]().
+It is also easier to attach other computed fields to those reports instead of doing that in templates. Later on I will use them to display other information such as statistics, meaning progress reports.
+**WorkoutReport** stores the basic information on each workout session such as its **id**, the **date** on which it was created, **name** and an **array** of **exercise reports**. 
+**Exercise Reports** are defined in a separate class. They contain the id of the dataset in **WorkoutExercise**. And a summary of the workload that was done. For instance I did a set of bicep curls using 25kg dumbbells and I did 12 repetitions in each set. So the **report** will read "bicep curls: 12 X 25kg".
+
+However, for now the reports will have **no exercise reports**, because the **model** for **sets** has **not** been **defined** yet.
 
 

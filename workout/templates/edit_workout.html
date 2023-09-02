@@ -47,7 +47,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <a href="#" class="url-link wo-button">Yes</a>
+                                        <a href="{% url 'delete_workout_exercise' workout_exercise.id workout_form.instance.id %}" class="url-link wo-button">Yes</a>
                                     </div>
                                     <div class="col">
                                         <a href="#" class="url-link wo-button" data-bs-dismiss="modal">No</a>
