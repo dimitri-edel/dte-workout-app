@@ -437,6 +437,12 @@ The **link** to **StartWorkout** will be added to the list of links in the **Nav
 
 When the user clicks on **start workout** in the **Navigation Bar**, the **StartWorkout** view will be executed and will render a **template**. In this template the user will **name** the **Workout session** and click on **start**. In turn, the user will be forwarded to the **editing page**, where they can compile a list of exercises for the workout session.
 
+[See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
+
+##### Templates
+Template for creating a workout is called **start_workout.html**. Basically, all it does is provide a form in which user can **name** the workout session.
+
+[See workout.templates.start_workout.html]()
 
 
 

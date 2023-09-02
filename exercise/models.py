@@ -1,4 +1,5 @@
 """ Model classes for exercise app """
+#pylint: disable=E0307
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -33,4 +34,4 @@ class Exercise(models.Model):
         defined in a tupple at the top of this script file
     """
     def __str__(self):
-        return self.name.name
+        return self.name

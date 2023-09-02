@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add Workout {% endblock title %}
+
+{% block content %}
+
+<form action="{% url 'start_workout' %}" method="POST">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8 mt-2 offset-2">
+                <h1>Start Workout</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8 mt-2 offset-2">
+                {{ workout_form }}
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-4 mt-2 offset-2">
+                <a href="{% url 'home' %}" class="url-link wo-button">
+                    Cancel
+                </a>
+            </div>
+            <div class="col-4 mt-2">
+                <input type="submit" value="Start" class="wo-button">
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock content %}

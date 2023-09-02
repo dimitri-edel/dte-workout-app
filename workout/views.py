@@ -19,7 +19,7 @@ class StartWorkout(View):
     # Reference to the form class for the model class ExerciseSet
     workout_exercise_form_class = WorkoutExerciseForm
     # Reference to the template for this view
-    template_name = "add_workout.html"
+    template_name = "start_workout.html"
     # Process a GET-Request
 
     def get(self, request, *args, **kwargs):
@@ -49,7 +49,7 @@ class StartWorkout(View):
             workout_form.save()            
 
             return HttpResponseRedirect(
-                reverse("edit_workout", kwargs={'id': workout_form.instance.id}))
+                reverse("edit_workout", kwargs={'workout_id': workout_form.instance.id}))
 
         # If the form was not valid, render the template. The workout_from will contain 
         # the validation messages for the user, which had been generated upon calling the 
@@ -110,35 +110,26 @@ class EditWorkout(View):
 
         workout_exercise_form = self.workout_exercise_form_class(
             request.POST, user_id=request.user.id, prefix="workout_exercise")
-
-        # If both forms are valid
-        if workout_form.is_valid() and workout_exercise_form.is_valid():
-            return self.__save_forms(request, workout_form, workout_exercise_form)
-
-        # If the form was not valid, render the template. The workout_from will contain the validation
-        # messages for the user, which had been generated upon calling the is_valid() method
-        messages.add_message(
-            request, messages.ERROR, "You might have forgotten to select the exercise you want to add!")
-        workout_exercise_list = WorkoutExercise.objects.filter(
-            workout_id=workout.id)
-
-        return render(request, self.template_name, {"workout_form": workout_form, "workout_exercise_form": workout_exercise_form,
-                                                    "workout_exercise_list": workout_exercise_list})
+        # save the forms and render a template
+        return self.__save_forms(request, workout_form, workout_exercise_form)
 
     def __save_forms(self, request, workout_form, workout_exercise_form):
-        # Assign the form to the current user.
-        # The instance property of the forms is a reference to the model class
-        # that is being used and allows us to access its properties and methods
-        workout_form.instance.user = request.user
-        # Commit the model object to the database
-        workout_form.save()
-        # Assign the workout_id of the newly created Workout to the ExerciseSet.workout_id field
+        """Save both forms and render a response"""
+        if workout_form.is_valid():
+            # Assign the form to the current user.
+            # The instance property of the forms is a reference to the model class
+            # that is being used and allows us to access its properties and methods
+            workout_form.instance.user = request.user
+            # Commit the model object to the database
+            workout_form.save()
 
-        workout_exercise_form.instance.workout_id = workout_form.instance.id
-        workout_exercise = WorkoutExercise.objects.create(
-            workout_id=workout_form.instance.id, exercise_id=workout_exercise_form.instance.exercise_id)
-        workout_exercise.exercise_id = workout_exercise_form.instance.exercise_id
-        workout_exercise.done = workout_exercise_form.instance.done
-        workout_exercise.save()
+        if workout_exercise_form.is_valid():
+            workout_exercise_form.instance.workout_id = workout_form.instance.id
+            workout_exercise = WorkoutExercise.objects.create(owner=request.user,
+            workout_id=workout_form.instance.id,\
+                exercise_id=workout_exercise_form.instance.exercise_id)
+            workout_exercise.exercise_id = workout_exercise_form.instance.exercise_id
+            workout_exercise.save()
 
-        return HttpResponseRedirect(reverse('edit_workout', kwargs={'id': workout_form.instance.id}))
+        return HttpResponseRedirect(reverse('edit_workout',\
+            kwargs={'workout_id': workout_form.instance.id}))

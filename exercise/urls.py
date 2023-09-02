@@ -1,10 +1,10 @@
 """ UTLs for Exercise app """
 #pylint: disable=no-name-in-module
+#pylint: disable=E1101
 from django.urls import path
 from .views import ExerciseList, EditExercise, CreateExercise, DeleteExercise
 
 
-#pylint: disable=E1101
 urlpatterns = [    
     path('exercise-list/', ExerciseList.as_view(), name='exercise_list'),
     path('create_exercise/', CreateExercise.as_view(), name='create_exercise'),

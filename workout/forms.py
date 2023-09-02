@@ -31,9 +31,9 @@ class WorkoutExerciseForm(ModelForm):
         fields = ["exercise"]
 
     def __init__(self, *args, **kwargs):
-        user_id = kwargs.pop("user_id")
+        owner = kwargs.pop("user_id")
         super(WorkoutExerciseForm, self).__init__(*args, **kwargs)        
         # Set the empty label in the selector
         self.fields['exercise'].empty_label = "( --- Select Exercise --- )"
-        self.fields['exercise'].queryset = Exercise.objects.filter(user_id=user_id)
+        self.fields['exercise'].queryset = Exercise.objects.filter(owner=owner)
         self.fields['exercise'].widget.attrs.update({"class": "input-field"})

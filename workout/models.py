@@ -21,7 +21,7 @@ class Workout(models.Model):
         """String representation of the object"""
         return self.name.name
 
-
+    
 class WorkoutExercise(models.Model):
     """
     WorkoutExercise is a relation between Workout and Exercise. It allows to link Exercises
