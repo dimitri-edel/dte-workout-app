@@ -160,6 +160,11 @@ Furthermore, I need to remove a few things from those forms and add a different 
 
 ---
 ## EXERCISE APP
+To add an app to a django project I ran this script in the terminal:
+
+<code>
+python manage.py startapp exercise
+</code>
 
 ### Model
 The exercise app contains the model for exercises, which the user can define lor later use in their workouts.
@@ -394,3 +399,10 @@ class DeleteExercise(View):
 
 ##### Testing
 I have succesfully deleted sevaral exercises and the messages were relayed as expected.
+
+---
+## WORKOUT APP
+To add the app to the django project I entered this command in the terminal:
+
+<code>python manage.py startapp workout</code>
+
