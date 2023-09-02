@@ -155,11 +155,9 @@ class WorkoutList(View):
     template_name = "workout_list.html"
     paginate_by = 2
     # Constants for exercise.type
-    STRENGTH = 0
-    CARDIO = 1
-    # Constants for exercise.goal
-    REPETITIONS = 0
-    DISTANCE = 1
+    WEIGHTLIFTING = 0
+    RUNNING = 1
+    ENDURANCE = 2
 
     def get(self, request, *args, **kwargs):
         """Process GET-Request"""
@@ -207,3 +205,13 @@ class WorkoutList(View):
 
             reports.append(report)
         return reports
+
+
+class DeleteWorkout(View):
+    """Delete a workout session"""
+    def get(self, request, workout_id, *args, **kwargs):
+        """Process a GET-Request for deleting a Workout"""
+        workout = Workout.objects.get(id=workout_id)
+        if workout.user == request.user:
+            workout.delete()
+        return HttpResponseRedirect(reverse('workout_list'))

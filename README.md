@@ -463,7 +463,11 @@ It is used in the template from editing a workout session. The link is placed in
 ##### Testing
 I have opened a workout for editing and deleted a few items from it.
 
+---
 #### List of workout sessions
+The view **WorkoutList** extracts all workouts that belong to the user and in the private method **__generate_roports** it creates an array of summaries for each workout session. The **template** then uses those **reports** and renders them in a list. The list is **paginated**. 
+
+[See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
 
 ##### Reports
@@ -474,4 +478,15 @@ It is also easier to attach other computed fields to those reports instead of do
 
 However, for now the reports will have **no exercise reports**, because the **model** for **sets** has **not** been **defined** yet.
 
+##### Template
+The template loops through the array of reports that was provided to it in the context inside **page_obj**.
+Each of these reports has another array of summaries for each exercise in that workout session. Hence, there is another loop nested inside the first loop, which iterates through each **exercise report**. Also, beside each workout is a button that allows the user to delete that workout. Furthermore, a **Modal Dialog** is attached to each exercise, which will be displayed if the user clicks on the **delete** button. The Dialog will **prompt** the user to **confirm delete** of the workout.
+
+[See workout.templates.workout_list](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html)
+
+###### Testing 
+The list renders and shows all workouts that belong to the user.
+
+---
+##### Delete Workout session
 
