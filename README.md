@@ -406,3 +406,23 @@ To add the app to the django project I entered this command in the terminal:
 
 <code>python manage.py startapp workout</code>
 
+---
+### Model
+I defined two classes: **Workout** and **WorkoutExercise**. 
+
+**Workout** is a representation of a workout session. Whereas, **WorkoutExercise** is a many-to-many relationship. Even though **django** offers a **Many-to-many** relationship, that solution does not quite fit the bill. Because this relationship will be used as a foreign key in another model that is yet to be defined. I did some research and have tried a few things but none of those methods worked like I needed them to. So I decided to use the good old normalization rule and defined the relationship in a separate model.
+[See workout.models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/models.py)
+
+Now all that is left to do is add the app to INSTALLED_APPS in settings.py and migrate the model to the database.
+<code>
+python manage.py makemigrations
+python manage.py migrate
+</code>
+
+---
+### Forms
+I defined two forms, one for each of the model classes. 
+[See workout.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/forms.py)
+
+---
+### Views
