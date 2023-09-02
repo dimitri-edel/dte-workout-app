@@ -27,4 +27,5 @@ class WorkoutReport:
 class ExerciseReport:
     """A Summary of the workload of an exercise in a workout"""
     workout_exercise_id = 0
+    exercise_type = ""
     report = ""

@@ -198,6 +198,13 @@ class WorkoutList(View):
                 # and attach it to the workout report
                 exercise_report = ExerciseReport()
                 exercise_report.workout_exercise_id = workout_exercise.id
+                # Now attach the exercise type to the report in form of a string
+                if workout_exercise.exercise.exercise_type == self.WEIGHTLIFTING:
+                    exercise_report.exercise_type = "WEIGHTLIFTING"
+                elif workout_exercise.exercise.exercise_type == self.RUNNING:
+                    exercise_report.exercise_type = "RUNNING"
+                else:
+                    exercise_report.exercise_type = "ENDURANCE"
                 exercise_report.report += f"{workout_exercise.exercise.name}:"
                 # exercise_report.report += self.__generate_report(
                 #     workout_exercise)
