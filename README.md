@@ -2,20 +2,20 @@
 Workout journal with django
 
 ## Pylint and PEP8
-For some reason pylint gives me the no-name-in-module error for some packages, even though the classes are clearly defined in those files. I have not figured out why yet. So I decided to supress the warnings in the code base.
+For some reason pylint gives me the no-name-in-module error for some packages, even though the classes are clearly defined in those files. I have not figured out why yet. So I decided to suppress the warnings in the code base.
 
 ## Creating django project
 First and foremost, because I work locally it is good practice to set up a virtual environment, so that the packages for this project are installed into the project folder(a sub-folder named 'venv') instead of having them  installed globally on this machine.
 
 ### Setting up the environment
 Step one: Create virtual environment in folder named **venv**.
-Step two: Select the virtual environment in IDE. I am using VS Code on a windows workstation. So for me it is Ctrl+Shift+P fowllowed by 'Select Interpreter'.
+Step two: Select the virtual environment in IDE. I am using VS Code on a windows workstation. So for me it is Ctrl+Shift+P followed by 'Select Interpreter'.
 
 ![vs code select interpreter](documentation/images/vs_code_select_interpreter.png)
 
 ![vs code select interpreter 1](documentation/images/vs_code_select_interpreter_1.png)
 
-On a linux machine it is necessary to enter the follwing instruction in the terminal:
+On a linux machine it is necessary to enter the following instruction in the terminal:
 <code>source ./venv/bin/activate</code>
 
 Step three:  Install django. I am using version 4.2.2
@@ -38,10 +38,10 @@ For this Project I have decided to use an external database on one of the server
 
 Then I need to create a database.
 
-![pgAdmin first step createing database](documentation/images/pg_admin_create_database_1.png)
+![pgAdmin first step creating database](documentation/images/pg_admin_create_database_1.png)
 
 Next I need to name the database and assign a user as its owner. In other words, a user that can edit the database.
-I already have a user for this app, so I just need to select him from a dropdown menu. In this case the username is workoutapp and they have all the privilleges that are necessary for editing this database.
+I already have a user for this app, so I just need to select him from a dropdown menu. In this case the username is workoutapp and they have all the privileges that are necessary for editing this database.
 
 ![pagAdmin naming the database](documentation/images/pg_admin_create_database_2.png)
 
@@ -49,7 +49,7 @@ Here is the code that will be executed when I press **save**.
 
 ![pgaAdmin commiting the database](documentation/images/pg_admin_create_database_20.png)
 
-Now the database is ready to be used. At least for django it is, because django will authomatically map the models to this database when the **manage.py migrate** script is executed. Alongside all the models that I will define in the scope of this project, django will also map models from other apps that I am going to use in this project, such as django-allauth, the users for django.contrib.auth and so on.
+Now the database is ready to be used. At least for django it is, because django will automatically map the models to this database when the **manage.py migrate** script is executed. Alongside all the models that I will define in the scope of this project, django will also map models from other apps that I am going to use in this project, such as django-allauth, the users for django.contrib.auth and so on.
 
 ![pgAdmin save database](documentation/images/pg_admin_save_databse.png)
 
@@ -59,7 +59,7 @@ First of all, since I am going to store the project on GitHub, I cannot publicly
 I need to import the **environment variables** that I defined in **env.py**.
 Since, I am using a wildcard-import <code>from .env import *</code> I need to let the linter know that it is fine.
 I am doing that because there are no classes defined in that file only a number of **os.eniron** assignments. 
-Which you can see as a setting for pylint in form of a coment: <code># pylint: disable=wildcard-import</code>
+Which you can see as a setting for pylint in form of a comment: <code># pylint: disable=wildcard-import</code>
 Also,I need to override the standard SQLite engine setting in settings.py by providing my set of settings:
 
 <code>
@@ -95,14 +95,14 @@ DATABASES = {
 ## Setting up the project
 Now that I have the project and the database for the project has been specified, I need to migrate all the django models to the database and create a superuser. All of them will be mapped to the database.
 
-In the terminal I enter the following intructions:
+In the terminal I enter the following instructions:
 1) python manage.py migrate
 2) <code>python manage.py createsuperuser</code>
 2) Enter username, password and confirm password
 
 ### Setting up a folder for templates
-1) Create templates forlder in the project folder: **prj/templates**
-2) Add thhe folder to settings.py under TEMPLATES 
+1) Create templates folder in the project folder: **prj/templates**
+2) Add the folder to settings.py under TEMPLATES 
 3) Create base template for the project under **prj/templates/base.html**
 
 <code>
@@ -153,9 +153,9 @@ STATICFILES_DIRS = [
 ## Authentication forms
 Allauth offers an application that handles authentication, so it is not necessary to create everything from scratch.
 In order to modify the looks of the forms used in the process I copied all the templates from the app in to the projects 
-teamplates folder, as documented two sections above in **Setting up Allauth**. To make the login, logout and signup forms
+templates folder, as documented two sections above in **Setting up Allauth**. To make the login, logout and sign-up forms
 look different from the default allauth design, I need to edit them and apply the styles that I previously prepared in
-**static/css/stlyes.css**.
+**static/css/styles.css**.
 Furthermore, I need to remove a few things from those forms and add a different layout using **bootstrap**.
 
 ---
@@ -168,16 +168,16 @@ python manage.py startapp exercise
 
 ### Model
 The exercise app contains the model for exercises, which the user can define lor later use in their workouts.
-There will be three types of exercsies:
-1) Weight Liftig - Can be used for anything that envolves lifting weights over a number of repetitions.
-2) Running - Can be used for any activity that envolvs running or jogging over time
+There will be three types of exercises:
+1) Weight Lifting - Can be used for anything that involves lifting weights over a number of repetitions.
+2) Running - Can be used for any activity that involves running or jogging over time
 3) Endurance - Can be used for exercises that require to do a number of repetitions over time
 
 **Fields:**
 
 **owner** - User who created the exercise
 
-**name** - Name of the exercie such as jogging, squat, etc.
+**name** - Name of the exercise such as jogging, squat, etc.
 
 **exercise_type** - Is one of the types mentioned above: Weight-Lifting, Running, Endurance
 
@@ -185,7 +185,7 @@ There will be three types of exercsies:
 
 ---
 ### Exercise Form
-For creating and editting an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
+For creating and editing an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
 
 [See exercise.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/forms.py)
 
@@ -198,7 +198,7 @@ All views for this django-app will be defined in **exercise/views.py**
 
 ---
 #### Create Exercise
-I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets instanciated and passed to the template for rendering. And one for processing the POST-Request where the form gets commited to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
+I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets Instantiated and passed to the template for rendering. And one for processing the POST-Request where the form gets committed to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
 
 <code>
 
@@ -211,11 +211,11 @@ class CreateExercise(View):
     template_name = "create_exercise.html"
 
     def get(self, request, *args, **kwargs):
-        """ Process a GET-Request and return a rendered teamlate"""
+        """ Process a GET-Request and return a rendered template"""
         # Check if the user is authenticated, if not redirect them to home page
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse('home'))
-        # Instanciate the form
+        # Instantiate the form
         exercise_form = self.exercise_form_class()
         # Render the specified template
         return render(request, self.template_name, {"exercise_form": exercise_form})
@@ -233,7 +233,7 @@ class CreateExercise(View):
             # Commit the model object to the database
             exercise_form.save()
             messages.add_message(
-            request, messages.SUCCESS, f"A new exdercise: '{exercise_form.instance.name}'\
+            request, messages.SUCCESS, f"A new exercise: '{exercise_form.instance.name}'\
                  has been created   !")
             return HttpResponseRedirect(reverse("exercise_list"))
         # If the form was not valid, render the template. The workout_from will contain the
@@ -243,13 +243,13 @@ class CreateExercise(View):
 </code>
 
 #### Template
-[See the template exercise.teamplates.create_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)
+[See the template exercise.templates.create_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)
 
 ##### Authentication check
 The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
 
 ##### Test
-I have created a few exercises and they were correctly commited to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as exected.
+I have created a few exercises and they were correctly committed to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as expected.
 
 ---
 #### Exercise List
@@ -277,10 +277,10 @@ The template provides a **delete button** for each exercise.There is also a **Mo
 
 The **name** of each exercise is wrapped inside a **link** with a fontawsome **icon**, that allows the user to open the exercise and edit it.
 
-[See exercise.teamplates.exercise_list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
+[See exercise.templates.exercise_list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
 
 ##### Test
-The list shows exercises that belong to the user that is logged in, otherwise it comes up empty(Meaning if I enter the URL whilest not authenticated)
+The list shows exercises that belong to the user that is logged in, otherwise it comes up empty(Meaning if I enter the URL whilst not authenticated)
 
 After adding the **DeleteExercise** view and **EditExercise** view I have tested the links in the list and they worked.
 The **delete button** works. **Confirm dialog** before deleting the exercise shows up and works properly.
@@ -294,12 +294,12 @@ The class inherits from **django.views.View**.
 The **get** method extracts an object from the database and renders a template.
 The **post** method extracts the form from the request and commits the data to the database.
 If updating the data was successful a message will be passed to the user.
-If validation errors encur then the form will be rerendered with those validation messages.
+If validation errors incur then the form will be rerendered with those validation messages.
 
 <code>
 class EditExercise(View):
 
-    """ View for editting an exercise """
+    """ View for editing an exercise """
     # Reference to the form
     exercise_form_class = ExerciseForm
     # Reference to the template
@@ -312,7 +312,7 @@ class EditExercise(View):
         exercise = Exercise.objects.get(id=exercise_id)        
         # Store the id of the last object in the session
         request.session["edit_exercise_id"] = exercise_id
-        # Instanciate the form
+        # Instantiate the form
         exercise_form = self.exercise_form_class(instance=exercise)
         # Render the specified template
         return render(request, self.template_name, {"exercise_form": exercise_form})
@@ -322,7 +322,7 @@ class EditExercise(View):
         # Retrieve the object using the id stored in session
         edit_exercise = Exercise.objects.get(
             id=request.session["edit_exercise_id"])
-        # Instanciate the form
+        # Instantiate the form
         exercise_form = self.exercise_form_class(
             request.POST, instance=edit_exercise)
         # If the form is valid
@@ -350,7 +350,7 @@ The template simply renders the two fields of the form name and exercise_type. W
 
 ##### Testing
 If the name is empty, validation message appears.
-When the form is valid and gets commited to the database, a feedback message is passed to the user.
+When the form is valid and gets committed to the database, a feedback message is passed to the user.
 
 ---
 #### Delete Exercise
@@ -360,7 +360,7 @@ It only has one method: **get**.
 Inside the method first thing, the requested object is retrieved from the database.
 Secondly, the code checks if the user requesting the delete is the actual owner of
 the exercise. If not an error message is passed to the user.
-Further on, the code willl try to delete the exercise If there is no issues and
+Further on, the code will try to delete the exercise If there is no issues and
 the exercise can be deleted, a feedback message is passed to the user.
 If the deletion would conflict with data integrity, an according message will be
 relayed to the user.
@@ -377,7 +377,7 @@ class DeleteExercise(View):
         if exercise.owner != request.user:
             # Relay the error message to the user
             messages.add_message(
-                request, messages.ERROR, "This exercise connot be deleted because \
+                request, messages.ERROR, "This exercise con not be deleted because \
                 you are not the owner!")
             return HttpResponseRedirect(reverse("exercise_list"))
 
@@ -390,7 +390,7 @@ class DeleteExercise(View):
             # In the model WorkoutExercise the foreign key to the exercise states  
             # on_delete=models.PROTECT
             messages.add_message(
-                request, messages.ERROR, "This exercise connot be deleted because \
+                request, messages.ERROR, "This exercise con not be deleted because \
                 it is being used in a workout!")
         
         return HttpResponseRedirect(reverse("exercise_list"))
@@ -398,7 +398,7 @@ class DeleteExercise(View):
 </code>
 
 ##### Testing
-I have succesfully deleted sevaral exercises and the messages were relayed as expected.
+I have successfully deleted several exercises and the messages were relayed as expected.
 
 ---
 ## WORKOUT APP
