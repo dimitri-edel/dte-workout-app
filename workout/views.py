@@ -1,3 +1,144 @@
-from django.shortcuts import render
+""" Views for workout app"""
+#pylint: disable=no-name-in-module
+#pylint: disable=too-few-public-methods
+#pylint: disable=no-member
+#pylint: disable=unused-argument
+from django.shortcuts import render, reverse
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from .models import Workout, WorkoutExercise
+from .forms import WorkoutForm, WorkoutExerciseForm
 
-# Create your views here.
+
+class StartWorkout(View):
+    """View for adding a new Workout session"""
+
+    # Reference to the form class for the model class Workout
+    workout_form_class = WorkoutForm
+    # Reference to the form class for the model class ExerciseSet
+    workout_exercise_form_class = WorkoutExerciseForm
+    # Reference to the template for this view
+    template_name = "add_workout.html"
+    # Process a GET-Request
+
+    def get(self, request, *args, **kwargs):
+        """Process the GET-Request"""
+        # If the user is not logged in, then redirect them to the login page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("accounts/login/")
+        # Instantiate the forms.
+        # The prefix is mandatory when using several forms in the same view.
+        # When initializing a form, using the data in the POST-request object, prefix
+        # helps setting the forms apart, as you can see in the post method below.
+        workout_form = self.workout_form_class(prefix="workout")
+        # Render the dedicated template
+        return render(request, self.template_name,{"workout_form": workout_form})
+
+    def post(self, request, *args, **kwargs):
+        """Process the POST-Request"""
+        # Instantiate the forms.
+        workout_form = self.workout_form_class(request.POST, prefix="workout")
+        # If both forms are valid
+        if workout_form.is_valid():
+            # Assign the form to the current user.
+            # The instance property of the forms is a reference to the model class
+            # that is being used and allows us to access its properties and methods
+            workout_form.instance.user = request.user
+            # Commit the model object to the database
+            workout_form.save()            
+
+            return HttpResponseRedirect(
+                reverse("edit_workout", kwargs={'id': workout_form.instance.id}))
+
+        # If the form was not valid, render the template. The workout_from will contain 
+        # the validation messages for the user, which had been generated upon calling the 
+        # is_valid() method
+        return render(request, self.template_name, {"workout_form": workout_form})
+
+
+
+class EditWorkout(View):
+    """class for editing the list of exercises that the workout session is comprised of"""
+
+    # Reference to the name of the form class for the model class Workout
+    workout_form_class = WorkoutForm
+    # Reference to the name of the form class for the model class WorkoutExercise
+    workout_exercise_form_class = WorkoutExerciseForm
+
+    # Reference to the template for this view
+    template_name = "edit_workout.html"
+    # Process a GET-Request
+
+    def get(self, request, *args, **kwargs):#
+        """Process the GET-Request"""
+        # If the user is not logged in, then redirect them to the login page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("accounts/login/")
+
+        # Pull the workout.id from kwargs
+        workout_id = kwargs['workout_id']
+        # Instantiate the forms.
+        # The prefix is mandatory whhen using several forms in the same view.
+        # When initializing a form, using the data in the POST-request object, prefix
+        # helps setting the forms apart, as you can see in the post method below.
+        workout = Workout.objects.get(id=workout_id)
+        # Create form for the workout object
+        workout_form = self.workout_form_class(
+            instance=workout, prefix="workout")
+
+        workout_exercise_list = WorkoutExercise.objects.filter(
+            workout_id=workout.id)
+        # Create a form for the last WrokoutExercise object
+        workout_exercise_form = self.workout_exercise_form_class(
+            user_id=request.user.id, prefix="workout_exercise")
+
+        # Render the dedicated template
+        return render(
+            request, self.template_name, {"workout_form": workout_form,
+                                          "workout_exercise_list": workout_exercise_list,
+                                          "workout_exercise_form": workout_exercise_form})
+
+    def post(self, request, workout_id, *args, **kwargs):
+        """Process a POST-Request"""
+        # @parameter : id = workout_id
+        # Get the workout using the id parameter
+        workout = Workout.objects.get(id=workout_id)
+        # Instantiate the forms.
+        workout_form = self.workout_form_class(
+            request.POST, prefix="workout", instance=workout)
+
+        workout_exercise_form = self.workout_exercise_form_class(
+            request.POST, user_id=request.user.id, prefix="workout_exercise")
+
+        # If both forms are valid
+        if workout_form.is_valid() and workout_exercise_form.is_valid():
+            return self.__save_forms(request, workout_form, workout_exercise_form)
+
+        # If the form was not valid, render the template. The workout_from will contain the validation
+        # messages for the user, which had been generated upon calling the is_valid() method
+        messages.add_message(
+            request, messages.ERROR, "You might have forgotten to select the exercise you want to add!")
+        workout_exercise_list = WorkoutExercise.objects.filter(
+            workout_id=workout.id)
+
+        return render(request, self.template_name, {"workout_form": workout_form, "workout_exercise_form": workout_exercise_form,
+                                                    "workout_exercise_list": workout_exercise_list})
+
+    def __save_forms(self, request, workout_form, workout_exercise_form):
+        # Assign the form to the current user.
+        # The instance property of the forms is a reference to the model class
+        # that is being used and allows us to access its properties and methods
+        workout_form.instance.user = request.user
+        # Commit the model object to the database
+        workout_form.save()
+        # Assign the workout_id of the newly created Workout to the ExerciseSet.workout_id field
+
+        workout_exercise_form.instance.workout_id = workout_form.instance.id
+        workout_exercise = WorkoutExercise.objects.create(
+            workout_id=workout_form.instance.id, exercise_id=workout_exercise_form.instance.exercise_id)
+        workout_exercise.exercise_id = workout_exercise_form.instance.exercise_id
+        workout_exercise.done = workout_exercise_form.instance.done
+        workout_exercise.save()
+
+        return HttpResponseRedirect(reverse('edit_workout', kwargs={'id': workout_form.instance.id}))

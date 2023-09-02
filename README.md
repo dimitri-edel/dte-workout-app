@@ -426,3 +426,17 @@ I defined two forms, one for each of the model classes.
 
 ---
 ### Views
+
+---
+#### Creating and Editing a Workout session
+The reason why I bunched the two view together is because upon creating a Workout session I want the user to be redirected to the page for editing the session.
+
+I named the view for creating a workout session **StartWorkout** and the view for editing a workout session **EditWorkout**.
+
+The **link** to **StartWorkout** will be added to the list of links in the **Navigation Bar**.
+
+When the user clicks on **start workout** in the **Navigation Bar**, the **StartWorkout** view will be executed and will render a **template**. In this template the user will **name** the **Workout session** and click on **start**. In turn, the user will be forwarded to the **editing page**, where they can compile a list of exercises for the workout session.
+
+
+
+
