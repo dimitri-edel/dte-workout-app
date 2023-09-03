@@ -22,10 +22,10 @@
     {% for exercise in exercise_list %}
     <div class="row">        
         <div class="col">
-            <a href="{% url 'edit_exercise' exercise.id %}" class="url-link"><i class="fa-solid fa-pen-to-square"></i>
+            <a href="{% url 'edit_exercise' exercise.id %}" class="url-link edit-button"><i class="fa-solid fa-pen-to-square"></i>
                 {{ exercise.name }}</a>
         </div>
-        <div class="col">
+        <div class="col exercise-name">
             {% if exercise.exercise_type == 0 %}
             <i class="fa-solid fa-dumbbell"></i>
             Weight-Lifting
@@ -38,7 +38,7 @@
             {% endif %}
         </div>
         <div class="col centered-text">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{exercise.id}}" class="url-link"><i
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{exercise.id}}" class="url-link delete-button"><i
                     class="fa-solid fa-trash-can"></i></a>
         </div>
         <!-- Modal Structure : Confirm Delete -->
@@ -58,10 +58,10 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <a href="{% url 'delete_exercise' exercise.id %}" class="url-link wo-button">Yes</a>
+                                    <a href="{% url 'delete_exercise' exercise.id %}" class="url-link">Yes</a>
                                 </div>
                                 <div class="col">
-                                    <a href="#" class="wo-button url-link" data-bs-dismiss="modal">No</a>
+                                    <a href="#" class="url-link" data-bs-dismiss="modal">No</a>
                                 </div>
                             </div>
                         </div>
