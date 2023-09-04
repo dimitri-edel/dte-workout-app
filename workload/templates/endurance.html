@@ -35,8 +35,8 @@
                 {{ exercise_set.time }}
             </div>
             <div class="col">
-                <a href="{% url 'delete_exercise_set' workout_exercise_form.instance.id exercise_set.id %}"
-                    class="url-link wo-button"><i class="fa-solid fa-trash-can"></i></a>
+                <a href="{% url 'delete_workload' workout_exercise_form.instance.id exercise_set.id %}"
+                    class="url-link delete-button centered-text"><i class="fa-solid fa-trash-can"></i></a>
             </div>
         </div>
         {% endfor %}
@@ -52,53 +52,35 @@
                 let result_field_id = "{{ exercise_set_form.time.auto_id }}";
             </script>
             <div class="col">
-                <a href="#" onclick="submit_form()" class="url-link wo-button"> 
+                <button type="submit" class="url-link">
                     <i class="fa-solid fa-circle-plus"></i>Add
-                </a>
+                </button>
             </div>
         </div>
     </div>
-    <div class="container-fluid" style="margin-top: 10px;">
-        <div class="row">
-            <div class="col-4">                
-                <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link wo-button"
-                    id="close-button">
-                    <i class="fa-solid fa-circle-left"></i>Close
-                </a>
-            </div>
-            <div class="col-4">
-                <!-- Placeholder for layout -->
-            </div>
-            <div class="col">
-                <!-- Placeholder for layout -->
-            </div>
-        </div>
-    </div>
+    
 </form>
 <div class="container-fluid" style="margin-top: 10px;">
     <div class="row">
-        <div class="col-4">
-            <button id="start-button" onclick="start_button_click(this)" class="wo-button"><i
-                    class="fa-solid fa-play"></i>Timer</button>
+        <div class="col-4">                
+            <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link"
+                id="close-button">
+                <i class="fa-solid fa-circle-left"></i>Back
+            </a>
         </div>
         <div class="col-4">
-            <!-- Element that the timer uses for output -->
-            <input type="text" id="timer-text" class="input-field">
+            <button id="start-button" onclick="start_button_click(this)" class="timer-button"><i
+                class="fa-solid fa-play"></i>Timer</button>
         </div>
         <div class="col">
-            <!-- Plaveholder -->
+            <!-- Placeholder for layout -->
         </div>
     </div>
 </div>
-
 {% load static %}
 <!-- Load javascript with the timer class -->
 <script src="{% static 'js/timer.js' %}"></script>
 <script>
-    // Auto-save the form
-    function submit_form() {
-        document.forms[0].submit();
-    }
     // Register if the button has already been clicked
     timer_button_clicked = false;
     // Event listener for the start/stop timer button
@@ -123,7 +105,7 @@
 
         Third parameter specifies the intervals in milliseconds in which the timer will be updated
     */
-    let timer = new Timer("timer-text", result_field_id, 100);
+    let timer = new Timer(result_field_id);
     /*   WakeLock API 
          Purpose: Keep the screen awake
  

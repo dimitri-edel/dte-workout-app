@@ -100,3 +100,10 @@ class WorkloadList(View):
             return render(request, self.running_template, {"exercise": exercise, "workout_exercise_form": workout_exercise_form, "exercise_set_form": exercise_set_form, "exercise_set_list": exercise_set_list})
         else:
             return render(request, self.endurance_template, {"exercise": exercise, "workout_exercise_form": workout_exercise_form, "exercise_set_form": exercise_set_form, "exercise_set_list": exercise_set_list})
+
+
+class DeleteWorkload(View):
+    def get(self, request, workout_exercise_id, exercise_set_id, *args, **kwargs):
+        exercise_set = Workload.objects.get(id=exercise_set_id, owner=request.user)
+        exercise_set.delete()
+        return HttpResponseRedirect(reverse('workload_list', kwargs={"workout_exercise_id": workout_exercise_id}))
