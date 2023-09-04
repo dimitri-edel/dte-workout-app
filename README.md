@@ -487,4 +487,8 @@ There was some code in the **WorkoutList** view that seemed convoluted and diffi
 ## WORKLOAD APP
 Logging the actual workload for each set of an exercise.
 
+### Timer
+Timer is a class that I defined in a separate Java-Script file named **timer.js**. It will be  in the **static/js** folder.
+The timer will be used for two types of workload: running and endurance. The user will  have a start button form the timer, which will turn into a stop button as soon as the timer gets started. When the timer is stopped the results will be copied to the respective field in the form that is used for adding a new set to the exercise.
+
 
