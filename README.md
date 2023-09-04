@@ -473,11 +473,18 @@ The view **WorkoutList** extracts all workouts that belong to the user. The **te
 [See workout.templates.workout_list](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html)
 
 ###### Testing 
-The list renders and shows all workouts that belong to the user.
+The list renders and shows all workouts that belong to the user in the way it was intended.
 
 ---
 ##### Delete Workout session
+I have added a view **DeleteWorkout** and registered it at a **URL**. The view deletes a workout if it belongs to the user in the request.
 
+---
+#### Refactoring WorkoutList
+There was some code in the **WorkoutList** view that seemed convoluted and difficult to read. It occurred to me that a better way to go is to implement computed fields directly in the model. For now, I have only added one method, which uses a property decorator for Models. The property named **exercise_list** returns a collection of **WorkoutExercise** objects that are related to a given workout session.
 
-#### Refactoring Reports to computed fields in Model classes
+---
+## WORKLOAD APP
+Logging the actual workload for each set of an exercise.
+
 
