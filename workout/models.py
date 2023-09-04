@@ -1,4 +1,5 @@
 """ Model classes for the workout app"""
+#pylint: disable=no-member
 from django.db import models
 from django.contrib.auth.models import User
 from exercise.models import Exercise
@@ -20,6 +21,11 @@ class Workout(models.Model):
     def __str__(self):
         """String representation of the object"""
         return self.name.name
+
+    @property
+    def exercise_list(self):
+        """Return a list of WorkoutExercise objects related to this Workout session"""
+        return WorkoutExercise.objects.filter(workout=self)
 
     
 class WorkoutExercise(models.Model):

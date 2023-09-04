@@ -465,23 +465,11 @@ I have opened a workout for editing and deleted a few items from it.
 
 ---
 #### List of workout sessions
-The view **WorkoutList** extracts all workouts that belong to the user and in the private method **__generate_roports** it creates an array of summaries for each workout session. The **template** then uses those **reports** and renders them in a list. The list is **paginated**. 
+The view **WorkoutList** extracts all workouts that belong to the user. The **template** gets a list of **workouts** and renders the names of the workouts. Furthermore, it iterates through a list of **exercises** that are linked to the workout and renders their **name** and corresponding **type**. There are three types: Weight-Lifting, Running and Endurance which are represented with an **icon** that is sitting next to the name of the exercise. The  The list is **paginated**. 
 
 [See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
-
-##### Reports
-The reports are a set of summaries for each workout session. The reason for this approach is because I have have to do computations on three models. So instead of doing that inside the template and using the queries on the model objects, I extract the information that I need and put them inside an array that uses two classes that I defined in [reports.py]().
-It is also easier to attach other computed fields to those reports instead of doing that in templates. Later on I will use them to display other information such as statistics, meaning progress reports.
-**WorkoutReport** stores the basic information on each workout session such as its **id**, the **date** on which it was created, **name** and an **array** of **exercise reports**. 
-**Exercise Reports** are defined in a separate class. They contain the id of the dataset in **WorkoutExercise**. And a summary of the workload that was done. For instance I did a set of bicep curls using 25kg dumbbells and I did 12 repetitions in each set. So the **report** will read "bicep curls: 12 X 25kg".
-
-However, for now the reports will have **no exercise reports**, because the **model** for **sets** has **not** been **defined** yet.
-
 ##### Template
-The template loops through the array of reports that was provided to it in the context inside **page_obj**.
-Each of these reports has another array of summaries for each exercise in that workout session. Hence, there is another loop nested inside the first loop, which iterates through each **exercise report**. Also, beside each workout is a button that allows the user to delete that workout. Furthermore, a **Modal Dialog** is attached to each exercise, which will be displayed if the user clicks on the **delete** button. The Dialog will **prompt** the user to **confirm delete** of the workout.
-
 [See workout.templates.workout_list](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html)
 
 ###### Testing 
@@ -489,4 +477,7 @@ The list renders and shows all workouts that belong to the user.
 
 ---
 ##### Delete Workout session
+
+
+#### Refactoring Reports to computed fields in Model classes
 

@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import Workout, WorkoutExercise
 from .forms import WorkoutForm, WorkoutExerciseForm
-from .reports import WorkoutReport, ExerciseReport
 
 
 class StartWorkout(View):
@@ -165,12 +164,11 @@ class WorkoutList(View):
         if not request.user.is_authenticated:
             return HttpResponseRedirect("accounts/login/")
 
-        # Only retrieve datasets related to the user
-        self.model.objects.filter(user_id=self.request.user.id)
-        # Generate Roports
-        reports = self.__generate_reports()
-        # Create paginator and load it with reports
-        paginator = Paginator(reports, self.paginate_by)
+        # Retrieve list of workouts
+        workouts = Workout.objects.filter(user=self.request.user)
+        
+        # Create paginator and load it with workouts
+        paginator = Paginator(workouts, self.paginate_by)
         # Retrieve page number from the GET-Request-object
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
@@ -178,40 +176,6 @@ class WorkoutList(View):
             "page_obj": page_obj,
         }
         return render(request, self.template_name, context=context)
-
-    # Create Reports
-
-    def __generate_reports(self):
-        reports = []
-        workout_list = self.model.objects.filter(user_id=self.request.user.id)
-        for workout in workout_list:
-            # Create w wokrout report for each workout
-            workout_exercises = WorkoutExercise.objects.filter(
-                workout_id=workout.id)
-            report = WorkoutReport()
-            report.workout_id = workout.id
-            report.date = workout.date
-            report.name = workout.name
-
-            for workout_exercise in workout_exercises:
-                # Create an exercise report for each exercise
-                # and attach it to the workout report
-                exercise_report = ExerciseReport()
-                exercise_report.workout_exercise_id = workout_exercise.id
-                # Now attach the exercise type to the report in form of a string
-                if workout_exercise.exercise.exercise_type == self.WEIGHTLIFTING:
-                    exercise_report.exercise_type = "WEIGHTLIFTING"
-                elif workout_exercise.exercise.exercise_type == self.RUNNING:
-                    exercise_report.exercise_type = "RUNNING"
-                else:
-                    exercise_report.exercise_type = "ENDURANCE"
-                exercise_report.report += f"{workout_exercise.exercise.name}:"
-                # exercise_report.report += self.__generate_report(
-                #     workout_exercise)
-                report.exercise_reports.append(exercise_report)
-
-            reports.append(report)
-        return reports
 
 
 class DeleteWorkout(View):

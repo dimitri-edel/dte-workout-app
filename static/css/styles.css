@@ -3,8 +3,8 @@
 
 /* General elements ############################################################################# */
 body {
-    padding: 5px;    
-    background: url("/static/img/workout_image_1.jpg") no-repeat fixed;     
+    padding: 5px;
+    background: url("/static/img/workout_image_1.jpg") no-repeat fixed;
     background-size: cover;
 }
 
@@ -17,8 +17,9 @@ h2,
 h3 {
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
-    color: #d8f6e3;
-    background-image: linear-gradient(to right, #a2a3a6ca, black, #a2a3a6ca);
+    font-weight: bold;
+    color: #032b11;
+    background-image: linear-gradient(to right, rgb(1, 26, 15), white, white, white, rgb(1, 26, 15));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -66,6 +67,7 @@ h3 {
     color: rgb(0 44 68);
     width: 100%;
 }
+
 /* --------------------------------------------------------------------------------------------- */
 
 /* Home page ##################################################################################### */
@@ -91,25 +93,28 @@ div .table-header {
 }
 
 .data-row {
-    background-color:  #e5e9eb;      
+    background-color: #e5e9eb;
 }
+
 /* The input fields in the registration form */
-.registration input{
+.registration input {
     width: 100%;
     text-align: center;
 }
 
 /* The input fields in the login form */
-.login input{
+.login input {
     width: 70%;
     text-align: center;
 }
 
 /* General link styles */
 a.url-link {
+    min-height: 40px;
+    padding: 5px;
     text-decoration: none;
     color: #f4f4f4d9;
-    background-image: linear-gradient(gray, rgb(7 58 22), black, black) ;
+    background-image: linear-gradient(gray, rgb(7 58 22), black, black);
     display: inline-block;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.5 em;
@@ -122,28 +127,39 @@ a.url-link {
 }
 
 /* Style delete buttons */
-a.url-link.delete-button{
-    background-image: linear-gradient(gray,rgb(66, 1, 1),black, black, black) ;
+a.url-link.delete-button {
+    background-image: linear-gradient(gray, rgb(66, 1, 1), black, black, black);
 }
+
 /* Styles for edit buttons */
 a.url-link.edit-button {
-    background-image: linear-gradient(gray,rgb(0, 33, 35),black, black, black) ;
+    background-image: linear-gradient(gray, rgb(0, 33, 35), black, black, black);
 }
-a.url-link:active{
+
+/* Style add buttons */
+a.url-link.add-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 50px;
+
+    width: 100%;
+}
+
+a.url-link:active {
     transform: translateY(5px);
     background-image: linear-gradient(#f4f4f4d9, white);
     color: rgb(7 58 22);
 }
 
-a.url-link:hover{    
+a.url-link:hover {
     background-image: linear-gradient(#f4f4f4d9, white);
     color: rgb(7 58 22);
 }
 
 /* Submit buttons for forms */
-input.url-link{    
+input.url-link {
     color: #f4f4f4d9;
-    background-image: linear-gradient(gray, rgb(7 58 22), black, black) ;
+    background-image: linear-gradient(gray, rgb(7 58 22), black, black);
     display: inline-block;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.5 em;
@@ -154,6 +170,7 @@ input.url-link{
     width: 100%;
     margin-top: 5px;
 }
+
 /* Icons */
 i {
     margin: 3px;
@@ -176,6 +193,7 @@ i {
 .input-field {
     width: 100%;
 }
+
 /* Paginator container ############################################################# */
 .pagination {
     display: flex;
@@ -189,6 +207,7 @@ i {
     font-weight: bold;
     border: 1px solid;
 }
+
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -200,33 +219,56 @@ i {
 .col-6,
 .col-7 {
     border: solid 2px;
-    border-color: transparent; 
-    border-radius: 3px;   
+    border-color: transparent;
+    border-radius: 3px;
     padding: 5px;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.col.exercise-name { 
-    font-size: small;     
-    text-align: center;  
+/* labels */
+.col-6.label {
+    color: rgb(0, 27, 27);
+    background-image: linear-gradient(to right, transparent, white, white, transparent);
+    font-weight: bold;
+}
+
+.col-3.label{
+    color: rgb(0, 27, 27);
+    background-image: linear-gradient(to right, transparent, white, white, transparent);
+    font-weight: bold;
+}
+
+/* label with exercise type in exercise_list.html*/
+.col-3.exercise-type {
+    min-height: 40px;
+    padding-top: 10px;    
+    outline: 1px solid rgb(5, 45, 45);
+    outline-offset: -5px;
+    font-size: small;
+    font-weight: bold;
+    text-align: center;
     background-color: hsl(157deg 11% 79% / 94%);
     color: rgb(5, 45, 45);
 }
+
 /* Override some properties of bootstrap */
 .row {
     background-image: linear-gradient(to right, #a2a3a6bf, transparent, #a2a3a6ed);
     margin-top: 5px;
 }
+
 /* show a block element centered */
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
 /* show an inline element centered */
 .centered-text {
     text-align: center;
 }
+
 /* Date field on the workout list */
 .date-field {
     font-family: 'Roboto Condensed', sans-serif;
@@ -246,9 +288,18 @@ i {
     border: 3px solid;
     border-color: transparent;
 }
+
 /* Name of workout in the workout_list.html */
 .workout-name {
+    min-height: 50px;
+    padding: 5px;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
     font-size: larger;
+}
+
+/* Summary of a set in workout_list.html */
+.set-summary {
+    min-height: 40px;
+    padding: 5px;
 }

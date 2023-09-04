@@ -3,29 +3,32 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <a href="{% url 'create_exercise' %}" class="wo-button url-link">
-
-            <i class="fa-solid fa-circle-plus"></i>
-            New Exercise
-
-        </a>
+        <div class="col-sm-10 col-md-4">
+            <a href="{% url 'create_exercise' %}" class="url-link add-button centered-text">
+                <i class="fa-solid fa-circle-plus"></i>
+                New Exercise
+            </a>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
     </div>
-    <div class="row">        
-        <div class="col">
+    <div class="row">
+        <div class="col-6 label centered-text">
             Name
         </div>
-        <div class="col">
+        <div class="col-3 label centered-text">
             Type
         </div>
         <div class="col"></div>
     </div>
     {% for exercise in exercise_list %}
-    <div class="row">        
-        <div class="col">
-            <a href="{% url 'edit_exercise' exercise.id %}" class="url-link edit-button"><i class="fa-solid fa-pen-to-square"></i>
+    <div class="row">
+        <div class="col-6">
+            <a href="{% url 'edit_exercise' exercise.id %}" class="url-link edit-button"><i
+                    class="fa-solid fa-pen-to-square"></i>
                 {{ exercise.name }}</a>
         </div>
-        <div class="col exercise-name">
+        <div class="col-3 exercise-type mx-auto">
             {% if exercise.exercise_type == 0 %}
             <i class="fa-solid fa-dumbbell"></i>
             Weight-Lifting
@@ -58,7 +61,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <a href="{% url 'delete_exercise' exercise.id %}" class="url-link">Yes</a>
+                                    <a href="{% url 'delete_exercise' exercise.id %}" class="url-link delete-button">Yes</a>
                                 </div>
                                 <div class="col">
                                     <a href="#" class="url-link" data-bs-dismiss="modal">No</a>

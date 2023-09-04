@@ -28,10 +28,9 @@ class Exercise(models.Model):
     """Foreign Key : User that owns the exercise."""
     name = models.CharField(max_length=200, blank=False)
     """Name of the exercise"""
+   
     exercise_type = models.IntegerField(
         choices=EXERCISE_TYPE, default=WEIGHT_LIFTING)
-    """Type of exercise. There are only two types: Strength and Cardio which are
-        defined in a tupple at the top of this script file
-    """
+    
     def __str__(self):
         return self.name
