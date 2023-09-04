@@ -491,4 +491,8 @@ Logging the actual workload for each set of an exercise.
 Timer is a class that I defined in a separate Java-Script file named **timer.js**. It will be  in the **static/js** folder.
 The timer will be used for two types of workload: running and endurance. The user will  have a start button form the timer, which will turn into a stop button as soon as the timer gets started. When the timer is stopped the results will be copied to the respective field in the form that is used for adding a new set to the exercise.
 
+---
+#### Reverse the refactoring
+Due to the [initial refactoring](#refactoring-workoutlist) I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields come down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference the **Workload** model in **WorkoutExercise**. It works with **Exercise** because it is initialized **before** WorkoutExercise. To cut the long story short, I will need to create either set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries in **workout/summaries.py**. 
+
 

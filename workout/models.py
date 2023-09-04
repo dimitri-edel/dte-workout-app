@@ -1,4 +1,5 @@
 """ Model classes for the workout app"""
+#pylint: disable=no-name-in-module
 #pylint: disable=no-member
 from django.db import models
 from django.contrib.auth.models import User
@@ -27,7 +28,7 @@ class Workout(models.Model):
         """Return a list of WorkoutExercise objects related to this Workout session"""
         return WorkoutExercise.objects.filter(workout=self)
 
-    
+
 class WorkoutExercise(models.Model):
     """
     WorkoutExercise is a relation between Workout and Exercise. It allows to link Exercises

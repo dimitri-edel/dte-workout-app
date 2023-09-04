@@ -8,8 +8,10 @@ from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
+from workload.models import Workload
 from .models import Workout, WorkoutExercise
 from .forms import WorkoutForm, WorkoutExerciseForm
+from .summaries import WorkoutSummary, WorkloadReport, Summarizer
 
 
 class StartWorkout(View):
@@ -165,10 +167,12 @@ class WorkoutList(View):
             return HttpResponseRedirect("accounts/login/")
 
         # Retrieve list of workouts
-        workouts = Workout.objects.filter(user=self.request.user)
-        
-        # Create paginator and load it with workouts
-        paginator = Paginator(workouts, self.paginate_by)
+        workouts = Workout.objects.filter(user=request.user)
+        # Create summaries of the workout sessions
+        summarizer = Summarizer(workouts)
+        summaries = summarizer.get_reports()
+        # Create paginator and load it with the summaries
+        paginator = Paginator(summaries, self.paginate_by)
         # Retrieve page number from the GET-Request-object
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)

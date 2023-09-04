@@ -15,26 +15,29 @@
         </div>
     </div>
 
-    {% for workout in page_obj %}
+    {% for summary in page_obj %}
     <div class="row">
         <div class="col-3 centered-text">
-            <span class="date-field">{{ workout.date |date:"M d, y" }}</span>
+            <span class="date-field">{{ summary.workout.date |date:"M d, y" }}</span>
         </div>
         <div class="col-7 centered-text" style="display:inline-block;">
-            <a class="url-link workout-name"" href=" {% url 'edit_workout' workout.id %}"><i
-                    class="fa-solid fa-pen-to-square"></i>{{workout.name }}</a>
-            {% for rel_exc in workout.exercise_list %}
-                <a style="display:block;" class="url-link edit-button set-summary" href="{% url 'workload_list' rel_exc.id %}">
+            <a class="url-link workout-name"" href=" {% url 'edit_workout' summary.workout.id %}"><i
+                    class="fa-solid fa-pen-to-square"></i>{{summary.workout.name }}</a>
+            {% for report in summary.reports %}
+                <a style="display:block;" class="url-link edit-button set-summary" href="{% url 'workload_list' report.workout_exercise.id %}">
                     <!-- Weight-Lifting -->
-                    {% if rel_exc.exercise.exercise_type == 0 %} 
-                    <i class="fa-solid fa-dumbbell"></i>{{rel_exc.exercise.name }}
+                    {% if report.workout_exercise.exercise.exercise_type == 0 %} 
+                    <i class="fa-solid fa-dumbbell"></i>{{report.workout_exercise.exercise.name }}<br>
                     <!-- Running -->
-                    {% elif rel_exc.exercise.exercise_type == 1 %}
-                    <i class="fa-solid fa-person-running"></i>{{rel_exc.exercise.name }}
+                    {% elif report.workout_exercise.exercise.exercise_type == 1 %}
+                    <i class="fa-solid fa-person-running"></i>{{report.workout_exercise.exercise.name }}<br>
                     <!-- Endurance -->
                     {% else %} 
-                    <i class="fa-solid fa-stopwatch-20"></i>{{rel_exc.exercise.name }}
+                    <i class="fa-solid fa-stopwatch-20"></i>{{report.workout_exercise.exercise.name }}<br>
                     {% endif %}
+                    {% for workload_summary in report.summaries %} 
+                    {{workload_summary}}<br>
+                    {% endfor %}
                 </a>               
             {% endfor %}
         </div>
@@ -61,7 +64,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <a href="{% url 'delete_workout' workout.id  %}"
+                                <a href="{% url 'delete_workout' summary.workout.id  %}"
                                     class="url-link delete-button">Yes</a>
                             </div>
                             <div class="col">

@@ -19,7 +19,7 @@
     {% for workout_exercise in workout_exercise_list %}
     <div class="row">        
         <div class="col entry-column">
-            <a href="#" class="url-link edit-button"><i
+            <a href="{% url 'workload_list' workout_exercise.id %}" class="url-link edit-button"><i
                     class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
         </div>
         <div class="col entry-column">
