@@ -247,7 +247,12 @@ i {
     font-size: small;
     font-weight: bold;
     text-align: center;
-    background-color: hsl(157deg 11% 79% / 94%);
+    border-color: rgba(240, 235, 235, 0.667);
+    border: 2px solid;
+    border-radius: 5px;
+    margin: 2px;
+    background-image: linear-gradient(to right, #a2a3a6bf, white, #a2a3a6ed);
+    font-family: 'Roboto Condensed', sans-serif;
     color: rgb(5, 45, 45);
 }
 

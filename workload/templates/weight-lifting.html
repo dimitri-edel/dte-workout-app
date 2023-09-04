@@ -8,7 +8,7 @@
     <label for="wakelock_active">Keep SCREEN AWAKE</label>
     <input id="wakelock_active" type="checkbox" name="wakelock_active" value="false">
     </span>
-<form action="{% url 'edit_exercise_set' workout_exercise_form.instance.id %}" method="POST">
+<form action="{% url 'workload_list' workout_exercise_form.instance.id %}" method="POST">
     {% csrf_token %}
     <div hidden>
         {{ workout_exercise_form }}
@@ -34,8 +34,8 @@
                 {{ exercise_set.weight }}
             </div>
             <div class="col entry-column">
-                <a href="{% url 'delete_exercise_set' workout_exercise_form.instance.id exercise_set.id %}"
-                    class="url-link wo-button"><i class="fa-solid fa-trash-can"></i></a>
+                <a href="#"
+                    class="url-link delete-button centered-text"><i class="fa-solid fa-trash-can"></i></a>
             </div>
         </div>
         {% endfor %}
@@ -48,24 +48,11 @@
                 {{ exercise_set_form.weight }}
             </div>
             <div class="col">
-                <a href="#" onclick="submit_form()" class="url-link wo-button">
+                <a href="#" onclick="submit_form()" class="url-link">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
             </div>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-4">
-                <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link wo-button">
-                    <i class="fa-solid fa-circle-left"></i>Cancel
-                </a>
-            </div>
-            <div class="col-4">
-                <!-- Placeholder for layout -->
-            </div>
-            <div class="col">
-                <!-- Placeholder for layout -->
-            </div>
-        </div>
+        </div>        
     </div>
 </form>
 <script>

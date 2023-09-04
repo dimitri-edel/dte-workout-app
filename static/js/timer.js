@@ -109,7 +109,7 @@ stop() {
     this.started = false;
 
     this.stop_time = Date.now() - this.start_time;
-    let out = new TimerOutput(this.stop_time - this.pauseTotal);
+    let out = new TimerOutput(this.stop_time);
 
     document.getElementById(this.results_id).value = out.toString();
     clearInterval(this.repeat);

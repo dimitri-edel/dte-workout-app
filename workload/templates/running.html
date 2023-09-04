@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block title %}Edit Exercise Sets {% endblock title %}
+
+{% block content %}
+<h1>{{ workout_exercise_form.instance.workout.name }} : {{ exercise.name }}</h1>
+<!-- Activate the wake lock to keep the screen active -->
+<span class="wakelock">
+<label for="wakelock_active">Keep SCREEN AWAKE</label>
+<input id="wakelock_active" type="checkbox" name="wakelock_active" value="false">
+</span>
+<form action="{% url 'workload_list' workout_exercise_form.instance.id %}" method="POST">
+    {% csrf_token %}
+    <div hidden>
+        {{ workout_exercise_form }}
+    </div>    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 table-header">
+                Distance
+            </div>
+            <div class="col-4 table-header">
+                Time
+            </div>
+            <div class="col table-header">
+                <!-- Placeholder-->
+            </div>
+        </div>
+        {% for exercise_set in exercise_set_list %}
+        <div class="row">
+            <div class="col-4 entry-column">
+                {{ exercise_set.distance }}
+            </div>
+            <div class="col-4 entry-column">
+                {{ exercise_set.time }}
+            </div>
+            <div class="col">
+                <a href="{% url 'delete_exercise_set' workout_exercise_form.instance.id exercise_set.id %}"
+                    class="url-link wo-button"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-4 entry-column">
+                {{ exercise_set_form.distance }}
+            </div>
+            <div class="col-4 entry-column">
+                {{ exercise_set_form.time }}
+            </div>
+            <script>
+                // Initialize the element id for the timer 
+                let result_field_id = "{{ exercise_set_form.time.auto_id }}";
+            </script>
+            <div class="col">
+                <a href="#" onclick="submit_form()" class="url-link">
+                    <i class="fa-solid fa-circle-plus"></i>Add
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 10px;">
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link wo-button"
+                    id="close-button">
+                    <i class="fa-solid fa-circle-left"></i>Close
+                </a>
+            </div>
+            <div class="col-4">
+                <!-- Placeholder for layout -->
+            </div>
+            <div class="col">
+                <!-- Placeholder for layout -->
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container-fluid" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-4">
+            <button id="start-button" onclick="start_button_click(this)" class="wo-button"><i
+                    class="fa-solid fa-play"></i>Timer</button>
+        </div>
+        <div class="col-4">
+            <!-- Element that the timer uses for output -->
+            <input type="text" id="timer-text" class="input-field">
+        </div>
+        <div class="col">
+            <!-- Plaveholder -->
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<!-- Load javascript with the timer class -->
+<script src="{% static 'js/timer.js' %}"></script>
+<script>
+    // Auto-save the form
+    function submit_form() {
+        document.forms[0].submit();
+    }
+    // Register if the button has already been clicked
+    timer_button_clicked = false;
+    // Event listener for the start/stop timer button
+    function start_button_click(button) {
+        if (timer_button_clicked) {
+            timer.stop();
+            timer_button_clicked = false;
+            button.innerHTML = "<i class='fa-solid fa-play'></i>Timer";
+        } else {
+            timer_button_clicked = true;
+            button.innerHTML = "<i class='fa-solid fa-stop'></i>Timer";
+            timer.start();
+        }
+    }
+
+    /* 
+        Instanciate the timer
+        First parameter in the constructor specifies the id of the element that the timer uses for output
+
+        Second parameter in the constructor specifies the output field for the results. The id for this field
+        was initialized in the inline script within the form : let reult_field_id = "{{ exercise_set_form.time.auto_id }}";
+
+        Third parameter specifies the intervals in milliseconds in which the timer will be updated
+    */
+    let timer = new Timer("timer-text", result_field_id, 100);
+
+    /*   WakeLock API 
+         Purpose: Keep the screen awake
+ 
+         Code copied from : https://developer.chrome.com/en/articles/wake-lock/
+    */
+    // The wake lock sentinel.
+    let wakeLock = null;
+
+    // Function that attempts to request a screen wake lock.
+    const requestWakeLock = async () => {
+        try {
+            wakeLock = await navigator.wakeLock.request();
+            wakeLock.addEventListener('release', () => {
+                console.log('Screen Wake Lock released:', wakeLock.released);
+            });
+            console.log('Screen Wake Lock released:', wakeLock.released);
+        } catch (err) {
+            console.error(`${err.name}, ${err.message}`);
+        }
+    };
+
+    // IF the checkbox is checked request a WakeLock, otherwise release the WakeLock
+    document.getElementById("wakelock_active").addEventListener("change", ()=>{
+        if(wakeLock == null){
+            wakeLock = requestWakeLock();
+        }else{
+            wakeLock.release();
+            wakeLock = null;
+        }
+    });
+    
+</script>
+{% endblock content %}
