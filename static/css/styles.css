@@ -84,12 +84,12 @@ h3 {
 /* --------------------------------------------------------------------------------------------- */
 
 /* APPLICATION ELEMENTS ######################################################################### */
-div .table-header {
+div .table-header {    
     background-image: linear-gradient(to right, #a2a3a6bf, white, #a2a3a6ed);
     color: #3e3c58;
     font-weight: bold;
     font-size: 1.2em;
-    margin: 2px;
+    
 }
 
 .data-row {
@@ -268,12 +268,13 @@ i {
 
 
 /* Override some properties of bootstrap */
+.col-1,
 .col-2,
 .col-3,
 .col-4,
 .col-5,
 .col-6,
-.col-7 {
+.col-7 {    
     border: solid 2px;
     border-color: transparent;
     border-radius: 3px;
