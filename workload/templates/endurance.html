@@ -2,12 +2,13 @@
 {% block title %}Edit Exercise Sets {% endblock title %}
 
 {% block content %}
-<h1>{{ workout_exercise_form.instance.workout.name }} : {{ exercise.name }}</h1>
+<h1>{{ workout_exercise_form.instance.workout.name }}</h1>
+<h2> {{ exercise.name }}</h2>
 <!-- Activate the wake lock to keep the screen active -->
 <span class="wakelock">
     <label for="wakelock_active">Keep SCREEN AWAKE</label>
     <input id="wakelock_active" type="checkbox" name="wakelock_active" value="false">
-    </span>
+</span>
 <form action="{% url 'workload_list' workout_exercise_form.instance.id %}" method="POST">
     {% csrf_token %}
     <div hidden>
@@ -35,34 +36,62 @@
                 {{ exercise_set.time }}
             </div>
             <div class="col">
-                <a href="{% url 'delete_workload' workout_exercise_form.instance.id exercise_set.id %}"
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{workout_exercise.id}}"
                     class="url-link delete-button centered-text"><i class="fa-solid fa-trash-can"></i></a>
             </div>
+            <!-- Modal Structure : Confirm Delete -->
+            <div id="modal{{report.workout_id}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete {{ workout.name }}?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete {{ workout.name }}?</h4>
+                            <p><i class="medium red material-icons">warning</i> <br>This action cannot be undone!
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{% url 'delete_workload' workout_exercise_form.instance.id exercise_set.id %}"
+                                            class="url-link delete-button">Yes</a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#" class="url-link" data-bs-dismiss="modal">No</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-4 entry-column">
+                    {{ exercise_set_form.reps }}
+                </div>
+                <div class="col-4 entry-column">
+                    {{ exercise_set_form.time }}
+                </div>
+                <script>
+                    // Initialize the element id for the timer 
+                    let result_field_id = "{{ exercise_set_form.time.auto_id }}";
+                </script>
+                <div class="col">
+                    <button type="submit" class="add-button">
+                        <i class="fa-solid fa-circle-plus"></i>Add
+                    </button>
+                </div>
+            </div>
         </div>
-        {% endfor %}
-        <div class="row">
-            <div class="col-4 entry-column">
-                {{ exercise_set_form.reps }}
-            </div>
-            <div class="col-4 entry-column">
-                {{ exercise_set_form.time }}
-            </div>
-            <script>
-                // Initialize the element id for the timer 
-                let result_field_id = "{{ exercise_set_form.time.auto_id }}";
-            </script>
-            <div class="col">
-                <button type="submit" class="url-link">
-                    <i class="fa-solid fa-circle-plus"></i>Add
-                </button>
-            </div>
-        </div>
-    </div>
-    
+
 </form>
 <div class="container-fluid" style="margin-top: 10px;">
     <div class="row">
-        <div class="col-4">                
+        <div class="col-4">
             <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link"
                 id="close-button">
                 <i class="fa-solid fa-circle-left"></i>Back
@@ -70,7 +99,7 @@
         </div>
         <div class="col-4">
             <button id="start-button" onclick="start_button_click(this)" class="timer-button"><i
-                class="fa-solid fa-play"></i>Timer</button>
+                    class="fa-solid fa-play"></i>Timer</button>
         </div>
         <div class="col">
             <!-- Placeholder for layout -->
@@ -86,9 +115,9 @@
     // Event listener for the start/stop timer button
     function start_button_click(button) {
         if (timer_button_clicked) {
-            timer.stop();  
-            timer_button_clicked = false;  
-            button.innerHTML = "<i class='fa-solid fa-play'></i>Timer";          
+            timer.stop();
+            timer_button_clicked = false;
+            button.innerHTML = "<i class='fa-solid fa-play'></i>Timer";
         } else {
             timer_button_clicked = true;
             button.innerHTML = "<i class='fa-solid fa-stop'></i>Timer";
@@ -128,10 +157,10 @@
     };
 
     // IF the checkbox is checked request a WakeLock, otherwise release the WakeLock
-    document.getElementById("wakelock_active").addEventListener("change", ()=>{
-        if(wakeLock == null){
+    document.getElementById("wakelock_active").addEventListener("change", () => {
+        if (wakeLock == null) {
             wakeLock = requestWakeLock();
-        }else{
+        } else {
             wakeLock.release();
             wakeLock = null;
         }

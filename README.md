@@ -150,6 +150,31 @@ STATICFILES_DIRS = [
 </code>
 
 ---
+## Creating base template
+[See Base Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/prj/templates/base.html)
+
+### Navigation Bar
+The navigation bar is nested inside a **nav** tag and holds an **unordered list** with links. Using django's templating language the items of the list get rendered conditionally depending on whether or not the user is logged in.
+
+### Messages
+For messages from django.contrib.messages it is necessary to define a list of **styles** for the constants in **settings.py**
+
+<code>
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}
+
+</code>
+
+
+---
 ## Authentication forms
 Allauth offers an application that handles authentication, so it is not necessary to create everything from scratch.
 In order to modify the looks of the forms used in the process I copied all the templates from the app in to the projects 
@@ -494,5 +519,10 @@ The timer will be used for two types of workload: running and endurance. The use
 ---
 #### Reverse the refactoring
 Due to the [initial refactoring](#refactoring-workoutlist) I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields come down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference the **Workload** model in **WorkoutExercise**. It works with **Exercise** because it is initialized **before** WorkoutExercise. To cut the long story short, I will need to create either set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries in **workout/summaries.py**. 
+
+###### Summarizer 
+This class in **workout/summaries.py** uses two other classes for storing information. It puts together a list of all workouts that belong to the user. Each item in that list is of type **WorkoutSummary**. This Summary also contains a list of reports of type **WorkloadReport**.
+
+![Class structure used in summaries.py](documentation/images/summaries.png)
 
 

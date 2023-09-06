@@ -126,6 +126,23 @@ a.url-link {
     margin-top: 5px;
 }
 
+button {
+    min-height: 40px;
+    padding: 5px;
+    text-decoration: none;
+    color: #f4f4f4d9;
+    background-image: linear-gradient(gray, rgb(7 58 22), black, black);
+    display: inline-block;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.5 em;
+    font-weight: bold;
+    border: 3px solid;
+    border-color: #144a3521;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 5px;
+}
+
 /* Style delete buttons */
 a.url-link.delete-button {
     background-image: linear-gradient(gray, rgb(66, 1, 1), black, black, black);
@@ -153,6 +170,13 @@ button.timer-button {
     width: 100%;
     margin-top: 5px; 
 }
+
+button.add-button{
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    width: 100%;
+}
+
 /* Style add buttons */
 a.url-link.add-button {
     padding-top: 10px;

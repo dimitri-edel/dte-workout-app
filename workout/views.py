@@ -6,12 +6,10 @@
 from django.shortcuts import render, reverse
 from django.views import View
 from django.http import HttpResponseRedirect
-from django.contrib import messages
 from django.core.paginator import Paginator
-from workload.models import Workload
 from .models import Workout, WorkoutExercise
 from .forms import WorkoutForm, WorkoutExerciseForm
-from .summaries import WorkoutSummary, WorkloadReport, Summarizer
+from .summaries import  Summarizer
 
 
 class StartWorkout(View):
@@ -133,6 +131,8 @@ class EditWorkout(View):
                 exercise_id=workout_exercise_form.instance.exercise_id)
             workout_exercise.exercise_id = workout_exercise_form.instance.exercise_id
             workout_exercise.save()
+            return HttpResponseRedirect(reverse('workload_list',\
+            kwargs={'workout_exercise_id': workout_exercise.id}))
 
         return HttpResponseRedirect(reverse('edit_workout',\
             kwargs={'workout_id': workout_form.instance.id}))

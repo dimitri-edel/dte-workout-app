@@ -2,14 +2,16 @@
 {% block title %}Edit Workout {% endblock title %}
 
 {% block content %}
-<h1>Edit Workout</h1>
+<h1>{{ workout_form.instance.name }}</h1>
 <form action="{% url 'edit_workout' workout_form.instance.id %}" method="POST">
     {% csrf_token %}
     <div class="row">
         {{ workout_form.name }}
 
         <div class="col entry-column">
-            <!-- Placeholder for consistency of the layout -->
+            <a href="#" onclick="submit_form()" class="url-link centered-text">
+                <i class="fa-solid fa-cloud-arrow-up"></i>Rename
+            </a>
         </div>              
     </div>
     <div class="row">
@@ -47,7 +49,8 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <a href="{% url 'delete_workout_exercise' workout_exercise.id workout_form.instance.id %}" class="url-link">Yes</a>
+                                        <a href="{% url 'delete_workout_exercise' workout_exercise.id workout_form.instance.id %}"
+                                         class="url-link delete-button">Yes</a>
                                     </div>
                                     <div class="col">
                                         <a href="#" class="url-link" data-bs-dismiss="modal">No</a>
@@ -59,12 +62,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <!-- Placehoder -->
-        </div>
-        <div class="col">
-            <!-- Placehoder -->
-        </div>
+        <div class="col"><!-- Placeholder --></div>
+        <div class="col"><!-- Placeholder --></div>
     </div>
     {{ workout_exercise_form.id }}
     {% endfor %}
@@ -74,26 +73,15 @@
         </div>
         
         <div class="col entry-column md-4">
-            <a href="#" onclick="submit_form()" class="url-link">
-                <i class="fa-solid fa-circle-plus"></i>Add
-            </a>
+            <button type="submit" class="url-link">
+                <i class="fa-solid fa-circle-plus"></i>Add Exercise
+            </button>
         </div>        
-    </div>
-    <div class="row">
-        <div class="col entry-column md-2">
-            <a href="#" class="url-link">
-                <i class="fa-solid fa-circle-arrow-left"></i>Cancel
-            </a>
-        </div>
-        <div class="col entry-column">
-            <a href="#" onclick="submit_form()" class="url-link">
-                <i class="fa-solid fa-cloud-arrow-up"></i>Save
-            </a>
-        </div>        
-    </div>
+    </div>    
 </form>
 <script>
-    function submit_form(){
+    // Submit the workout_form only. Equivalent to rename
+    function submit_form(){        
         document.forms[0].submit();
     }
 </script>
