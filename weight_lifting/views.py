@@ -16,7 +16,7 @@ class WeightLiftingList(View):
     """List weight-lifting sets in an exercise. Add sets to an workout session"""
     workout_exercise_form_class = WorkoutExerciseForm
     weight_lifting_form_class = WeightLiftingForm
-    weightlifting_template = "weight-lifting-list.html"
+    template = "weight-lifting-list.html"
 
     def get(self, request, *args, **kwargs):
         """Process GET-Request. Retrieve the requested data and pass it to the template"""
@@ -42,7 +42,7 @@ class WeightLiftingList(View):
         exercise = Exercise.objects.get(
             id=workout_exercise.exercise_id)
 
-        return render(request, self.weightlifting_template,\
+        return render(request, self.template,\
             {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
                 "weight_lifting_form": weight_lifting_form, "weight_lifting_list": weight_lifting_list})
 
@@ -69,7 +69,7 @@ class WeightLiftingList(View):
             return self.__save_forms(request, workout_exercise_form,
                                      weight_lifting_form)
 
-        return render(request, self.weightlifting_template,\
+        return render(request, self.template,\
             {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
                 "weight_lifting_form": weight_lifting_form, "weight_lifting_list": weight_lifting_list})
 
