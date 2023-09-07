@@ -12,9 +12,9 @@ class WeightLifting(models.Model):
     workout_exercise = models.ForeignKey(WorkoutExercise,\
      on_delete=models.CASCADE, related_name="workout_exercise_weight_lifting", default=0)
     # Number of repetitions in this set
-    reps = models.IntegerField(blank=True, null=True, default="0")
+    reps = models.IntegerField(default="0")
     # The weight that was used, if weight lifting is involved
-    weight = models.IntegerField(blank=True, null=True, default="0")
+    weight = models.IntegerField(default="0")
     
     def __str__(self):
         return f"{self.workout_exercise.__str__()}"

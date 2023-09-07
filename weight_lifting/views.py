@@ -35,7 +35,7 @@ class WeightLiftingList(View):
         weight_lifting_form = self.weight_lifting_form_class(prefix="exercise_set")
 
         # Retrieve list of exercise_sets for the template
-        exercise_set_list = WeightLifting.objects.filter(
+        weight_lifting_list = WeightLifting.objects.filter(
             workout_exercise_id=workout_exercise_id).order_by("id")
 
         # Retrieve exercise for the template
@@ -44,7 +44,7 @@ class WeightLiftingList(View):
 
         return render(request, self.weightlifting_template,\
             {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
-                "weight_lifting_form": weight_lifting_form, "exercise_set_list": exercise_set_list})
+                "weight_lifting_form": weight_lifting_form, "weight_lifting_list": weight_lifting_list})
 
     def post(self, request, workout_exercise_id, *args, **kwargs):
         """Process the POST-Request. Validate the posted data and commit to database"""
@@ -58,7 +58,7 @@ class WeightLiftingList(View):
         weight_lifting_form = self.weight_lifting_form_class(
             request.POST, prefix="exercise_set")
         # Retrieve list of exercise_sets for the template
-        exercise_set_list = WeightLifting.objects.filter(
+        weight_lifting_list = WeightLifting.objects.filter(
             workout_exercise_id=workout_exercise_id).order_by("id")
         # Retrieve an exercise object for the template
         exercise = Exercise.objects.get(id=workout_exercise.exercise_id)
@@ -71,7 +71,7 @@ class WeightLiftingList(View):
 
         return render(request, self.weightlifting_template,\
             {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
-                "weight_lifting_form": weight_lifting_form, "exercise_set_list": exercise_set_list})
+                "weight_lifting_form": weight_lifting_form, "weight_lifting_list": weight_lifting_list})
 
     def __save_forms(self, request, workout_exercise_form, weight_lifting_form):
         # Save forms

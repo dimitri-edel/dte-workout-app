@@ -26,13 +26,13 @@
 
             </div>
         </div>
-        {% for exercise_set in exercise_set_list %}
+        {% for weightlifting in weight_lifting_list %}
         <div class="row">
             <div class="col-4 entry-column">
-                {{ exercise_set.reps }}
+                {{ weightlifting.reps }}
             </div>
             <div class="col-4 entry-column">
-                {{ exercise_set.weight }}
+                {{ weightlifting.weight }}
             </div>
             <div class="col">
                 <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{workout_exercise.id}}"
@@ -55,7 +55,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <a href="{% url 'delete_weight_lifting' workout_exercise_form.instance.id exercise_set.id %}"
+                                        <a href="{% url 'delete_weight_lifting' workout_exercise_form.instance.id weightlifting.id %}"
                                             class="url-link delete-button">Yes</a>
                                     </div>
                                     <div class="col">
