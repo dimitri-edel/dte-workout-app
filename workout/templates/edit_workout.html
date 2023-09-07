@@ -22,12 +22,14 @@
     <div class="row">        
         <div class="col entry-column">
             <!-- Weight-Lifting -->
-            {% if workout_exercise.exercise.exercise_type == 0 %} 
-            Weight_lifting
-            <a href="{% url 'weight_lifting_list' workout_exercise.id %}" class="url-link edit-button"><i
-                class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
-            {% else %}
-            <a href="{% url 'workload_list' workout_exercise.id %}" class="url-link edit-button"><i
+            {% if workout_exercise.exercise.exercise_type == 0 %}             
+                <a href="{% url 'weight_lifting_list' workout_exercise.id %}" class="url-link edit-button"><i
+                    class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
+            {% elif workout_exercise.exercise.exercise_type == 1 %}
+                 <a href="{% url 'running_list' workout_exercise.id %}" class="url-link edit-button"><i
+                    class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
+            {% elif workout_exercise.exercise.exercise_type == 2 %}
+                <a href="{% url 'endurance_list' workout_exercise.id %}" class="url-link edit-button"><i
                     class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
             {% endif %} 
         </div>

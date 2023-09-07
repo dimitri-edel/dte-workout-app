@@ -4,6 +4,7 @@
 from workload.models import Workload
 from weight_lifting.models import WeightLifting
 from running.models import Running
+from endurance.models import Endurance
 
 class WorkoutSummary:
     """A class for storing a summary of a workout"""
@@ -93,6 +94,6 @@ class Summarizer:
             workload_summaries.append(f"{running.distance} x {running.time} hours")
 
     def __get_endurance_report(self, workout_exercise, workload_summaries):
-        workloads = Workload.objects.filter(workout_exercise=workout_exercise)
-        for workload in workloads:
-            workload_summaries.append(f"{workload.reps} x {workload.time} hours")
+        endurance_list = Endurance.objects.filter(workout_exercise=workout_exercise)
+        for endurance in endurance_list:
+            workload_summaries.append(f"{endurance.reps} x {endurance.time} hours")

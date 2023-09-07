@@ -28,4 +28,5 @@ urlpatterns = [
     path("", include('workload.urls')),
     path("", include('weight_lifting.urls')),
     path("", include('running.urls')),
+    path("", include('endurance.urls')),
 ]

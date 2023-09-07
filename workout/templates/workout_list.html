@@ -44,7 +44,7 @@
             <!-- Endurance -->
             {% elif report.workout_exercise.exercise.exercise_type == 2 %} 
             <a style="display:block;" class="url-link edit-button set-summary" 
-                href="{% url 'workload_list' report.workout_exercise.id %}">
+                href="{% url 'endurance_list' report.workout_exercise.id %}">
                 <i class="fa-solid fa-stopwatch-20"></i>{{report.workout_exercise.exercise.name }}<br>
                 {% for workload_summary in report.summaries %} 
                     {{workload_summary}}<br>
