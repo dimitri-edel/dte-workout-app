@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "exercise",
     "workout",
     "workload",
+    "weight_lifting",
 ]
 
 # SETTINGS FOR ALLAUTH

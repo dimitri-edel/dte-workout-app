@@ -131,6 +131,9 @@ class EditWorkout(View):
                 exercise_id=workout_exercise_form.instance.exercise_id)
             workout_exercise.exercise_id = workout_exercise_form.instance.exercise_id
             workout_exercise.save()
+            if workout_exercise.exercise.exercise_type == 0:
+                return HttpResponseRedirect(reverse('weight_lifting_list',\
+                    kwargs={'workout_exercise_id': workout_exercise.id}))
             return HttpResponseRedirect(reverse('workload_list',\
             kwargs={'workout_exercise_id': workout_exercise.id}))
 

@@ -538,3 +538,7 @@ This will not be documented. Due to refactoring. These views will no longed be u
 ### Templates
 
 ## WEIGHT-LIFTING APP
+Logging the actual workload for each set of an exercise of type weight-lifting.
+
+---
+### Model

@@ -21,8 +21,15 @@
     {% for workout_exercise in workout_exercise_list %}
     <div class="row">        
         <div class="col entry-column">
+            <!-- Weight-Lifting -->
+            {% if workout_exercise.exercise.exercise_type == 0 %} 
+            Weight_lifting
+            <a href="{% url 'weight_lifting_list' workout_exercise.id %}" class="url-link edit-button"><i
+                class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
+            {% else %}
             <a href="{% url 'workload_list' workout_exercise.id %}" class="url-link edit-button"><i
                     class="fa-solid fa-pen-to-square"></i>{{ workout_exercise.exercise.name }}</a>
+            {% endif %} 
         </div>
         <div class="col entry-column">
             <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{workout_exercise.id}}"

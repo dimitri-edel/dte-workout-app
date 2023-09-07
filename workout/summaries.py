@@ -2,6 +2,7 @@
 #pylint: disable=too-few-public-methods
 #pylint: disable=no-name-in-module
 from workload.models import Workload
+from weight_lifting.models import WeightLifting
 
 class WorkoutSummary:
     """A class for storing a summary of a workout"""
@@ -81,7 +82,7 @@ class Summarizer:
             self.__get_endurance_report(workout_exercise, workload_summaries)
 
     def __get_weightlifting_report(self, workout_exercise, workload_summaries):
-        workloads = Workload.objects.filter(workout_exercise=workout_exercise)
+        workloads = WeightLifting.objects.filter(workout_exercise=workout_exercise)
         for workload in workloads:
             workload_summaries.append(f"{workload.reps} x {workload.weight} kg")
 

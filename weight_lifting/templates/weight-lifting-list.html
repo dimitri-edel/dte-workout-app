@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ exercise.name }} {% endblock title %}
+
+{% block content %}
+<h1>{{ workout_exercise_form.instance.workout.name }}</h1>
+<h2> {{ exercise.name }}</h2>
+<!-- Activate the wake lock to keep the screen active -->
+<span class="wakelock">
+    <label for="wakelock_active">Keep SCREEN AWAKE</label>
+    <input id="wakelock_active" type="checkbox" name="wakelock_active" value="false">
+</span>
+<form action="{% url 'weight_lifting_list' workout_exercise_form.instance.id %}" method="POST">
+    {% csrf_token %}
+    <div hidden>
+        {{ workout_exercise_form }}
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 table-header">
+                Reps
+            </div>
+            <div class="col-4 table-header">
+                Weight
+            </div>
+            <div class="col table-header">
+
+            </div>
+        </div>
+        {% for exercise_set in exercise_set_list %}
+        <div class="row">
+            <div class="col-4 entry-column">
+                {{ exercise_set.reps }}
+            </div>
+            <div class="col-4 entry-column">
+                {{ exercise_set.weight }}
+            </div>
+            <div class="col">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{workout_exercise.id}}"
+                    class="url-link delete-button centered-text"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+            <!-- Modal Structure : Confirm Delete -->
+            <div id="modal{{report.workout_id}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete {{ workout.name }}?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete {{ workout.name }}?</h4>
+                            <p><i class="medium red material-icons">warning</i> <br>This action cannot be undone!
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{% url 'delete_weight_lifting' workout_exercise_form.instance.id exercise_set.id %}"
+                                            class="url-link delete-button">Yes</a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#" class="url-link" data-bs-dismiss="modal">No</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-4 entry-column">
+                {{ weight_lifting_form.reps }}
+            </div>
+            <div class="col-4 entry-column">
+                {{ weight_lifting_form.weight }}
+            </div>
+            <div class="col">
+                <button type="submit" class="add-button">
+                    <i class="fa-solid fa-circle-plus"></i>Add
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container-fluid" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-4">
+            <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link"
+                id="close-button">
+                <i class="fa-solid fa-circle-left"></i>Back
+            </a>
+        </div>
+        <div class="col-4">
+            <!-- Placeholder for layout -->
+        </div>
+        <div class="col">
+            <!-- Placeholder for layout -->
+        </div>
+    </div>
+</div>
+<script>
+    /*   WakeLock API 
+         Purpose: Keep the screen awake
+ 
+         Code copied from : https://developer.chrome.com/en/articles/wake-lock/
+    */
+    // The wake lock sentinel.
+    let wakeLock = null;
+
+    // Function that attempts to request a screen wake lock.
+    const requestWakeLock = async () => {
+        try {
+            wakeLock = await navigator.wakeLock.request();
+            wakeLock.addEventListener('release', () => {
+                console.log('Screen Wake Lock released:', wakeLock.released);
+            });
+            console.log('Screen Wake Lock released:', wakeLock.released);
+        } catch (err) {
+            console.error(`${err.name}, ${err.message}`);
+        }
+    };
+
+    // IF the checkbox is checked request a WakeLock, otherwise release the WakeLock
+    document.getElementById("wakelock_active").addEventListener("change", () => {
+        if (wakeLock == null) {
+            wakeLock = requestWakeLock();
+        } else {
+            wakeLock.release();
+            wakeLock = null;
+        }
+    });
+</script>
+{% endblock content %}
