@@ -7,6 +7,6 @@ from .views import RunningList, DeleteRunning
 urlpatterns = [    
     path('running-list/<int:workout_exercise_id>',\
         RunningList.as_view(), name='running_list'),
-    path('delete-weight-lifting/<int:workout_exercise_id>/<int:exercise_set_id>',\
+    path('delete-running/<int:workout_exercise_id>/<int:exercise_set_id>',\
         DeleteRunning.as_view(), name='delete_running'),
 ]

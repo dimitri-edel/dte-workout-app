@@ -3,6 +3,7 @@
 #pylint: disable=no-name-in-module
 from workload.models import Workload
 from weight_lifting.models import WeightLifting
+from running.models import Running
 
 class WorkoutSummary:
     """A class for storing a summary of a workout"""
@@ -82,14 +83,14 @@ class Summarizer:
             self.__get_endurance_report(workout_exercise, workload_summaries)
 
     def __get_weightlifting_report(self, workout_exercise, workload_summaries):
-        workloads = WeightLifting.objects.filter(workout_exercise=workout_exercise)
-        for workload in workloads:
-            workload_summaries.append(f"{workload.reps} x {workload.weight} kg")
+        weight_lifting_list = WeightLifting.objects.filter(workout_exercise=workout_exercise)
+        for weight_lifting in weight_lifting_list:
+            workload_summaries.append(f"{weight_lifting.reps} x {weight_lifting.weight} kg")
 
     def __get_running_report(self, workout_exercise, workload_summaries):
-        workloads = Workload.objects.filter(workout_exercise=workout_exercise)
-        for workload in workloads:
-            workload_summaries.append(f"{workload.distance} x {workload.time} hours")
+        running_list = Running.objects.filter(workout_exercise=workout_exercise)
+        for running in running_list:
+            workload_summaries.append(f"{running.distance} x {running.time} hours")
 
     def __get_endurance_report(self, workout_exercise, workload_summaries):
         workloads = Workload.objects.filter(workout_exercise=workout_exercise)

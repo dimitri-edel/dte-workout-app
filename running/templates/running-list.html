@@ -77,6 +77,10 @@
             <div class="col-4 entry-column">
                 {{ running_form.time }}
             </div>
+            <script>
+                // Initialize the element id for the timer 
+                let result_field_id = "{{ running_form.time.auto_id }}";
+            </script>
             <div class="col">
                 <button type="submit" class="add-button">
                     <i class="fa-solid fa-circle-plus"></i>Add
@@ -94,14 +98,44 @@
             </a>
         </div>
         <div class="col-4">
-            <!-- Placeholder for layout -->
+            <button id="start-button" onclick="start_button_click(this)" class="timer-button"><i
+                    class="fa-solid fa-play"></i>Timer</button>
         </div>
         <div class="col">
             <!-- Placeholder for layout -->
         </div>
     </div>
 </div>
+{% load static %}
+<!-- Load javascript with the timer class -->
+<script src="{% static 'js/timer.js' %}"></script>
 <script>
+    // Register if the button has already been clicked
+    timer_button_clicked = false;
+    // Event listener for the start/stop timer button
+    function start_button_click(button) {
+        if (timer_button_clicked) {
+            timer.stop();
+            timer_button_clicked = false;
+            button.innerHTML = "<i class='fa-solid fa-play'></i>Timer";
+        } else {
+            timer_button_clicked = true;
+            button.innerHTML = "<i class='fa-solid fa-stop'></i>Timer";
+            timer.start();
+        }
+    }
+
+    /* 
+        Instanciate the timer
+        First parameter in the constructor specifies the id of the element that the timer uses for output
+
+        Second parameter in the constructor specifies the output field for the results. The id for this field
+        was initialized in the inline script within the form : let reult_field_id = "{{ exercise_set_form.time.auto_id }}";
+
+        Third parameter specifies the intervals in milliseconds in which the timer will be updated
+    */
+    let timer = new Timer(result_field_id);
+
     /*   WakeLock API 
          Purpose: Keep the screen awake
  
@@ -132,5 +166,6 @@
             wakeLock = null;
         }
     });
+
 </script>
 {% endblock content %}
