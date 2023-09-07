@@ -526,3 +526,15 @@ This class in **workout/summaries.py** uses two other classes for storing inform
 ![Class structure used in summaries.py](documentation/images/summaries.png)
 
 
+---
+### Model
+Instead of creating separate Models for the workload of each type of exercise, I have decided to combine them in one model. Each exercise type will only use two of the fields in the model, the other two will remain blank. 
+
+---
+### Views
+This will not be documented. Due to refactoring. These views will no longed be used. [Skip to refactored part](#refactoring-workload)
+
+---
+### Templates
+
+## WEIGHT-LIFTING APP
