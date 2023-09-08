@@ -47,11 +47,14 @@
     - [Creating and Editing a Workout session](#creating-and-editing-a-workout-session)
       - [Template](#template-3)
       - [Testing](#testing-4)
-    - [Remove an Exercise from a Workout session](#remove-an-exercise-from-a-workout-session)
+    - [Renaming a Workout](#renaming-a-workout)
+      - [View](#view)
       - [Template](#template-4)
+    - [Remove an Exercise from a Workout session](#remove-an-exercise-from-a-workout-session)
+      - [Template](#template-5)
       - [Testing](#testing-5)
     - [List of workout sessions](#list-of-workout-sessions)
-      - [Template](#template-5)
+      - [Template](#template-6)
         - [Testing](#testing-6)
       - [Delete Workout session](#delete-workout-session)
         - [Testing](#testing-7)
@@ -60,17 +63,17 @@
 - [WEIGHT-LIFTING APP](#weight-lifting-app)
   - [Model](#model-2)
   - [Views](#views-2)
-  - [Template](#template-6)
+  - [Template](#template-7)
   - [Testing](#testing-8)
 - [RUNNING APP](#running-app)
   - [Model](#model-3)
   - [Views](#views-3)
-  - [Template](#template-7)
+  - [Template](#template-8)
   - [Testing](#testing-9)
 - [ENDURANCE APP](#endurance-app)
   - [Model](#model-4)
   - [Views](#views-4)
-  - [Template](#template-8)
+  - [Template](#template-9)
   - [Testing](#testing-10)
 - [Timer JavaScript](#timer-javascript)
   - [Testing](#testing-11)
@@ -617,7 +620,7 @@ Template for creating a workout is called **start_workout.html**. Basically, all
 
 [See workout.templates.start_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html)
 
-Template for editing a workout session is called **edit_workout.html**. The template has an editable field for the name of the workout session. It also displays a list of exercises for the workout session, provided that there is a list. If there is no list yet, then the user now has the chance to define one. It uses two forms for submitting changes, one for the **Workout** model and another for the **WorkooutExercise** model. **WorkoutExerciseForm** allows the user to pick one of the exercises they defined and add them to the workout session. If they pick an exercise from from the list of the exercises they defined and click on the **add** button, the exercises will be added to the list and appear in the list above.
+Template for editing a workout session is called **edit_workout.html**. The top most row contains a **Rename** button, which when clicked will open a corresponding page, that allows the user to rename the workout. [See the View](#renaming-a-workout).It displays a list of exercises for the workout session, provided that there is a list. If there is no list yet, then the user now has the chance to define one. It uses  the **WorkoutExercise** model, which allows the user to pick one of the exercises they defined and add them to the workout session. If they pick an exercise from from the list of the exercises they defined and click on the **add** button, the exercises will be added to the list and appear in the list above.
 
 [See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
 
@@ -628,6 +631,19 @@ I have created several workouts and they showed up in the page for editing. I co
 [See Details of Testing Creating a Workout](#start-workout)
 
 [See Details of Testing Editing a Workout](#edit-workout)
+
+---
+### Renaming a Workout
+
+#### View
+The View for renaming workouts is **RenameWorkout**. It renders a **WorkoutForm** upon a GET-Request. 
+The POST-Request is processed in the usual way the form is validated. If it is valid, firstly it will be commit to the database. Secondly, the user will get redirected back to the **edit_workout.html** page.
+
+If the form is not valid a validation message will appear in the browser and form will not be submitted.
+
+---
+#### Template
+The template **rename_workout.html** is basically a copy of **create_workout.html** with a few minor changes.
 
 ---
 ### Remove an Exercise from a Workout session

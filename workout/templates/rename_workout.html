@@ -3,12 +3,12 @@
 
 {% block content %}
 
-<form action="{% url 'start_workout' %}" method="POST">
+<form action="{% url 'rename_workout' workout_form.instance.id %}" method="POST">
     {% csrf_token %}
     <div class="container">
         <div class="row">
             <div class="col-8 mt-2 offset-2">
-                <h1>Start Workout</h1>
+                <h1>Reanme Workout</h1>
             </div>
         </div>
         <div class="row">
@@ -18,14 +18,13 @@
         </div>        
         <div class="row">
             <div class="col-4 mt-2 offset-2">
-                <a href="{% url 'home' %}" class="url-link centered-text">
+                <a href="{% url 'edit_workout' workout_form.instance.id %}" class="url-link centered-text">
                     Cancel
                 </a>
             </div>
             <div class="col-4 mt-2">
-                <button type="submit">
-                    <i class="fa-solid fa-play"></i>
-                    Start
+                <button type="submit">                    
+                    Rename
                 </button>
             </div>
         </div>
