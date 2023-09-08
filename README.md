@@ -1,13 +1,148 @@
-# dte-workout-app
-Workout journal with django
+# Table of contents
+- [Table of contents](#table-of-contents)
+- [Introduction](#introduction)
+- [MANUAL TESTS](#manual-tests)
+  - [Exercise List](#exercise-list)
+  - [Create Exercise](#create-exercise)
+  - [Update Exercise](#update-exercise)
+  - [Delete Exercise](#delete-exercise)
+  - [Workout List](#workout-list)
+  - [Start Workout](#start-workout)
+  - [Edit Workout](#edit-workout)
+  - [Delete Workout](#delete-workout)
+- [Pylint and PEP8](#pylint-and-pep8)
+- [Creating django project](#creating-django-project)
+  - [Setting up the environment](#setting-up-the-environment)
+  - [Setting up a database for the project](#setting-up-a-database-for-the-project)
+    - [Adding database to settings.py](#adding-database-to-settingspy)
+- [pylint: disable=wildcard-import](#pylint-disablewildcard-import)
+- [Setting up the project](#setting-up-the-project)
+  - [Setting up a folder for templates](#setting-up-a-folder-for-templates)
+  - [Setting up Allauth](#setting-up-allauth)
+- [Styles and CSS](#styles-and-css)
+- [Creating base template](#creating-base-template)
+  - [Navigation Bar](#navigation-bar)
+  - [Messages](#messages)
+- [Authentication forms](#authentication-forms)
+- [EXERCISE APP](#exercise-app)
+  - [Model](#model)
+  - [Exercise Form](#exercise-form)
+  - [Views](#views)
+    - [Create Exercise](#create-exercise-1)
+      - [Template](#template)
+      - [Authentication check](#authentication-check)
+      - [Testing](#testing)
+    - [Exercise List](#exercise-list-1)
+      - [Template](#template-1)
+      - [Testing](#testing-1)
+    - [Edit Exercise](#edit-exercise)
+      - [Template](#template-2)
+      - [Testing](#testing-2)
+    - [Delete Exercise](#delete-exercise-1)
+      - [Testing](#testing-3)
+- [WORKOUT APP](#workout-app)
+  - [Model](#model-1)
+  - [Forms](#forms)
+  - [Views](#views-1)
+    - [Creating and Editing a Workout session](#creating-and-editing-a-workout-session)
+      - [Template](#template-3)
+      - [Testing](#testing-4)
+    - [Remove an Exercise from a Workout session](#remove-an-exercise-from-a-workout-session)
+      - [Template](#template-4)
+      - [Testing](#testing-5)
+    - [List of workout sessions](#list-of-workout-sessions)
+      - [Template](#template-5)
+        - [Testing](#testing-6)
+      - [Delete Workout session](#delete-workout-session)
+        - [Testing](#testing-7)
+      - [Classes with summaries of each workout session used in the template](#classes-with-summaries-of-each-workout-session-used-in-the-template)
+        - [Summarizer](#summarizer)
+- [WEIGHT-LIFTING APP](#weight-lifting-app)
+  - [Model](#model-2)
+  - [Views](#views-2)
+  - [Template](#template-6)
+  - [Testing](#testing-8)
+- [RUNNING APP](#running-app)
+  - [Model](#model-3)
+  - [Views](#views-3)
+  - [Template](#template-7)
+  - [Testing](#testing-9)
+- [ENDURANCE APP](#endurance-app)
+  - [Model](#model-4)
+  - [Views](#views-4)
+  - [Template](#template-8)
+  - [Testing](#testing-10)
+- [Timer JavaScript](#timer-javascript)
+  - [Testing](#testing-11)
+  
+# Introduction
 
-## Pylint and PEP8
+---
+# MANUAL TESTS
+
+---
+## Exercise List
+
+---
+## Create Exercise
+
+---
+## Update Exercise
+
+---
+## Delete Exercise
+
+---
+## Workout List
+| Feature | Input | Expected Output | Success |
+|---|---|---|---|
+| Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | [x] |
+| Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | [x] |
+| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | [x] |
+| **Denial** of access for **unauthenticated users** | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**  | [x] |
+| Link to **edit** page for each **workout** | **User** clicks on a link to a specific workout | User gets **redirected** to the  page for **editing** the workout | [x] |
+| Link to **edit** page for each **exercise set** of a **workout session** | **User** clicks on a link to a specific **exercise set** | User gets **redirected** to the  page for **editing** the exercise set | [x] |
+| **Pagination** | **User** clicks on a navigation button | The list shows the correct **page** | [x] |
+| **Delete** button | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
+
+---
+## Start Workout
+| Feature | Input | Expected Output | Success |
+|---|---|---|---|
+| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| [x]|
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
+| Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | [x] |
+
+---
+## Edit Workout
+| Feature | Input | Expected Output | Success |
+|---|---|---|---|
+| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The updated name appears in the heading of the workout and the input field | [x] |
+| **Rename** | An **empty** field is used for the name before clicking on **Rename** | The **previous** name is used | [x] |
+| **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | [x] |
+| **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
+| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| [x] |
+| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
+
+---
+## Delete Workout
+| Feature | Input | Expected Output | Success |
+|---|---|---|---|
+| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
+| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | [x]|
+| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | [x]|
+
+
+---
+# Pylint and PEP8
 For some reason pylint gives me the no-name-in-module error for some packages, even though the classes are clearly defined in those files. I have not figured out why yet. So I decided to suppress the warnings in the code base.
 
-## Creating django project
+---
+# Creating django project
 First and foremost, because I work locally it is good practice to set up a virtual environment, so that the packages for this project are installed into the project folder(a sub-folder named 'venv') instead of having them  installed globally on this machine.
 
-### Setting up the environment
+---
+## Setting up the environment
 Step one: Create virtual environment in folder named **venv**.
 Step two: Select the virtual environment in IDE. I am using VS Code on a windows workstation. So for me it is Ctrl+Shift+P followed by 'Select Interpreter'.
 
@@ -31,7 +166,8 @@ Step six: Run the startprject command in the Terminal
 5) <code>pip install psycopg2==2.9.6</code>
 6) <code>django-admin startproject prj .</code>
 
-### Setting up a database for the project
+---
+## Setting up a database for the project
 For this Project I have decided to use an external database on one of the servers that I rent. It is a PostgreSQL Server with pgAdmin as a Management Tool. In order to set up a new database I need to first log in to pgAdmin.
 
 ![pgAdmin login image](documentation/images/pg_admin_login.png)
@@ -53,7 +189,8 @@ Now the database is ready to be used. At least for django it is, because django 
 
 ![pgAdmin save database](documentation/images/pg_admin_save_databse.png)
 
-#### Adding database to settings.py
+---
+### Adding database to settings.py
 First of all, since I am going to store the project on GitHub, I cannot publicly share the credentials used for the database. So I will store them in a file that will be **added to gitignore**. In settings.py I will only use variables that correspond to the credentials.
 
 I need to import the **environment variables** that I defined in **env.py**.
@@ -92,7 +229,8 @@ DATABASES = {
 
 </code>
 
-## Setting up the project
+---
+# Setting up the project
 Now that I have the project and the database for the project has been specified, I need to migrate all the django models to the database and create a superuser. All of them will be mapped to the database.
 
 In the terminal I enter the following instructions:
@@ -100,7 +238,8 @@ In the terminal I enter the following instructions:
 2) <code>python manage.py createsuperuser</code>
 2) Enter username, password and confirm password
 
-### Setting up a folder for templates
+---
+## Setting up a folder for templates
 1) Create templates folder in the project folder: **prj/templates**
 2) Add the folder to settings.py under TEMPLATES 
 3) Create base template for the project under **prj/templates/base.html**
@@ -128,8 +267,8 @@ TEMPLATES = [
 ]
 </code>
 
-
-### Setting up Allauth
+---
+## Setting up Allauth
 1) Register django-allauth in settings.py under INSTALLED_APPS
 2) Register alluth.url in urls.py in the project folder
 3) Copy the folder /lib/site-packages/allauth/templates to the project's template folder
@@ -138,7 +277,7 @@ TEMPLATES = [
 6) See if it works (Test)
 
 ---
-## Styles and CSS
+# Styles and CSS
 I will store all styles for the application in a single file that will be contained in the **static/css** folder.
 
 It is mandatory that the location of static files be specified in settings.py like so:
@@ -150,13 +289,13 @@ STATICFILES_DIRS = [
 </code>
 
 ---
-## Creating base template
+# Creating base template
 [See Base Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/prj/templates/base.html)
 
-### Navigation Bar
+## Navigation Bar
 The navigation bar is nested inside a **nav** tag and holds an **unordered list** with links. Using django's templating language the items of the list get rendered conditionally depending on whether or not the user is logged in.
 
-### Messages
+## Messages
 For messages from django.contrib.messages it is necessary to define a list of **styles** for the constants in **settings.py**
 
 <code>
@@ -175,7 +314,7 @@ MESSAGE_TAGS = {
 
 
 ---
-## Authentication forms
+# Authentication forms
 Allauth offers an application that handles authentication, so it is not necessary to create everything from scratch.
 In order to modify the looks of the forms used in the process I copied all the templates from the app in to the projects 
 templates folder, as documented two sections above in **Setting up Allauth**. To make the login, logout and sign-up forms
@@ -184,14 +323,14 @@ look different from the default allauth design, I need to edit them and apply th
 Furthermore, I need to remove a few things from those forms and add a different layout using **bootstrap**.
 
 ---
-## EXERCISE APP
+# EXERCISE APP
 To add an app to a django project I ran this script in the terminal:
 
 <code>
 python manage.py startapp exercise
 </code>
 
-### Model
+## Model
 The exercise app contains the model for exercises, which the user can define lor later use in their workouts.
 There will be three types of exercises:
 1) Weight Lifting - Can be used for anything that involves lifting weights over a number of repetitions.
@@ -209,20 +348,20 @@ There will be three types of exercises:
 [See exercise.models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/models.py)
 
 ---
-### Exercise Form
+## Exercise Form
 For creating and editing an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
 
 [See exercise.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/forms.py)
 
 ---
-### Views
+## Views
 The views will cover the CRUD functionality and use templates for rendering, and be mapped to URLs.
 All views for this django-app will be defined in **exercise/views.py**
 
 [See exercise.views.py ](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/views.py)
 
 ---
-#### Create Exercise
+### Create Exercise
 I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets Instantiated and passed to the template for rendering. And one for processing the POST-Request where the form gets committed to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
 
 <code>
@@ -270,14 +409,16 @@ class CreateExercise(View):
 #### Template
 [See the template exercise.templates.create_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)
 
-##### Authentication check
+#### Authentication check
 The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
 
-##### Test
+#### Testing
 I have created a few exercises and they were correctly committed to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as expected.
 
+[See Details of Testing](#create-exercise)
+
 ---
-#### Exercise List
+### Exercise List
 I named the view **ExerciseList**. The class inherits from **django.views.generic.ListView**. 
 The view returns a list of exercises that belong to the user. 
 The view is paginated by 5 items per page.
@@ -295,7 +436,7 @@ class ExerciseList(generic.ListView):
         return self.model.objects.filter(owner=self.request.user.id)
 </code>
 
-##### Template
+#### Template
 The template uses **pagination** facilities at the bottom. 
 
 The template provides a **delete button** for each exercise.There is also a **Modal** Dialog from **bootstrap** that prompts the user to confirm deletion of an exercise.
@@ -304,8 +445,10 @@ The **name** of each exercise is wrapped inside a **link** with a fontawsome **i
 
 [See exercise.templates.exercise_list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
 
-##### Test
+#### Testing
 The list shows exercises that belong to the user that is logged in, otherwise it comes up empty(Meaning if I enter the URL whilst not authenticated)
+
+[See Details of Testing](#exercise-list)
 
 After adding the **DeleteExercise** view and **EditExercise** view I have tested the links in the list and they worked.
 The **delete button** works. **Confirm dialog** before deleting the exercise shows up and works properly.
@@ -313,7 +456,7 @@ The items get deleted and a message that informs me about the successful deletio
 Clicking on the **name** of the exercise opens the **edit** page as intended.
 
 ---
-#### Edit Exercise
+### Edit Exercise
 This class is named **EditExercise**. 
 The class inherits from **django.views.View**.
 The **get** method extracts an object from the database and renders a template.
@@ -368,17 +511,19 @@ class EditExercise(View):
         return render(request, self.template_name, {"exercise_form": exercise_form})
 </code>
 
-##### Template
+#### Template
 The template simply renders the two fields of the form name and exercise_type. Which allows the user to change the values of these fields. It also provides a **save button** and a **Go back** button.
 
 [See exercise.templates.edit_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html)
 
-##### Testing
+#### Testing
 If the name is empty, validation message appears.
 When the form is valid and gets committed to the database, a feedback message is passed to the user.
 
+[See Details of Testing](#update-exercise)
+
 ---
-#### Delete Exercise
+### Delete Exercise
 Name of class is **DeleteExercise**. 
 The class inherits from **django.views.View**.
 It only has one method: **get**. 
@@ -422,17 +567,19 @@ class DeleteExercise(View):
 
 </code>
 
-##### Testing
+#### Testing
 I have successfully deleted several exercises and the messages were relayed as expected.
 
+[See Details of Testing](#delete-exercise)
+
 ---
-## WORKOUT APP
+# WORKOUT APP
 To add the app to the django project I entered this command in the terminal:
 
 <code>python manage.py startapp workout</code>
 
 ---
-### Model
+## Model
 I defined two classes: **Workout** and **WorkoutExercise**. 
 
 **Workout** is a representation of a workout session. Whereas, **WorkoutExercise** is a many-to-many relationship. Even though **django** offers a **Many-to-many** relationship, that solution does not quite fit the bill. Because this relationship will be used as a foreign key in another model that is yet to be defined. I did some research and have tried a few things but none of those methods worked like I needed them to. So I decided to use the good old normalization rule and defined the relationship in a separate model.
@@ -445,15 +592,15 @@ python manage.py migrate
 </code>
 
 ---
-### Forms
+## Forms
 I defined two forms, one for each of the model classes. 
 [See workout.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/forms.py)
 
 ---
-### Views
+## Views
 
 ---
-#### Creating and Editing a Workout session
+### Creating and Editing a Workout session
 The reason why I bunched the two view together is because upon creating a Workout session I want the user to be redirected to the page for editing the session.
 
 I named the view for creating a workout session **StartWorkout** and the view for editing a workout session **EditWorkout**.
@@ -464,7 +611,8 @@ When the user clicks on **start workout** in the **Navigation Bar**, the **Start
 
 [See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
-##### Templates
+---
+#### Template
 Template for creating a workout is called **start_workout.html**. Basically, all it does is provide a form in which user can **name** the workout session.
 
 [See workout.templates.start_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html)
@@ -473,72 +621,111 @@ Template for editing a workout session is called **edit_workout.html**. The temp
 
 [See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
 
-##### Testing
+---
+#### Testing
 I have created several workouts and they showed up in the page for editing. I could rename the workout session and also successfully add exercises to the list. I yet have to define a view for **deleting** the exercises and insert the corresponding URL into the template.
 
+[See Details of Testing Creating a Workout](#start-workout)
+
+[See Details of Testing Editing a Workout](#edit-workout)
+
 ---
-#### Remove an Exercise from a Workout session
+### Remove an Exercise from a Workout session
 The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed two it via **URL**. One is the id of the workout session and the other is the id of the dataset in **WorkoutExercise** . 
 
-##### Template
+#### Template
 It is used in the template from editing a workout session. The link is placed inside a Modal dialog, that makes sure that the user confirms the delete.
 
 [See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
 
-##### Testing
+#### Testing
 I have opened a workout for editing and deleted a few items from it.
 
 ---
-#### List of workout sessions
+### List of workout sessions
 The view **WorkoutList** extracts all workouts that belong to the user. The **template** gets a list of **workouts** and renders the names of the workouts. Furthermore, it iterates through a list of **exercises** that are linked to the workout and renders their **name** and corresponding **type**. There are three types: Weight-Lifting, Running and Endurance which are represented with an **icon** that is sitting next to the name of the exercise. The  The list is **paginated**. 
 
 [See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
-##### Template
+#### Template
 [See workout.templates.workout_list](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html)
 
-###### Testing 
+##### Testing 
 The list renders and shows all workouts that belong to the user in the way it was intended.
+[See Details of Testing](#workout-list)
 
 ---
-##### Delete Workout session
+#### Delete Workout session
 I have added a view **DeleteWorkout** and registered it at a **URL**. The view deletes a workout if it belongs to the user in the request.
 
----
-#### Refactoring WorkoutList
-There was some code in the **WorkoutList** view that seemed convoluted and difficult to read. It occurred to me that a better way to go is to implement computed fields directly in the model. For now, I have only added one method, which uses a property decorator for Models. The property named **exercise_list** returns a collection of **WorkoutExercise** objects that are related to a given workout session.
+##### Testing
+The workouts can be successfully deleted from the list.
+
+[See Details of Testing](#delete-workout)
 
 ---
-## WORKLOAD APP
-Logging the actual workload for each set of an exercise.
+#### Classes with summaries of each workout session used in the template
+Initially I intended to use computed fields for this purpose, yet I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields comes down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference  **WeightLifting, Running** or **Endurance** models in **WorkoutExercise**. To cut the long story short, I will need to create a set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries in **workout/summaries.py**. 
 
-### Timer
-Timer is a class that I defined in a separate Java-Script file named **timer.js**. It will be  in the **static/js** folder.
-The timer will be used for two types of workload: running and endurance. The user will  have a start button form the timer, which will turn into a stop button as soon as the timer gets started. When the timer is stopped the results will be copied to the respective field in the form that is used for adding a new set to the exercise.
-
----
-#### Reverse the refactoring
-Due to the [initial refactoring](#refactoring-workoutlist) I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields come down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference the **Workload** model in **WorkoutExercise**. It works with **Exercise** because it is initialized **before** WorkoutExercise. To cut the long story short, I will need to create either set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries in **workout/summaries.py**. 
-
-###### Summarizer 
+##### Summarizer 
 This class in **workout/summaries.py** uses two other classes for storing information. It puts together a list of all workouts that belong to the user. Each item in that list is of type **WorkoutSummary**. This Summary also contains a list of reports of type **WorkloadReport**.
 
 ![Class structure used in summaries.py](documentation/images/summaries.png)
 
 
 ---
-### Model
-Instead of creating separate Models for the workload of each type of exercise, I have decided to combine them in one model. Each exercise type will only use two of the fields in the model, the other two will remain blank. 
-
----
-### Views
-This will not be documented. Due to refactoring. These views will no longed be used. [Skip to refactored part](#refactoring-workload)
-
----
-### Templates
-
-## WEIGHT-LIFTING APP
+# WEIGHT-LIFTING APP
 Logging the actual workload for each set of an exercise of type weight-lifting.
 
 ---
-### Model
+## Model
+
+---
+## Views
+
+
+---
+## Template
+
+---
+## Testing
+
+---
+# RUNNING APP
+
+---
+## Model
+
+---
+## Views
+
+
+---
+## Template
+
+---
+## Testing
+
+---
+# ENDURANCE APP
+
+---
+## Model
+
+---
+## Views
+
+---
+## Template
+
+---
+## Testing
+
+---
+# Timer JavaScript
+Timer is a class that I defined in a separate Java-Script file named **timer.js**. It will be  in the **static/js** folder.
+The timer will be used for two types of workload: running and endurance. The user will  have a start button form the timer, which will turn into a stop button as soon as the timer gets started. When the timer is stopped the results will be copied to the respective field in the form that is used for adding a new set to the exercise.
+
+## Testing
+
+

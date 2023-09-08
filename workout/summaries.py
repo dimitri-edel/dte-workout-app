@@ -91,9 +91,9 @@ class Summarizer:
     def __get_running_report(self, workout_exercise, workload_summaries):
         running_list = Running.objects.filter(workout_exercise=workout_exercise)
         for running in running_list:
-            workload_summaries.append(f"{running.distance} x {running.time} hours")
+            workload_summaries.append(f"{running.distance} km in {running.time} hours")
 
     def __get_endurance_report(self, workout_exercise, workload_summaries):
         endurance_list = Endurance.objects.filter(workout_exercise=workout_exercise)
         for endurance in endurance_list:
-            workload_summaries.append(f"{endurance.reps} x {endurance.time} hours")
+            workload_summaries.append(f"{endurance.reps} reps in {endurance.time} hours")

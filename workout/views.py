@@ -27,7 +27,7 @@ class StartWorkout(View):
         """Process the GET-Request"""
         # If the user is not logged in, then redirect them to the login page
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("accounts/login/")
+            return HttpResponseRedirect("/accounts/login/")
         # Instantiate the forms.
         # The prefix is mandatory when using several forms in the same view.
         # When initializing a form, using the data in the POST-request object, prefix
@@ -75,7 +75,7 @@ class EditWorkout(View):
         """Process the GET-Request"""
         # If the user is not logged in, then redirect them to the login page
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("accounts/login/")
+            return HttpResponseRedirect("/accounts/login/")
 
         # Pull the workout.id from kwargs
         workout_id = kwargs['workout_id']
@@ -123,6 +123,7 @@ class EditWorkout(View):
             workout_form.instance.user = request.user
             # Commit the model object to the database
             workout_form.save()
+        
 
         if workout_exercise_form.is_valid():
             workout_exercise_form.instance.workout_id = workout_form.instance.id
@@ -136,6 +137,62 @@ class EditWorkout(View):
                     kwargs={'workout_exercise_id': workout_exercise.id}))
             return HttpResponseRedirect(reverse('workload_list',\
             kwargs={'workout_exercise_id': workout_exercise.id}))
+
+        return HttpResponseRedirect(reverse('edit_workout',\
+            kwargs={'workout_id': workout_form.instance.id}))
+
+
+class RenameWorkout(View):
+    """class for editing the list of exercises that the workout session is comprised of"""
+
+    # Reference to the name of the form class for the model class Workout
+    workout_form_class = WorkoutForm    
+    # Reference to the name of the form class for the model class WorkoutExercise
+    workout_exercise_form_class = WorkoutExerciseForm
+    # Reference to the template for this view
+    template_name = "rename_workout.html"
+    # Process a GET-Request    
+
+    def get(self, request, *args, **kwargs):#
+        """Process the GET-Request"""
+        # If the user is not logged in, then redirect them to the login page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/accounts/login/")
+
+        # Pull the workout.id from kwargs
+        workout_id = kwargs['workout_id']
+        # Instantiate the forms.
+        # The prefix is mandatory whhen using several forms in the same view.
+        # When initializing a form, using the data in the POST-request object, prefix
+        # helps setting the forms apart, as you can see in the post method below.
+        workout = Workout.objects.get(id=workout_id)
+        # Create form for the workout object
+        workout_form = self.workout_form_class(
+            instance=workout)
+
+        # Render the dedicated template
+        return render(
+            request, self.template_name, {"workout_form": workout_form} )
+
+    def post(self, request, workout_id, *args, **kwargs):
+        """Process a POST-Request"""
+        # @parameter : id = workout_id
+        # Get the workout using the id parameter
+        workout = Workout.objects.get(id=workout_id)
+        # Instantiate the forms.
+        workout_form = self.workout_form_class(
+            request.POST, prefix="workout", instance=workout)
+        
+        if workout_form.is_valid():
+            # Assign the form to the current user.
+            # The instance property of the forms is a reference to the model class
+            # that is being used and allows us to access its properties and methods
+            workout_form.instance.user = request.user
+            # Commit the model object to the database
+            workout_form.save()
+        else:
+            return HttpResponseRedirect(reverse('rename_workout',\
+            kwargs={'workout_id': workout_form.instance.id}))
 
         return HttpResponseRedirect(reverse('edit_workout',\
             kwargs={'workout_id': workout_form.instance.id}))
@@ -167,7 +224,7 @@ class WorkoutList(View):
         """Process GET-Request"""
         # If the user is not logged in, then redirect them to the login page
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("accounts/login/")
+            return HttpResponseRedirect("/accounts/login/")
 
         # Retrieve list of workouts
         workouts = Workout.objects.filter(user=request.user)
