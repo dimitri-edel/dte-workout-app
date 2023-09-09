@@ -27,12 +27,10 @@ class RunningList(View):
 
         workout_exercise_id = kwargs["workout_exercise_id"]
 
-        workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
-        workout_exercise_form = self.workout_exercise_form_class(user_id=request.user.id,
-                                                                 instance=workout_exercise, prefix="workout_exercise")
+        workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)        
 
         # Empty form for adding a new set
-        running_form = self.running_form_class(prefix="exercise_set")
+        running_form = self.running_form_class()
 
         # Retrieve list of exercise_sets for the template
         running_list = Running.objects.filter(
@@ -43,44 +41,34 @@ class RunningList(View):
             id=workout_exercise.exercise_id)
 
         return render(request, self.template,\
-            {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
+            {"exercise": exercise, "workout_exercise": workout_exercise,\
                 "running_form": running_form, "running_list": running_list})
 
     def post(self, request, workout_exercise_id, *args, **kwargs):
         """Process the POST-Request. Validate the posted data and commit to database"""
         # Retrieve workout_exercise using the workout_exercise_id
         workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
-
-        # Retrieve the workout_exercise_form from the request object
-        workout_exercise_form = self.workout_exercise_form_class(
-            request.POST, user_id=request.user.id, instance=workout_exercise, prefix="workout_exercise")
+        
         # Retrieve the execise_set_form from the request oobject
         running_form = self.running_form_class(
-            request.POST, prefix="exercise_set")
+            request.POST)
         # Retrieve list of exercise_sets for the template
         running_list = Running.objects.filter(
             workout_exercise_id=workout_exercise_id).order_by("id")
         # Retrieve an exercise object for the template
         exercise = Exercise.objects.get(id=workout_exercise.exercise_id)
-
-        # If forms are valid
-        if workout_exercise_form.is_valid() and running_form.is_valid():
-            # Save the forms
-            return self.__save_forms(request, workout_exercise_form,
-                                     running_form)
+        # If the form is valid save it
+        if running_form.is_valid():
+            return self.__save_form(request,  workout_exercise, running_form)
 
         return render(request, self.template,\
-            {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
+            {"exercise": exercise, "workout_exercise": workout_exercise,\
                 "running_form": running_form, "running_list": running_list})
 
-    def __save_forms(self, request, workout_exercise_form, running_form):
-        # Save forms
-        workout_exercise_form.instance.user = request.user
-        workout_exercise_form.save()
-
+    def __save_form(self, request, workout_exercise, running_form):       
         # Create a new object of type ExerciseSet
         running = Running.objects.create(owner=request.user,
-            workout_exercise_id=workout_exercise_form.instance.id)
+            workout_exercise_id=workout_exercise.id)
         # Copy fields from the form to the created object
         running.time = running_form.instance.time
         running.distance = running_form.instance.distance
@@ -88,7 +76,7 @@ class RunningList(View):
         running.save()
 
         return HttpResponseRedirect(reverse("running_list",\
-             kwargs={"workout_exercise_id": workout_exercise_form.instance.id}))
+             kwargs={"workout_exercise_id": workout_exercise.id}))
 
 
 class DeleteRunning(View):

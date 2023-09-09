@@ -65,6 +65,8 @@
 - [WEIGHT-LIFTING APP](#weight-lifting-app)
   - [Model](#model-2)
   - [Views](#views-2)
+    - [Listing and adding a set of weight-lifting](#listing-and-adding-a-set-of-weight-lifting)
+      - [The get-method](#the-get-method)
   - [Template](#template-7)
   - [Testing](#testing-9)
 - [RUNNING APP](#running-app)
@@ -715,14 +717,29 @@ The model has four fields: owner, workout_exercise, reps, weight.
 **reps** is the number of repetitions in the set
 **weight** is the weight used
 
-[See the file](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/models.py)
+[See models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/models.py)
 
 ---
 ## Views
+It is only necessary to have two views. One for listing and adding sets and one for deleting sets. There will be no view for updating sets, because changing results retrospectively does not make sense.
 
+[See views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/views.py)
+
+---
+### Listing and adding a set of weight-lifting
+**WeightLiftingList** handles listing the sets in its **get**-method and **adding** a set in the **post** method.
+
+#### The get-method
+First the **id** of the relationship, which was passed as a parameter in the URL, is retrieved from **kwargs** and stored in **workout_exercise_id**.
+Secondly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
+Thirdly, an empty form for a new set is created. The form will be used in the template in order to add the next set and stored in **weight_lifting_form**.
+Fourthly, a list of **weight-lifting** sets that are linked to the previously retrieved **WorkoutExercise** relationship and stored in **weight_lifting_list**.
+Then, the respective exercise object if retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
 
 ---
 ## Template
+
+[View the template](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/templates/weight-lifting-list.html)
 
 ---
 ## Testing
