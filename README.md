@@ -9,6 +9,7 @@
   - [Workout List](#workout-list)
   - [Start Workout](#start-workout)
   - [Edit Workout](#edit-workout)
+- [Rename Workout](#rename-workout)
   - [Delete Workout](#delete-workout)
 - [Pylint and PEP8](#pylint-and-pep8)
 - [Creating django project](#creating-django-project)
@@ -50,33 +51,34 @@
     - [Renaming a Workout](#renaming-a-workout)
       - [View](#view)
       - [Template](#template-4)
+      - [Testing](#testing-5)
     - [Remove an Exercise from a Workout session](#remove-an-exercise-from-a-workout-session)
       - [Template](#template-5)
-      - [Testing](#testing-5)
+      - [Testing](#testing-6)
     - [List of workout sessions](#list-of-workout-sessions)
       - [Template](#template-6)
-        - [Testing](#testing-6)
-      - [Delete Workout session](#delete-workout-session)
         - [Testing](#testing-7)
+      - [Delete Workout session](#delete-workout-session)
+        - [Testing](#testing-8)
       - [Classes with summaries of each workout session used in the template](#classes-with-summaries-of-each-workout-session-used-in-the-template)
         - [Summarizer](#summarizer)
 - [WEIGHT-LIFTING APP](#weight-lifting-app)
   - [Model](#model-2)
   - [Views](#views-2)
   - [Template](#template-7)
-  - [Testing](#testing-8)
+  - [Testing](#testing-9)
 - [RUNNING APP](#running-app)
   - [Model](#model-3)
   - [Views](#views-3)
   - [Template](#template-8)
-  - [Testing](#testing-9)
+  - [Testing](#testing-10)
 - [ENDURANCE APP](#endurance-app)
   - [Model](#model-4)
   - [Views](#views-4)
   - [Template](#template-9)
-  - [Testing](#testing-10)
-- [Timer JavaScript](#timer-javascript)
   - [Testing](#testing-11)
+- [Timer JavaScript](#timer-javascript)
+  - [Testing](#testing-12)
   
 # Introduction
 
@@ -98,7 +100,7 @@
 ---
 ## Workout List
 | Feature | Input | Expected Output | Success |
-|---|---|---|---|
+|---------|-------|-----------------|---------|
 | Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | [x] |
 | Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | [x] |
 | Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | [x] |
@@ -111,7 +113,7 @@
 ---
 ## Start Workout
 | Feature | Input | Expected Output | Success |
-|---|---|---|---|
+|---------|-------|-----------------|---------|
 | **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| [x]|
 | **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
 | Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | [x] |
@@ -119,18 +121,26 @@
 ---
 ## Edit Workout
 | Feature | Input | Expected Output | Success |
-|---|---|---|---|
-| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The updated name appears in the heading of the workout and the input field | [x] |
-| **Rename** | An **empty** field is used for the name before clicking on **Rename** | The **previous** name is used | [x] |
+|---------|-------|-----------------|---------|
+| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The user gets redirected to the rename page | [x] |
 | **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | [x] |
 | **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
 | **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| [x] |
 | **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
 
 ---
+# Rename Workout
+| Feature | Input | Expected Output | Success |
+|---------|-------|-----------------|---------|
+| **Renaming** | **User** enters a new name and clicks on rename **button** | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | [x] |
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
+| **Cancel** | **User** clicks on the Cancel **button** | **User** gets redirected back to the **edit** page of the workout | [x] |
+
+
+---
 ## Delete Workout
 | Feature | Input | Expected Output | Success |
-|---|---|---|---|
+|---------|-------|-----------------|---------|
 | Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
 | **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | [x]|
 | **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | [x]|
@@ -645,6 +655,10 @@ If the form is not valid a validation message will appear in the browser and for
 #### Template
 The template **rename_workout.html** is basically a copy of **create_workout.html** with a few minor changes.
 
+#### Testing
+
+[See Details of Testing](#rename-workout)
+
 ---
 ### Remove an Exercise from a Workout session
 The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed two it via **URL**. One is the id of the workout session and the other is the id of the dataset in **WorkoutExercise** . 
@@ -695,6 +709,13 @@ Logging the actual workload for each set of an exercise of type weight-lifting.
 
 ---
 ## Model
+The model has four fields: owner, workout_exercise, reps, weight. 
+**owner** is the user who created the dataset
+**workout_exercise** is the relationship to exercise
+**reps** is the number of repetitions in the set
+**weight** is the weight used
+
+[See the file](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/models.py)
 
 ---
 ## Views

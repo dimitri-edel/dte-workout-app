@@ -24,15 +24,12 @@ class WeightLiftingList(View):
         # If the user is not logged in, then redirect them to the login page
         if not request.user.is_authenticated:
             return HttpResponseRedirect("accounts/login/")
-
+        # Get the id of the relationship
         workout_exercise_id = kwargs["workout_exercise_id"]
-
+        # Get the object of the relationship
         workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
-        workout_exercise_form = self.workout_exercise_form_class(user_id=request.user.id,
-                                                                 instance=workout_exercise, prefix="workout_exercise")
-
         # Empty form for adding a new set
-        weight_lifting_form = self.weight_lifting_form_class(prefix="exercise_set")
+        weight_lifting_form = self.weight_lifting_form_class()
 
         # Retrieve list of exercise_sets for the template
         weight_lifting_list = WeightLifting.objects.filter(
@@ -40,47 +37,43 @@ class WeightLiftingList(View):
 
         # Retrieve exercise for the template
         exercise = Exercise.objects.get(
-            id=workout_exercise.exercise_id)
+            id=workout_exercise.exercise.id)
 
         return render(request, self.template,\
-            {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
-                "weight_lifting_form": weight_lifting_form, "weight_lifting_list": weight_lifting_list})
+            {"exercise": exercise, "workout_exercise": workout_exercise,\
+                "weight_lifting_form": weight_lifting_form,\
+                    "weight_lifting_list": weight_lifting_list})
 
     def post(self, request, workout_exercise_id, *args, **kwargs):
         """Process the POST-Request. Validate the posted data and commit to database"""
         # Retrieve workout_exercise using the workout_exercise_id
         workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
 
-        # Retrieve the workout_exercise_form from the request object
-        workout_exercise_form = self.workout_exercise_form_class(
-            request.POST, user_id=request.user.id, instance=workout_exercise, prefix="workout_exercise")
+        # Get the object of the relationship
+        workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
+
         # Retrieve the execise_set_form from the request oobject
         weight_lifting_form = self.weight_lifting_form_class(
-            request.POST, prefix="exercise_set")
+            request.POST)
         # Retrieve list of exercise_sets for the template
         weight_lifting_list = WeightLifting.objects.filter(
             workout_exercise_id=workout_exercise_id).order_by("id")
         # Retrieve an exercise object for the template
         exercise = Exercise.objects.get(id=workout_exercise.exercise_id)
 
-        # If forms are valid
-        if workout_exercise_form.is_valid() and weight_lifting_form.is_valid():
-            # Save the forms
-            return self.__save_forms(request, workout_exercise_form,
-                                     weight_lifting_form)
+        if weight_lifting_form.is_valid():
+            return self.__save_form(request,workout_exercise, weight_lifting_form)
 
         return render(request, self.template,\
-            {"exercise": exercise, "workout_exercise_form": workout_exercise_form,\
-                "weight_lifting_form": weight_lifting_form, "weight_lifting_list": weight_lifting_list})
+            {"exercise": exercise, "workout_exercise": workout_exercise,\
+                "weight_lifting_form": weight_lifting_form,\
+                    "weight_lifting_list": weight_lifting_list})
 
-    def __save_forms(self, request, workout_exercise_form, weight_lifting_form):
-        # Save forms
-        workout_exercise_form.instance.user = request.user
-        workout_exercise_form.save()
+    def __save_form(self, request, workout_exercise, weight_lifting_form):        
 
         # Create a new object of type ExerciseSet
         weight_lifting_set = WeightLifting.objects.create(owner=request.user,
-            workout_exercise_id=workout_exercise_form.instance.id)
+            workout_exercise_id=workout_exercise.id)
         # Copy fields from the form to the created object
         weight_lifting_set.reps = weight_lifting_form.instance.reps
         weight_lifting_set.weight = weight_lifting_form.instance.weight
@@ -88,7 +81,7 @@ class WeightLiftingList(View):
         weight_lifting_set.save()
 
         return HttpResponseRedirect(reverse("weight_lifting_list",\
-             kwargs={"workout_exercise_id": workout_exercise_form.instance.id}))
+             kwargs={"workout_exercise_id": workout_exercise.id}))
 
 
 class DeleteWeightLifting(View):
