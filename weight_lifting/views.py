@@ -48,11 +48,7 @@ class WeightLiftingList(View):
         """Process the POST-Request. Validate the posted data and commit to database"""
         # Retrieve workout_exercise using the workout_exercise_id
         workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
-
-        # Get the object of the relationship
-        workout_exercise = WorkoutExercise.objects.get(id=workout_exercise_id)
-
-        # Retrieve the execise_set_form from the request oobject
+        # Retrieve the exercise_set_form from the request object
         weight_lifting_form = self.weight_lifting_form_class(
             request.POST)
         # Retrieve list of exercise_sets for the template
@@ -62,7 +58,7 @@ class WeightLiftingList(View):
         exercise = Exercise.objects.get(id=workout_exercise.exercise_id)
 
         if weight_lifting_form.is_valid():
-            return self.__save_form(request,workout_exercise, weight_lifting_form)
+            self.__save_form(request,workout_exercise, weight_lifting_form)
 
         return render(request, self.template,\
             {"exercise": exercise, "workout_exercise": workout_exercise,\
@@ -79,9 +75,6 @@ class WeightLiftingList(View):
         weight_lifting_set.weight = weight_lifting_form.instance.weight
         # Save the object
         weight_lifting_set.save()
-
-        return HttpResponseRedirect(reverse("weight_lifting_list",\
-             kwargs={"workout_exercise_id": workout_exercise.id}))
 
 
 class DeleteWeightLifting(View):

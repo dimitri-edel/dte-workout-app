@@ -2,18 +2,15 @@
 {% block title %}Edit {{ exercise.name }} {% endblock title %}
 
 {% block content %}
-<h1>{{ workout_exercise_form.instance.workout.name }}</h1>
+<h1>{{ workout_exercise.workout.name }}</h1>
 <h2> {{ exercise.name }}</h2>
 <!-- Activate the wake lock to keep the screen active -->
 <span class="wakelock">
     <label for="wakelock_active">Keep SCREEN AWAKE</label>
     <input id="wakelock_active" type="checkbox" name="wakelock_active" value="false">
 </span>
-<form action="{% url 'endurance_list' workout_exercise_form.instance.id %}" method="POST">
-    {% csrf_token %}
-    <div hidden>
-        {{ workout_exercise_form }}
-    </div>
+<form action="{% url 'endurance_list' workout_exercise.id %}" method="POST">
+    {% csrf_token %}    
     <div class="container-fluid">
         <div class="row">
             <div class="col-4 table-header">
@@ -35,11 +32,11 @@
                 {{ endurance.time }}
             </div>
             <div class="col">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{workout_exercise.id}}"
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{endurance.id}}"
                     class="url-link delete-button centered-text"><i class="fa-solid fa-trash-can"></i></a>
             </div>
             <!-- Modal Structure : Confirm Delete -->
-            <div id="modal{{report.workout_id}}" class="modal fade" role="dialog">
+            <div id="modal{{endurance.id}}" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -55,7 +52,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <a href="{% url 'delete_endurance' workout_exercise_form.instance.id endurance.id %}"
+                                        <a href="{% url 'delete_endurance' workout_exercise.id endurance.id %}"
                                             class="url-link delete-button">Yes</a>
                                     </div>
                                     <div class="col">
@@ -92,7 +89,7 @@
 <div class="container-fluid" style="margin-top: 10px;">
     <div class="row">
         <div class="col-4">
-            <a href="{% url 'edit_workout' workout_exercise_form.instance.workout_id %}" class="url-link"
+            <a href="{% url 'edit_workout' workout_exercise.workout_id %}" class="url-link"
                 id="close-button">
                 <i class="fa-solid fa-circle-left"></i>Back
             </a>

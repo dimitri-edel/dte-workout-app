@@ -1,22 +1,38 @@
 # Table of contents
 - [Table of contents](#table-of-contents)
 - [Introduction](#introduction)
-- [MANUAL TESTS](#manual-tests)
-  - [Exercise List](#exercise-list)
-  - [Create Exercise](#create-exercise)
-  - [Update Exercise](#update-exercise)
-  - [Delete Exercise](#delete-exercise)
-  - [Workout List](#workout-list)
-  - [Start Workout](#start-workout)
-  - [Edit Workout](#edit-workout)
-- [Rename Workout](#rename-workout)
-  - [Delete Workout](#delete-workout)
+- [ERD](#erd)
+- [Model Class Diagram](#model-class-diagram)
+- [User Stories (Wire-Frames)](#user-stories-wire-frames)
+  - [Defining a new Exercise](#defining-a-new-exercise)
+  - [User **name**s the exercise](#user-names-the-exercise)
+  - [User selects the **type** of exercise from a dropdown list](#user-selects-the-type-of-exercise-from-a-dropdown-list)
+  - [User clicks on **Save** button](#user-clicks-on-save-button)
+  - [The list of Exercises opens and the added **exercise** appears in the **list**](#the-list-of-exercises-opens-and-the-added-exercise-appears-in-the-list)
+  - [Viewing the list of workout sessions](#viewing-the-list-of-workout-sessions)
+  - [Starting a new workout session](#starting-a-new-workout-session)
+  - [Deleting a workout session from the list](#deleting-a-workout-session-from-the-list)
+  - [User confirms the Deletion!](#user-confirms-the-deletion)
+  - [User sees an updated list of workout sessions](#user-sees-an-updated-list-of-workout-sessions)
+  - [Editing a workout session](#editing-a-workout-session)
+    - [Adding exercises](#adding-exercises)
+  - [User selects the exercise they want to add to the workout from a dropdown list](#user-selects-the-exercise-they-want-to-add-to-the-workout-from-a-dropdown-list)
+  - [User clicks on the **Add Exercise** button.](#user-clicks-on-the-add-exercise-button)
+  - [The newly added exercise appears in the list.](#the-newly-added-exercise-appears-in-the-list)
+    - [Deleting an exercise from workout session](#deleting-an-exercise-from-workout-session)
+  - [User clicks on **Delete** button](#user-clicks-on-delete-button)
+  - [User confirms deletion](#user-confirms-deletion)
+  - [User sees the updated list of exercises](#user-sees-the-updated-list-of-exercises)
+    - [Renaming workout sessions](#renaming-workout-sessions)
+  - [User clicks on **Rename** button](#user-clicks-on-rename-button)
+  - [User enters a **new name**](#user-enters-a-new-name)
+  - [User clicks on **Rename** button](#user-clicks-on-rename-button-1)
+  - [The page for **editing** opens and the **new name** appears in the **heading** of the page](#the-page-for-editing-opens-and-the-new-name-appears-in-the-heading-of-the-page)
 - [Pylint and PEP8](#pylint-and-pep8)
 - [Creating django project](#creating-django-project)
   - [Setting up the environment](#setting-up-the-environment)
   - [Setting up a database for the project](#setting-up-a-database-for-the-project)
     - [Adding database to settings.py](#adding-database-to-settingspy)
-- [pylint: disable=wildcard-import](#pylint-disablewildcard-import)
 - [Setting up the project](#setting-up-the-project)
   - [Setting up a folder for templates](#setting-up-a-folder-for-templates)
   - [Setting up Allauth](#setting-up-allauth)
@@ -29,17 +45,17 @@
   - [Model](#model)
   - [Exercise Form](#exercise-form)
   - [Views](#views)
-    - [Create Exercise](#create-exercise-1)
+    - [Create Exercise](#create-exercise)
       - [Template](#template)
       - [Authentication check](#authentication-check)
       - [Testing](#testing)
-    - [Exercise List](#exercise-list-1)
+    - [Exercise List](#exercise-list)
       - [Template](#template-1)
       - [Testing](#testing-1)
     - [Edit Exercise](#edit-exercise)
       - [Template](#template-2)
       - [Testing](#testing-2)
-    - [Delete Exercise](#delete-exercise-1)
+    - [Delete Exercise](#delete-exercise)
       - [Testing](#testing-3)
 - [WORKOUT APP](#workout-app)
   - [Model](#model-1)
@@ -66,95 +82,219 @@
   - [Model](#model-2)
   - [Views](#views-2)
     - [Listing and adding a set of weight-lifting](#listing-and-adding-a-set-of-weight-lifting)
-      - [The get-method](#the-get-method)
-  - [Template](#template-7)
-  - [Testing](#testing-9)
+      - [Listing in the get-method](#listing-in-the-get-method)
+      - [Adding in the post-method](#adding-in-the-post-method)
+      - [Template](#template-7)
+      - [Testing](#testing-9)
+    - [Deleting a weight-lifting set](#deleting-a-weight-lifting-set)
+  - [Testing](#testing-10)
+  - [](#)
 - [RUNNING APP](#running-app)
   - [Model](#model-3)
   - [Views](#views-3)
-  - [Template](#template-8)
-  - [Testing](#testing-10)
+    - [Listing and adding a set](#listing-and-adding-a-set)
+      - [Listing in the get-method](#listing-in-the-get-method-1)
+      - [Adding in the post-method](#adding-in-the-post-method-1)
+      - [Template](#template-8)
+      - [Testing](#testing-11)
+    - [Deleting a running set](#deleting-a-running-set)
+      - [Testing](#testing-12)
 - [ENDURANCE APP](#endurance-app)
+  - [Logging the actual workload for each set of an exercise of type Endurance.](#logging-the-actual-workload-for-each-set-of-an-exercise-of-type-endurance)
   - [Model](#model-4)
   - [Views](#views-4)
+    - [Listing and adding a set](#listing-and-adding-a-set-1)
+      - [Listing in the get-method](#listing-in-the-get-method-2)
+      - [Adding in the post-method](#adding-in-the-post-method-2)
   - [Template](#template-9)
-  - [Testing](#testing-11)
+  - [Testing](#testing-13)
 - [Timer JavaScript](#timer-javascript)
-  - [Testing](#testing-12)
+  - [Testing](#testing-14)
+- [MANUAL TESTS](#manual-tests)
+  - [Exercise List](#exercise-list-1)
+  - [Create Exercise](#create-exercise-1)
+  - [Update Exercise](#update-exercise)
+  - [Delete Exercise](#delete-exercise-1)
+  - [Workout List](#workout-list)
+  - [Start Workout](#start-workout)
+  - [Edit Workout](#edit-workout)
+- [Rename Workout](#rename-workout)
+  - [Delete Workout](#delete-workout)
+- [CREDITS](#credits)
   
 # Introduction
 
 ---
-# MANUAL TESTS
+# ERD
+The diagram depicts the actual tables in the database. Only, django will add the name of the respective app, which the model was declared within, at the beginning of each table name.
+
+![image of ERD](documentation/images/erd.png)
+
+# Model Class Diagram
+The ERD shows the relationships among tables, which remains the same among model classes. But for the sake of simplicity I drew up the Class Diagram, which **excludes** the relationship to the **User**. It makes it easier to see how the models are actually related to each other.
+
+![Model Class Diagram](documentation/images/model-class-diagram.png)
+
+[Table of Contents](#table-of-contents)
 
 ---
-## Exercise List
+# User Stories (Wire-Frames)
+
+## Defining a new Exercise
+![First step defining an exercise](documentation/images/wireframes/exercise/create_exercise_1.png)
+
+- 1) User clicks on **Exercises** in the **Navigation Bar**
+- 2) User clicks on **New Exercise** button
+
+![Second step defining an exercise](documentation/images/wireframes/exercise/create_exercise_2.png)
+
+User **name**s the exercise
+---
+
+![Third step defining an exercise](documentation/images/wireframes/exercise/create_exercise_3.png)
+
+User selects the **type** of exercise from a dropdown list
+---
+
+![Fourth step defining an exercise](documentation/images/wireframes/exercise/create_exercise_4.png)
+
+User clicks on **Save** button
+---
+
+![Fifth step defining an exercise](documentation/images/wireframes/exercise/create_exercise_5.png)
+
+The list of Exercises opens and the added **exercise** appears in the **list**
+---
+
+## Viewing the list of workout sessions
+
+![image of Wire-Frame](documentation/images/wireframes/workout/listing.png)
+
+|         |       |       |
+|---------|-------|-------|
+| [Template](#template-6) | [View](#list-of-workout-sessions) | [Table of Contents](#table-of-contents) | 
 
 ---
-## Create Exercise
+## Starting a new workout session
+
+![image of start new workout](documentation/images/wireframes/workout/starting-new.png)
+
+|         |       |       |
+|---------|-------|-------|
+| [Template](#template) | [View](#creating-and-editing-a-workout-session)  | [Table of Contents](#table-of-contents) | [Table of Contents](#table-of-contents) | 
 
 ---
-## Update Exercise
+## Deleting a workout session from the list
+User clicks on the Delete button, which is sitting in the same row as the link with the name of the session.
+
+![First step deleting workout image](documentation/images/wireframes/workout/delete-1.png)
+
+User confirms the Deletion!
+---
+![Second step deleting workout image](documentation/images/wireframes/workout/delete-2.png)
+
+User sees an updated list of workout sessions
+---
+![Third step deleting workout image](documentation/images/wireframes/workout/delete-3.png)
+
+|         |       |       |
+|---------|-------|-------|
+| No template | [View](#delete-workout-session) |[Table of Contents](#table-of-contents) |
 
 ---
-## Delete Exercise
+## Editing a workout session
 
 ---
-## Workout List
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | [x] |
-| Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | [x] |
-| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | [x] |
-| **Denial** of access for **unauthenticated users** | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**  | [x] |
-| Link to **edit** page for each **workout** | **User** clicks on a link to a specific workout | User gets **redirected** to the  page for **editing** the workout | [x] |
-| Link to **edit** page for each **exercise set** of a **workout session** | **User** clicks on a link to a specific **exercise set** | User gets **redirected** to the  page for **editing** the exercise set | [x] |
-| **Pagination** | **User** clicks on a navigation button | The list shows the correct **page** | [x] |
-| **Delete** button | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
+### Adding exercises
+
+![First step editing workout iamge](documentation/images/wireframes/workout/edit_1.png)
+
+
+- 1) User clicks on **Workouts** in the **Navigation Bar**.
+- 2) User clicks on the workout they want to edit
+
+
+
+
+![Second step editing workout iamge](documentation/images/wireframes/workout/edit_2.png)
+
+User selects the exercise they want to add to the workout from a dropdown list
+---
+
+![Third step editing workout iamge](documentation/images/wireframes/workout/edit_3.png)
+
+User clicks on the **Add Exercise** button.
+---
+
+![Fourth step editing workout iamge](documentation/images/wireframes/workout/edit_4.png)
+
+The newly added exercise appears in the list.
+---
+
+### Deleting an exercise from workout session
+
+![First step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_1.png)
+
+
+- 1) User clicks on **Workouts** in the **Navigation Bar**.
+- 2) User clicks on the workout they want to edit
+
+![Second step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_2.png)
+
+User clicks on **Delete** button
+---
+
+![Third step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_3.png)
+
+User confirms deletion
+---
+
+![Fourth step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_4.png)
+
+User sees the updated list of exercises
+---
 
 ---
-## Start Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| [x]|
-| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
-| Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | [x] |
+### Renaming workout sessions
 
+![First step renaming workout iamge](documentation/images/wireframes/workout/rename_1.png)
+
+- 1) User clicks on **Workouts** in the **Navigation Bar**.
+- 2) User clicks on the workout they want to edit
+
+![Second step renaming workout iamge](documentation/images/wireframes/workout/rename_2.png)
+
+User clicks on **Rename** button
 ---
-## Edit Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The user gets redirected to the rename page | [x] |
-| **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | [x] |
-| **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
-| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| [x] |
-| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
 
+![Third step renaming workout iamge](documentation/images/wireframes/workout/rename_3.png)
+
+User enters a **new name**
 ---
-# Rename Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| **Renaming** | **User** enters a new name and clicks on rename **button** | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | [x] |
-| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
-| **Cancel** | **User** clicks on the Cancel **button** | **User** gets redirected back to the **edit** page of the workout | [x] |
 
+![Fourth step renaming workout iamge](documentation/images/wireframes/workout/rename_4.png)
 
+User clicks on **Rename** button
 ---
-## Delete Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
-| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | [x]|
-| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | [x]|
 
+![Fifth step renaming workout iamge](documentation/images/wireframes/workout/rename_5.png)
+
+The page for **editing** opens and the **new name** appears in the **heading** of the page
+---
+
+[Table of Contents](#table-of-contents)
 
 ---
 # Pylint and PEP8
 For some reason pylint gives me the no-name-in-module error for some packages, even though the classes are clearly defined in those files. I have not figured out why yet. So I decided to suppress the warnings in the code base.
 
+[Table of Contents](#table-of-contents)
+
 ---
 # Creating django project
 First and foremost, because I work locally it is good practice to set up a virtual environment, so that the packages for this project are installed into the project folder(a sub-folder named 'venv') instead of having them  installed globally on this machine.
+
+[Table of Contents](#table-of-contents)
 
 ---
 ## Setting up the environment
@@ -164,6 +304,8 @@ Step two: Select the virtual environment in IDE. I am using VS Code on a windows
 ![vs code select interpreter](documentation/images/vs_code_select_interpreter.png)
 
 ![vs code select interpreter 1](documentation/images/vs_code_select_interpreter_1.png)
+
+[Table of Contents](#table-of-contents)
 
 On a linux machine it is necessary to enter the following instruction in the terminal:
 <code>source ./venv/bin/activate</code>
@@ -204,6 +346,8 @@ Now the database is ready to be used. At least for django it is, because django 
 
 ![pgAdmin save database](documentation/images/pg_admin_save_databse.png)
 
+[Table of Contents](#table-of-contents)
+
 ---
 ### Adding database to settings.py
 First of all, since I am going to store the project on GitHub, I cannot publicly share the credentials used for the database. So I will store them in a file that will be **added to gitignore**. In settings.py I will only use variables that correspond to the credentials.
@@ -211,11 +355,11 @@ First of all, since I am going to store the project on GitHub, I cannot publicly
 I need to import the **environment variables** that I defined in **env.py**.
 Since, I am using a wildcard-import <code>from .env import *</code> I need to let the linter know that it is fine.
 I am doing that because there are no classes defined in that file only a number of **os.eniron** assignments. 
-Which you can see as a setting for pylint in form of a comment: <code># pylint: disable=wildcard-import</code>
+Which you can see as a setting for pylint in form of a comment: <code>\# pylint: disable=wildcard-import</code>
 Also,I need to override the standard SQLite engine setting in settings.py by providing my set of settings:
 
 <code>
-# pylint: disable=wildcard-import
+\#pylint: disable=wildcard-import
 
 from pathlib import Path
 import os
@@ -243,6 +387,8 @@ DATABASES = {
 }
 
 </code>
+
+[Table of Contents](#table-of-contents)
 
 ---
 # Setting up the project
@@ -282,6 +428,8 @@ TEMPLATES = [
 ]
 </code>
 
+[Table of Contents](#table-of-contents)
+
 ---
 ## Setting up Allauth
 1) Register django-allauth in settings.py under INSTALLED_APPS
@@ -303,12 +451,16 @@ STATICFILES_DIRS = [
 ]
 </code>
 
+[Table of Contents](#table-of-contents)
+
 ---
 # Creating base template
 [See Base Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/prj/templates/base.html)
 
 ## Navigation Bar
 The navigation bar is nested inside a **nav** tag and holds an **unordered list** with links. Using django's templating language the items of the list get rendered conditionally depending on whether or not the user is logged in.
+
+[Table of Contents](#table-of-contents)
 
 ## Messages
 For messages from django.contrib.messages it is necessary to define a list of **styles** for the constants in **settings.py**
@@ -327,6 +479,7 @@ MESSAGE_TAGS = {
 
 </code>
 
+[Table of Contents](#table-of-contents)
 
 ---
 # Authentication forms
@@ -336,6 +489,8 @@ templates folder, as documented two sections above in **Setting up Allauth**. To
 look different from the default allauth design, I need to edit them and apply the styles that I previously prepared in
 **static/css/styles.css**.
 Furthermore, I need to remove a few things from those forms and add a different layout using **bootstrap**.
+
+[Table of Contents](#table-of-contents)
 
 ---
 # EXERCISE APP
@@ -362,11 +517,15 @@ There will be three types of exercises:
 
 [See exercise.models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/models.py)
 
+[Table of Contents](#table-of-contents)
+
 ---
 ## Exercise Form
 For creating and editing an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
 
 [See exercise.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/forms.py)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ## Views
@@ -374,6 +533,8 @@ The views will cover the CRUD functionality and use templates for rendering, and
 All views for this django-app will be defined in **exercise/views.py**
 
 [See exercise.views.py ](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/views.py)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ### Create Exercise
@@ -422,7 +583,10 @@ class CreateExercise(View):
 </code>
 
 #### Template
-[See the template exercise.templates.create_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)
+
+|   |   |   |
+|---|---|---|
+| [Open Template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)| [User Story](#starting-a-new-workout-session) | [Table of Contents](#table-of-contents) |
 
 #### Authentication check
 The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
@@ -431,6 +595,8 @@ The view contains a check for authentication in its get method. If a user is not
 I have created a few exercises and they were correctly committed to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as expected.
 
 [See Details of Testing](#create-exercise)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ### Exercise List
@@ -460,10 +626,14 @@ The **name** of each exercise is wrapped inside a **link** with a fontawsome **i
 
 [See exercise.templates.exercise_list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
 
+[Table of Contents](#table-of-contents)
+
 #### Testing
 The list shows exercises that belong to the user that is logged in, otherwise it comes up empty(Meaning if I enter the URL whilst not authenticated)
 
 [See Details of Testing](#exercise-list)
+
+[Table of Contents](#table-of-contents)
 
 After adding the **DeleteExercise** view and **EditExercise** view I have tested the links in the list and they worked.
 The **delete button** works. **Confirm dialog** before deleting the exercise shows up and works properly.
@@ -526,16 +696,24 @@ class EditExercise(View):
         return render(request, self.template_name, {"exercise_form": exercise_form})
 </code>
 
+[Table of Contents](#table-of-contents)
+
+---
 #### Template
 The template simply renders the two fields of the form name and exercise_type. Which allows the user to change the values of these fields. It also provides a **save button** and a **Go back** button.
 
 [See exercise.templates.edit_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html)
 
+[Table of Contents](#table-of-contents)
+
+---
 #### Testing
 If the name is empty, validation message appears.
 When the form is valid and gets committed to the database, a feedback message is passed to the user.
 
 [See Details of Testing](#update-exercise)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ### Delete Exercise
@@ -582,10 +760,13 @@ class DeleteExercise(View):
 
 </code>
 
+---
 #### Testing
 I have successfully deleted several exercises and the messages were relayed as expected.
 
 [See Details of Testing](#delete-exercise)
+
+[Table of Contents](#table-of-contents)
 
 ---
 # WORKOUT APP
@@ -611,6 +792,8 @@ python manage.py migrate
 I defined two forms, one for each of the model classes. 
 [See workout.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/forms.py)
 
+[Table of Contents](#table-of-contents)
+
 ---
 ## Views
 
@@ -624,17 +807,20 @@ The **link** to **StartWorkout** will be added to the list of links in the **Nav
 
 When the user clicks on **start workout** in the **Navigation Bar**, the **StartWorkout** view will be executed and will render a **template**. In this template the user will **name** the **Workout session** and click on **start**. In turn, the user will be forwarded to the **editing page**, where they can compile a list of exercises for the workout session.
 
-[See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
+|   |   |   |
+|---|---|---|
+| [Open views.py in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py) | [User Story](#starting-a-new-workout-session) | [Table of Contents](#table-of-contents) |
 
 ---
 #### Template
 Template for creating a workout is called **start_workout.html**. Basically, all it does is provide a form in which user can **name** the workout session.
 
-[See workout.templates.start_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html)
-
 Template for editing a workout session is called **edit_workout.html**. The top most row contains a **Rename** button, which when clicked will open a corresponding page, that allows the user to rename the workout. [See the View](#renaming-a-workout).It displays a list of exercises for the workout session, provided that there is a list. If there is no list yet, then the user now has the chance to define one. It uses  the **WorkoutExercise** model, which allows the user to pick one of the exercises they defined and add them to the workout session. If they pick an exercise from from the list of the exercises they defined and click on the **add** button, the exercises will be added to the list and appear in the list above.
 
-[See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
+|   |   |   |   |   |
+|---|---|---|---|---|
+| [Template for creating](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html) | [Template for editing](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html) |   [User Story for creating](#starting-a-new-workout-session) | [User Story for editing](#editing-a-workout-session)  | [Table of Contents](#table-of-contents) |
+
 
 ---
 #### Testing
@@ -643,6 +829,8 @@ I have created several workouts and they showed up in the page for editing. I co
 [See Details of Testing Creating a Workout](#start-workout)
 
 [See Details of Testing Editing a Workout](#edit-workout)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ### Renaming a Workout
@@ -661,6 +849,8 @@ The template **rename_workout.html** is basically a copy of **create_workout.htm
 
 [See Details of Testing](#rename-workout)
 
+[Table of Contents](#table-of-contents)
+
 ---
 ### Remove an Exercise from a Workout session
 The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed two it via **URL**. One is the id of the workout session and the other is the id of the dataset in **WorkoutExercise** . 
@@ -669,6 +859,8 @@ The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed 
 It is used in the template from editing a workout session. The link is placed inside a Modal dialog, that makes sure that the user confirms the delete.
 
 [See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
+
+[Table of Contents](#table-of-contents)
 
 #### Testing
 I have opened a workout for editing and deleted a few items from it.
@@ -679,21 +871,34 @@ The view **WorkoutList** extracts all workouts that belong to the user. The **te
 
 [See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
+[Table of Contents](#table-of-contents)
+
 #### Template
-[See workout.templates.workout_list](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html)
+|   |   |   |
+|---|---|---|
+| [Open template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html) | [User Story](#viewing-the-list-of-workout-sessions) | [Table of Contents](#table-of-contents) |
 
 ##### Testing 
 The list renders and shows all workouts that belong to the user in the way it was intended.
-[See Details of Testing](#workout-list)
+|   |   |
+|---|---|
+| [Details of Testing](#workout-list) |[Table of Contents](#table-of-contents) |
 
 ---
 #### Delete Workout session
 I have added a view **DeleteWorkout** and registered it at a **URL**. The view deletes a workout if it belongs to the user in the request.
 
+|   |   |
+|---|---|
+| [User Story](#deleting-a-workout-session-from-the-list) |[Table of Contents](#table-of-contents) |
+
+
 ##### Testing
 The workouts can be successfully deleted from the list.
 
 [See Details of Testing](#delete-workout)
+
+[Table of Contents](#table-of-contents)
 
 ---
 #### Classes with summaries of each workout session used in the template
@@ -703,6 +908,8 @@ Initially I intended to use computed fields for this purpose, yet I have run int
 This class in **workout/summaries.py** uses two other classes for storing information. It puts together a list of all workouts that belong to the user. Each item in that list is of type **WorkoutSummary**. This Summary also contains a list of reports of type **WorkloadReport**.
 
 ![Class structure used in summaries.py](documentation/images/summaries.png)
+
+[Table of Contents](#table-of-contents)
 
 
 ---
@@ -719,58 +926,162 @@ The model has four fields: owner, workout_exercise, reps, weight.
 
 [See models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/models.py)
 
+[Table of Contents](#table-of-contents)
+
 ---
 ## Views
 It is only necessary to have two views. One for listing and adding sets and one for deleting sets. There will be no view for updating sets, because changing results retrospectively does not make sense.
 
 [See views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/views.py)
 
+[Table of Contents](#table-of-contents)
+
 ---
 ### Listing and adding a set of weight-lifting
 **WeightLiftingList** handles listing the sets in its **get**-method and **adding** a set in the **post** method.
 
-#### The get-method
-First the **id** of the relationship, which was passed as a parameter in the URL, is retrieved from **kwargs** and stored in **workout_exercise_id**.
+#### Listing in the get-method 
+Firstly, the **id** of the relationship, which was passed as a parameter in the URL, is retrieved from **kwargs** and stored in **workout_exercise_id**.
 Secondly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
 Thirdly, an empty form for a new set is created. The form will be used in the template in order to add the next set and stored in **weight_lifting_form**.
-Fourthly, a list of **weight-lifting** sets that are linked to the previously retrieved **WorkoutExercise** relationship and stored in **weight_lifting_list**.
-Then, the respective exercise object if retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+Fourthly, a list of **weight-lifting** sets that are linked to the previously retrieved **WorkoutExercise** relationship is retrieved and stored in **weight_lifting_list**.
+Then, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+
+#### Adding in the post-method
+Firstly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
+Secondly, **weight_lifting_form** is retrieved from the **post-request**. 
+Thirdly, a list of **weight-lifting** sets ,that are linked to the previously retrieved **WorkoutExercise** relationship, is retrieved and stored in **weight_lifting_list**.
+Fourthly, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+Then, if the submitted form is **valid** the **__save_form()** method is called, which saves the form.
+Lastly, the template is rendered.
 
 ---
-## Template
+#### Template
 
 [View the template](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/templates/weight-lifting-list.html)
 
+[Table of Contents](#table-of-contents)
+
+---
+#### Testing
+
+---
+### Deleting a weight-lifting set
+The view deletes the weight-lifting-set whose id is passed as a parameter under **exercise_set_id**.
+It will only delete an item if the owner is the same as the user in the request.
+In the end it redirects the user back to the list of sets using the **workout_exercise_id** from the list of parameters.
+
 ---
 ## Testing
 
+
+##
 ---
 # RUNNING APP
+Logging the actual workload for each set of an exercise of type Running.
 
 ---
 ## Model
+The model has four fields: owner, workout_exercise, distance, time. 
+**owner** is the user who created the dataset
+**workout_exercise** is the relationship to exercise
+**distance** is the distance covered during the set
+**time** is amount of time it took to traverse the distance
+
+[View models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/running/models.py)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ## Views
+### Listing and adding a set
+**RunningList** handles listing the sets in its **get**-method and **adding** a set in the **post** method.
+
+[View views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/running/views.py)
+
+[Table of Contents](#table-of-contents)
+
+#### Listing in the get-method 
+Firstly, the **id** of the relationship, which was passed as a parameter in the URL, is retrieved from **kwargs** and stored in **workout_exercise_id**.
+Secondly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
+Thirdly, an empty form for a new set is created. The form will be used in the template in order to add the next set and stored in **running_form**.
+Fourthly, a list of **running** sets that are linked to the previously retrieved **WorkoutExercise** relationship is retrieved and stored in **running_list**.
+Then, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+
+#### Adding in the post-method
+Firstly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
+Secondly, **running_form** is retrieved from the **post-request**. 
+Thirdly, a list of **running** sets ,that are linked to the previously retrieved **WorkoutExercise** relationship, is retrieved and stored in **running_list**.
+Fourthly, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+Then, if the submitted form is **valid** the **__save_form()** method is called, which saves the form.
+Lastly, the template is rendered.
 
 
 ---
-## Template
+#### Template
+
+[View running-list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/running/templates/running-list.html)
+
+[Table of Contents](#table-of-contents)
 
 ---
-## Testing
+#### Testing
+
+---
+### Deleting a running set
+The view deletes the running-set whose id is passed as a parameter under **exercise_set_id**.
+It will only delete an item if the owner is the same as the user in the request.
+In the end it redirects the user back to the list of sets using the **workout_exercise_id** from the list of parameters.
+
+---
+#### Testing
+
 
 ---
 # ENDURANCE APP
-
+Logging the actual workload for each set of an exercise of type Endurance.
 ---
 ## Model
+The model has four fields: owner, workout_exercise, reps, time. 
+**owner** is the user who created the dataset
+**workout_exercise** is the relationship to exercise
+**reps** is the number of repetitions performed during the set
+**time** is amount of time it took to finish the set
+
+[View models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/endurance/models.py)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ## Views
+### Listing and adding a set
+**RunningList** handles listing the sets in its **get**-method and **adding** a set in the **post** method.
+
+[View views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/endurance/views.py)
+
+[Table of Contents](#table-of-contents)
+
+#### Listing in the get-method 
+Firstly, the **id** of the relationship, which was passed as a parameter in the URL, is retrieved from **kwargs** and stored in **workout_exercise_id**.
+Secondly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
+Thirdly, an empty form for a new set is created. The form will be used in the template in order to add the next set and stored in **endurance_form**.
+Fourthly, a list of **endurance** sets that are linked to the previously retrieved **WorkoutExercise** relationship is retrieved and stored in **endurance_list**.
+Then, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+
+#### Adding in the post-method
+Firstly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
+Secondly, **endurance_form** is retrieved from the **post-request**. 
+Thirdly, a list of **endurance** sets ,that are linked to the previously retrieved **WorkoutExercise** relationship, is retrieved and stored in **endurance_list**.
+Fourthly, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
+Then, if the submitted form is **valid** the **__save_form()** method is called, which saves the form.
+Lastly, the template is rendered.
 
 ---
 ## Template
+
+[View endurance-list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/endurance/templates/endurance-list.html)
+
+[Table of Contents](#table-of-contents)
 
 ---
 ## Testing
@@ -782,4 +1093,81 @@ The timer will be used for two types of workload: running and endurance. The use
 
 ## Testing
 
+
+
+
+
+# MANUAL TESTS
+
+---
+## Exercise List
+
+---
+## Create Exercise
+
+---
+## Update Exercise
+
+---
+## Delete Exercise
+
+---
+## Workout List
+| Feature | Input | Expected Output | Success |
+|---------|-------|-----------------|---------|
+| Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | [x] |
+| Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | [x] |
+| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | [x] |
+| **Denial** of access for **unauthenticated users** | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**  | [x] |
+| Link to **edit** page for each **workout** | **User** clicks on a link to a specific workout | User gets **redirected** to the  page for **editing** the workout | [x] |
+| Link to **edit** page for each **exercise set** of a **workout session** | **User** clicks on a link to a specific **exercise set** | User gets **redirected** to the  page for **editing** the exercise set | [x] |
+| **Pagination** | **User** clicks on a navigation button | The list shows the correct **page** | [x] |
+| **Delete** button | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
+
+[Table of Contents](#table-of-contents)
+
+---
+## Start Workout
+| Feature | Input | Expected Output | Success |
+|---------|-------|-----------------|---------|
+| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| [x]|
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
+| Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | [x] |
+
+[Table of Contents](#table-of-contents)
+
+---
+## Edit Workout
+| Feature | Input | Expected Output | Success |
+|---------|-------|-----------------|---------|
+| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The user gets redirected to the rename page | [x] |
+| **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | [x] |
+| **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
+| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| [x] |
+| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
+
+[Table of Contents](#table-of-contents)
+
+---
+# Rename Workout
+| Feature | Input | Expected Output | Success |
+|---------|-------|-----------------|---------|
+| **Renaming** | **User** enters a new name and clicks on rename **button** | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | [x] |
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
+| **Cancel** | **User** clicks on the Cancel **button** | **User** gets redirected back to the **edit** page of the workout | [x] |
+
+[Table of Contents](#table-of-contents)
+
+---
+## Delete Workout
+| Feature | Input | Expected Output | Success |
+|---------|-------|-----------------|---------|
+| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
+| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | [x]|
+| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | [x]|
+
+[Table of Contents](#table-of-contents)
+
+# CREDITS
+- [**diagram.net**](https://app.diagrams.net/) Free online tool for drawing Diagrams and Wire-Frames
 
