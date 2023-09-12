@@ -9,6 +9,9 @@
   - [User selects the **type** of exercise from a dropdown list](#user-selects-the-type-of-exercise-from-a-dropdown-list)
   - [User clicks on **Save** button](#user-clicks-on-save-button)
   - [The list of Exercises opens and the added **exercise** appears in the **list**](#the-list-of-exercises-opens-and-the-added-exercise-appears-in-the-list)
+  - [Editing an exercise](#editing-an-exercise)
+  - [User clicks on **Exercises** in the **Navigation Bar**](#user-clicks-on-exercises-in-the-navigation-bar)
+  - [User clicks on the **name** of exercise](#user-clicks-on-the-name-of-exercise)
   - [Viewing the list of workout sessions](#viewing-the-list-of-workout-sessions)
   - [Starting a new workout session](#starting-a-new-workout-session)
   - [Deleting a workout session from the list](#deleting-a-workout-session-from-the-list)
@@ -77,7 +80,10 @@
       - [Delete Workout session](#delete-workout-session)
         - [Testing](#testing-8)
       - [Classes with summaries of each workout session used in the template](#classes-with-summaries-of-each-workout-session-used-in-the-template)
-        - [Summarizer](#summarizer)
+        - [Summarizer class](#summarizer-class)
+        - [WorkoutSummary class](#workoutsummary-class)
+        - [ExerciseReport class](#exercisereport-class)
+          - [Class diagram](#class-diagram)
 - [WEIGHT-LIFTING APP](#weight-lifting-app)
   - [Model](#model-2)
   - [Views](#views-2)
@@ -166,6 +172,24 @@ User clicks on **Save** button
 The list of Exercises opens and the added **exercise** appears in the **list**
 ---
 
+---
+## Editing an exercise
+
+![First step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_1.png)
+
+User clicks on **Exercises** in the **Navigation Bar**
+---
+
+---
+
+![Second step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_2.png)
+
+User clicks on the **name** of exercise
+---
+
+
+
+---
 ## Viewing the list of workout sessions
 
 ![image of Wire-Frame](documentation/images/wireframes/workout/listing.png)
@@ -201,6 +225,7 @@ User sees an updated list of workout sessions
 |---------|-------|-------|
 | No template | [View](#delete-workout-session) |[Table of Contents](#table-of-contents) |
 
+
 ---
 ## Editing a workout session
 
@@ -231,6 +256,7 @@ User clicks on the **Add Exercise** button.
 The newly added exercise appears in the list.
 ---
 
+---
 ### Deleting an exercise from workout session
 
 ![First step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_1.png)
@@ -904,8 +930,21 @@ The workouts can be successfully deleted from the list.
 #### Classes with summaries of each workout session used in the template
 Initially I intended to use computed fields for this purpose, yet I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields comes down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference  **WeightLifting, Running** or **Endurance** models in **WorkoutExercise**. To cut the long story short, I will need to create a set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries in **workout/summaries.py**. 
 
-##### Summarizer 
-This class in **workout/summaries.py** uses two other classes for storing information. It puts together a list of all workouts that belong to the user. Each item in that list is of type **WorkoutSummary**. This Summary also contains a list of reports of type **WorkloadReport**.
+---
+##### Summarizer class
+This class is the one **used** in the **view**. It takes a **list of Workout objects** as a parameter in the **constructor** and creates an iterable list of objects of type **WorkoutSummary**. The list contains all the objects required for rendering all entities used in the **template**, such as the name of the workout session, a list of exercises performed during the session and summarized descriptions of each set performed during an exercise.
+
+This class **Summarizer** in **workout/summaries.py** is initialized using the List of Workouts passed to the constructor. It puts together a list of all workouts that belong to the user. Each item in that list is of type **WorkoutSummary**. This Summary also contains a list of reports of type **ExerciseReport**.
+
+---
+##### WorkoutSummary class
+The class is **initialized** using the **Workout** object passed to the **constructor**. It iterates through the list of exercises used in the Workout. The list is acquired from a **property** of **Workout** named **exercise_list**. The exercise **list** contains objects of type **WorkoutExercise**, which represents a relationship between Workout and Exercises model classes. During the iteration for each exercise found in the relationship a **ExerciseReport** is created and appended to the property named **reports**.
+
+---
+##### ExerciseReport class
+The class is **initialized** using the **WorkoutExercise** object passed to the **constructor**. In turn it compiles a list of summaries for each set of an exercise that is linked to the relationship received in the constructor.
+
+###### Class diagram
 
 ![Class structure used in summaries.py](documentation/images/summaries.png)
 
@@ -1115,14 +1154,14 @@ The timer will be used for two types of workload: running and endurance. The use
 ## Workout List
 | Feature | Input | Expected Output | Success |
 |---------|-------|-----------------|---------|
-| Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | [x] |
-| Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | [x] |
-| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | [x] |
-| **Denial** of access for **unauthenticated users** | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**  | [x] |
-| Link to **edit** page for each **workout** | **User** clicks on a link to a specific workout | User gets **redirected** to the  page for **editing** the workout | [x] |
-| Link to **edit** page for each **exercise set** of a **workout session** | **User** clicks on a link to a specific **exercise set** | User gets **redirected** to the  page for **editing** the exercise set | [x] |
-| **Pagination** | **User** clicks on a navigation button | The list shows the correct **page** | [x] |
-| **Delete** button | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
+| Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | &check; |
+| Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | &check; |
+| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | &check; |
+| **Denial** of access for **unauthenticated users** | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**  | &check; |
+| Link to **edit** page for each **workout** | **User** clicks on a link to a specific workout | User gets **redirected** to the  page for **editing** the workout | &check; |
+| Link to **edit** page for each **exercise set** of a **workout session** | **User** clicks on a link to a specific **exercise set** | User gets **redirected** to the  page for **editing** the exercise set | &check; |
+| **Pagination** | **User** clicks on a navigation button | The list shows the correct **page** | &check; |
+| **Delete** button | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
 
 [Table of Contents](#table-of-contents)
 
@@ -1130,9 +1169,9 @@ The timer will be used for two types of workload: running and endurance. The use
 ## Start Workout
 | Feature | Input | Expected Output | Success |
 |---------|-------|-----------------|---------|
-| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| [x]|
-| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
-| Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | [x] |
+| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| &check;|
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | &check; |
+| Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | &check; |
 
 [Table of Contents](#table-of-contents)
 
@@ -1140,11 +1179,11 @@ The timer will be used for two types of workload: running and endurance. The use
 ## Edit Workout
 | Feature | Input | Expected Output | Success |
 |---------|-------|-----------------|---------|
-| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The user gets redirected to the rename page | [x] |
-| **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | [x] |
-| **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
-| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| [x] |
-| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| [x] |
+| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The user gets redirected to the rename page | &check; |
+| **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | &check; |
+| **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| &check; |
+| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| &check; |
+| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| &check; |
 
 [Table of Contents](#table-of-contents)
 
@@ -1152,9 +1191,9 @@ The timer will be used for two types of workload: running and endurance. The use
 # Rename Workout
 | Feature | Input | Expected Output | Success |
 |---------|-------|-----------------|---------|
-| **Renaming** | **User** enters a new name and clicks on rename **button** | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | [x] |
-| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | [x] |
-| **Cancel** | **User** clicks on the Cancel **button** | **User** gets redirected back to the **edit** page of the workout | [x] |
+| **Renaming** | **User** enters a new name and clicks on rename **button** | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | &check; |
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | &check; |
+| **Cancel** | **User** clicks on the Cancel **button** | **User** gets redirected back to the **edit** page of the workout | &check; |
 
 [Table of Contents](#table-of-contents)
 
@@ -1162,9 +1201,9 @@ The timer will be used for two types of workload: running and endurance. The use
 ## Delete Workout
 | Feature | Input | Expected Output | Success |
 |---------|-------|-----------------|---------|
-| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | [x] |
-| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | [x]|
-| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | [x]|
+| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
+| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | &check;|
+| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | &check;|
 
 [Table of Contents](#table-of-contents)
 

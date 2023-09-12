@@ -34,7 +34,7 @@ class CreateExercise(View):
         # Check if the user is authenticated, if not redirect them to home page
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse('home'))
-        # Instanciate the form
+        # Instantiate the form
         exercise_form = self.exercise_form_class()
         # Render the specified template
         return render(request, self.template_name, {"exercise_form": exercise_form})
@@ -52,7 +52,7 @@ class CreateExercise(View):
             # Commit the model object to the database
             exercise_form.save()
             messages.add_message(
-            request, messages.SUCCESS, f"A new exdercise: '{exercise_form.instance.name}'\
+            request, messages.SUCCESS, f"A new exercise: '{exercise_form.instance.name}'\
                  has been created   !")
             return HttpResponseRedirect(reverse("exercise_list"))
         # If the form was not valid, render the template. The workout_from will contain the
@@ -62,7 +62,7 @@ class CreateExercise(View):
 
 
 class EditExercise(View):
-    """ View for editting an exercise """
+    """ View for editing an exercise """
     # Reference to the form
     exercise_form_class = ExerciseForm
     # Reference to the template
@@ -75,7 +75,7 @@ class EditExercise(View):
         exercise = Exercise.objects.get(id=exercise_id)        
         # Store the id of the last object in the session
         request.session["edit_exercise_id"] = exercise_id
-        # Instanciate the form
+        # Instantiate the form
         exercise_form = self.exercise_form_class(instance=exercise)
         # Render the specified template
         return render(request, self.template_name, {"exercise_form": exercise_form})
@@ -85,7 +85,7 @@ class EditExercise(View):
         # Retrieve the object using the id stored in session
         edit_exercise = Exercise.objects.get(
             id=request.session["edit_exercise_id"])
-        # Instanciate the form
+        # Instantiate the form
         exercise_form = self.exercise_form_class(
             request.POST, instance=edit_exercise)
         # If the form is valid
@@ -114,7 +114,7 @@ class DeleteExercise(View):
         if exercise.owner != request.user:
             # Relay the error message to the user
             messages.add_message(
-                request, messages.ERROR, "This exercise connot be deleted because \
+                request, messages.ERROR, "This exercise cannot be deleted because \
                 you are not the owner!")
             return HttpResponseRedirect(reverse("exercise_list"))
 
@@ -127,7 +127,7 @@ class DeleteExercise(View):
             # In the model WorkoutExercise the foreign key to the exercise states  
             # on_delete=models.PROTECT
             messages.add_message(
-                request, messages.ERROR, "This exercise connot be deleted because \
+                request, messages.ERROR, "This exercise cannot be deleted because \
                 it is being used in a workout!")
         
         return HttpResponseRedirect(reverse("exercise_list"))

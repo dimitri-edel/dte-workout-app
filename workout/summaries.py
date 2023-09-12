@@ -66,6 +66,10 @@ class ExerciseReport:
 
 class Summarizer:
     """A class that assembles summaries for the WorkoutList"""
+    workouts = None
+    """List of objects of type Workout"""
+    reports = None
+    """List of objects of type WorkoutSummary"""
     def __init__(self, workouts):
         self.workouts = workouts
         self.reports = []
