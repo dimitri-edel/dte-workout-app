@@ -5,32 +5,33 @@
 - [Model Class Diagram](#model-class-diagram)
 - [User Stories (Wire-Frames)](#user-stories-wire-frames)
   - [Defining a new Exercise](#defining-a-new-exercise)
-  - [User **name**s the exercise](#user-names-the-exercise)
-  - [User selects the **type** of exercise from a dropdown list](#user-selects-the-type-of-exercise-from-a-dropdown-list)
-  - [User clicks on **Save** button](#user-clicks-on-save-button)
-  - [The list of Exercises opens and the added **exercise** appears in the **list**](#the-list-of-exercises-opens-and-the-added-exercise-appears-in-the-list)
   - [Editing an exercise](#editing-an-exercise)
-  - [User clicks on **Exercises** in the **Navigation Bar**](#user-clicks-on-exercises-in-the-navigation-bar)
-  - [User clicks on the **name** of exercise](#user-clicks-on-the-name-of-exercise)
   - [Viewing the list of workout sessions](#viewing-the-list-of-workout-sessions)
   - [Starting a new workout session](#starting-a-new-workout-session)
-  - [Deleting a workout session from the list](#deleting-a-workout-session-from-the-list)
-  - [User confirms the Deletion!](#user-confirms-the-deletion)
-  - [User sees an updated list of workout sessions](#user-sees-an-updated-list-of-workout-sessions)
   - [Editing a workout session](#editing-a-workout-session)
     - [Adding exercises](#adding-exercises)
-  - [User selects the exercise they want to add to the workout from a dropdown list](#user-selects-the-exercise-they-want-to-add-to-the-workout-from-a-dropdown-list)
-  - [User clicks on the **Add Exercise** button.](#user-clicks-on-the-add-exercise-button)
-  - [The newly added exercise appears in the list.](#the-newly-added-exercise-appears-in-the-list)
     - [Deleting an exercise from workout session](#deleting-an-exercise-from-workout-session)
-  - [User clicks on **Delete** button](#user-clicks-on-delete-button)
-  - [User confirms deletion](#user-confirms-deletion)
-  - [User sees the updated list of exercises](#user-sees-the-updated-list-of-exercises)
     - [Renaming workout sessions](#renaming-workout-sessions)
-  - [User clicks on **Rename** button](#user-clicks-on-rename-button)
-  - [User enters a **new name**](#user-enters-a-new-name)
-  - [User clicks on **Rename** button](#user-clicks-on-rename-button-1)
-  - [The page for **editing** opens and the **new name** appears in the **heading** of the page](#the-page-for-editing-opens-and-the-new-name-appears-in-the-heading-of-the-page)
+  - [Deleting a workout session from the list](#deleting-a-workout-session-from-the-list)
+  - [Weight Lifting](#weight-lifting)
+    - [Edit Page](#edit-page)
+    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode)
+    - [Adding a set](#adding-a-set)
+    - [Deleting a set](#deleting-a-set)
+    - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions)
+    - [Opening the exercise in a workout session](#opening-the-exercise-in-a-workout-session)
+  - [Running](#running)
+    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-1)
+    - [Adding a set](#adding-a-set-1)
+    - [Using a Timer](#using-a-timer)
+    - [Deleting a set](#deleting-a-set-1)
+    - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions-1)
+  - [Endurance](#endurance)
+    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-2)
+    - [Adding a set](#adding-a-set-2)
+    - [Using a Timer](#using-a-timer-1)
+    - [Deleting a set](#deleting-a-set-2)
+    - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions-2)
 - [Pylint and PEP8](#pylint-and-pep8)
 - [Creating django project](#creating-django-project)
   - [Setting up the environment](#setting-up-the-environment)
@@ -149,45 +150,70 @@ The ERD shows the relationships among tables, which remains the same among model
 ## Defining a new Exercise
 ![First step defining an exercise](documentation/images/wireframes/exercise/create_exercise_1.png)
 
+**1.**
 - 1) User clicks on **Exercises** in the **Navigation Bar**
 - 2) User clicks on **New Exercise** button
 
 ![Second step defining an exercise](documentation/images/wireframes/exercise/create_exercise_2.png)
 
+**2.**
 User **name**s the exercise
----
+
 
 ![Third step defining an exercise](documentation/images/wireframes/exercise/create_exercise_3.png)
 
+**3.**
 User selects the **type** of exercise from a dropdown list
----
+
 
 ![Fourth step defining an exercise](documentation/images/wireframes/exercise/create_exercise_4.png)
 
+**4.**
 User clicks on **Save** button
----
+
 
 ![Fifth step defining an exercise](documentation/images/wireframes/exercise/create_exercise_5.png)
 
+**5.**
 The list of Exercises opens and the added **exercise** appears in the **list**
----
+
 
 ---
 ## Editing an exercise
 
 ![First step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_1.png)
 
+**1.**
 User clicks on **Exercises** in the **Navigation Bar**
----
+
 
 ---
 
 ![Second step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_2.png)
 
+**2.**
 User clicks on the **name** of exercise
+
 ---
 
+![Third step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_3.png)
 
+**3.**
+User **renames** of exercise
+
+---
+
+![Fourth step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_4.png)
+
+**4.**
+User clicks on **Save**
+
+---
+
+![Fifth step editing an exercise](documentation/images/wireframes/exercise/edit_exercise_5.png)
+
+**5.**
+User sees the updated list
 
 ---
 ## Viewing the list of workout sessions
@@ -201,25 +227,166 @@ User clicks on the **name** of exercise
 ---
 ## Starting a new workout session
 
-![image of start new workout](documentation/images/wireframes/workout/starting-new.png)
+![First step starting a workout session](documentation/images/wireframes/workout/starting_new_1.png)
+
+**1.**
+User clicks on **Workouts** in the **Navigation Bar**
+
+---
+
+![Second step starting a workout session](documentation/images/wireframes/workout/starting_new_2.png)
+
+
+**2.**
+User enters the **name** for the **workout**
+
+---
+
+![Third step starting a workout session](documentation/images/wireframes/workout/starting_new_3.png)
+
+
+**3.**
+User clicks on **Start** button
+
+---
+
+![Fourth step starting a workout session](documentation/images/wireframes/workout/starting_new_4.png)
+
+
+**4.**
+Page for **editing** the new workout opens and the User can see the **name** they entered in the heading of the page
+
+---
 
 |         |       |       |
 |---------|-------|-------|
 | [Template](#template) | [View](#creating-and-editing-a-workout-session)  | [Table of Contents](#table-of-contents) | [Table of Contents](#table-of-contents) | 
 
 ---
+
+## Editing a workout session
+
+---
+### Adding exercises
+
+![First step editing workout ](documentation/images/wireframes/workout/edit_1.png)
+
+**1.**
+
+- 1) User clicks on **Workouts** in the **Navigation Bar**.
+- 2) User clicks on the workout they want to edit
+
+
+
+
+![Second step editing workout ](documentation/images/wireframes/workout/edit_2.png)
+
+**2.**
+User selects the exercise they want to add to the workout from a dropdown list
+
+
+![Third step editing workout ](documentation/images/wireframes/workout/edit_3.png)
+
+**3.**
+User clicks on the **Add Exercise** button.
+
+---
+**4.**
+Depending on the exercise type of the exercises that has been added a respective page is going to open for editing the exercise sets.
+
+|   |   |   |
+|---|---|---|
+| [Weight-Lifting ](#weight-lifting) | [Running](#running) | [Endurance](#endurance) |
+
+---
+
+![Fourth step editing workout ](documentation/images/wireframes/workout/edit_4.png)
+
+**5.**
+The newly added exercise appears in the list.
+
+
+---
+### Deleting an exercise from workout session
+
+![First step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_1.png)
+
+**1.**
+- 1) User clicks on **Workouts** in the **Navigation Bar**.
+- 2) User clicks on the workout they want to edit
+
+![Second step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_2.png)
+
+**2.**
+User clicks on **Delete** button
+
+
+![Third step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_3.png)
+
+**3.**
+User confirms deletion
+
+
+![Fourth step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_4.png)
+
+**4.**
+User sees the updated list of exercises
+
+
+---
+### Renaming workout sessions
+
+![First step renaming workout ](documentation/images/wireframes/workout/rename_1.png)
+
+**1.**
+- 1) User clicks on **Workouts** in the **Navigation Bar**.
+- 2) User clicks on the workout they want to edit
+
+![Second step renaming workout ](documentation/images/wireframes/workout/rename_2.png)
+
+**2.**
+User clicks on **Rename** button
+
+
+![Third step renaming workout ](documentation/images/wireframes/workout/rename_3.png)
+
+**3.**
+User enters a **new name**
+
+
+![Fourth step renaming workout ](documentation/images/wireframes/workout/rename_4.png)
+
+**4.**
+User clicks on **Rename** button
+
+
+![Fifth step renaming workout ](documentation/images/wireframes/workout/rename_5.png)
+
+**5.**
+The page for **editing** opens and the **new name** appears in the **heading** of the page
+
+
+[Table of Contents](#table-of-contents)
+
+---
+
 ## Deleting a workout session from the list
-User clicks on the Delete button, which is sitting in the same row as the link with the name of the session.
 
 ![First step deleting workout image](documentation/images/wireframes/workout/delete-1.png)
 
-User confirms the Deletion!
----
+**1.**
+User clicks on the Delete button, which is sitting in the same row as the link with the name of the session.
+
+
 ![Second step deleting workout image](documentation/images/wireframes/workout/delete-2.png)
 
-User sees an updated list of workout sessions
----
+**2.**
+User confirms the Deletion!
+
 ![Third step deleting workout image](documentation/images/wireframes/workout/delete-3.png)
+
+**3.**
+User sees the updated list of workout sessions
 
 |         |       |       |
 |---------|-------|-------|
@@ -227,92 +394,110 @@ User sees an updated list of workout sessions
 
 
 ---
-## Editing a workout session
+## Weight Lifting
+
+### Edit Page
+
+![edit weight lifting exercise](documentation/images/wireframes/weightlifting/edit_1.png)
+
+### Keeping the screen from suspending to sleep mode
+
+![Keeping screen from suspending](documentation/images/wireframes/weightlifting/scrren_awake.png)
+
+User checks the box in **Keep SCREEN AWAKE** field
+
+### Adding a set
+
+![First step adding a set](documentation/images/wireframes/weightlifting/add_1.png)
+
+**1.**
+User enters the number of repetitions and weight
+
+
+![Second step adding a set](documentation/images/wireframes/weightlifting/add_2.png)
+
+**2.**
+User clicks on **Add** button
+
+![Third step adding a set](documentation/images/wireframes/weightlifting/add_3.png)
+
+**3.**
+User sees the updated list
 
 ---
-### Adding exercises
+### Deleting a set
 
-![First step editing workout iamge](documentation/images/wireframes/workout/edit_1.png)
+![First step deleting a set](documentation/images/wireframes/weightlifting/delete_1.png)
 
-
-- 1) User clicks on **Workouts** in the **Navigation Bar**.
-- 2) User clicks on the workout they want to edit
-
+**1.**
+On the **edit page** user clicks on **Delete** button next to the set they want to delete
 
 
+![Second step deleting a set](documentation/images/wireframes/weightlifting/delete_2.png)
 
-![Second step editing workout iamge](documentation/images/wireframes/workout/edit_2.png)
+**2.**
+User confirms the deletion
 
-User selects the exercise they want to add to the workout from a dropdown list
----
 
-![Third step editing workout iamge](documentation/images/wireframes/workout/edit_3.png)
 
-User clicks on the **Add Exercise** button.
----
+![Third step deleting a set](documentation/images/wireframes/weightlifting/delete_3.png)
 
-![Fourth step editing workout iamge](documentation/images/wireframes/workout/edit_4.png)
+**3.**
+User sees the updated list
 
-The newly added exercise appears in the list.
----
+
 
 ---
-### Deleting an exercise from workout session
+### Opening the exercise from the list of workout sessions
 
-![First step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_1.png)
+![First step opening from workout list](documentation/images/wireframes/weightlifting/open_from_list_1.png)
+
+**1.**
+User clicks on the summary of the exercise in the workout list
 
 
-- 1) User clicks on **Workouts** in the **Navigation Bar**.
-- 2) User clicks on the workout they want to edit
+![Second step opening from workout list](documentation/images/wireframes/weightlifting/open_from_list_2.png)
 
-![Second step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_2.png)
-
-User clicks on **Delete** button
----
-
-![Third step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_3.png)
-
-User confirms deletion
----
-
-![Fourth step deleting exercise image](documentation/images/wireframes/workout/delete_exercise_4.png)
-
-User sees the updated list of exercises
----
+**2.**
+The exercise opens for editing
 
 ---
-### Renaming workout sessions
+### Opening the exercise in a workout session
 
-![First step renaming workout iamge](documentation/images/wireframes/workout/rename_1.png)
+![First step opening from workout list](documentation/images/wireframes/weightlifting/open_in_workout_1.png)
 
-- 1) User clicks on **Workouts** in the **Navigation Bar**.
-- 2) User clicks on the workout they want to edit
+**1.**
+On the **edit page** of a workout session user clicks on an exercise of type **weight-lifting**
 
-![Second step renaming workout iamge](documentation/images/wireframes/workout/rename_2.png)
+![Second step opening from workout list](documentation/images/wireframes/weightlifting/open_in_workout_2.png)
 
-User clicks on **Rename** button
+**2.**
+The exercise opens for editing
+
+
 ---
+## Running
 
-![Third step renaming workout iamge](documentation/images/wireframes/workout/rename_3.png)
+![Edit a running exercise](documentation/images/wireframes/running/edit_1.png)
 
-User enters a **new name**
+
+
+### Keeping the screen from suspending to sleep mode
+### Adding a set
+### Using a Timer
+### Deleting a set
+### Opening the exercise from the list of workout sessions
+
 ---
-
-![Fourth step renaming workout iamge](documentation/images/wireframes/workout/rename_4.png)
-
-User clicks on **Rename** button
----
-
-![Fifth step renaming workout iamge](documentation/images/wireframes/workout/rename_5.png)
-
-The page for **editing** opens and the **new name** appears in the **heading** of the page
----
-
-[Table of Contents](#table-of-contents)
-
+## Endurance 
+### Keeping the screen from suspending to sleep mode
+### Adding a set
+### Using a Timer
+### Deleting a set
+### Opening the exercise from the list of workout sessions
 ---
 # Pylint and PEP8
-For some reason pylint gives me the no-name-in-module error for some packages, even though the classes are clearly defined in those files. I have not figured out why yet. So I decided to suppress the warnings in the code base.
+I have used Pylint and PEP8 for linting. 
 
 [Table of Contents](#table-of-contents)
 
