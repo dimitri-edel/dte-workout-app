@@ -15,16 +15,17 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
-if os.path.exists('prj/env.py'):
+
+if os.path.exists("prj/env.py"):
     from .env import *
 
-# Bootstrap styles for messages 
+# Bootstrap styles for messages
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -51,9 +52,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.sites", # Added for django.allauth
+    "django.contrib.sites",  # Added for django.allauth
     "allauth",  # Added for django.allauth
-    "allauth.account", # Added for django.allauth
+    "allauth.account",  # Added for django.allauth
     "allauth.socialaccount",  # Added for django.allauth
     "django.contrib.staticfiles",
     "exercise",
@@ -86,7 +87,7 @@ ROOT_URLCONF = "prj.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'prj/templates'],
+        "DIRS": [BASE_DIR / "prj/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -107,17 +108,12 @@ WSGI_APPLICATION = "prj.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': os.environ['DB_NAME'],
-
-        'USER': os.environ['DB_USER'],
-
-        'PASSWORD': os.environ['DB_PASSWORD'],
-
-        'HOST': os.environ['DB_HOST'],
-
-        'PORT': os.environ['DB_PORT'],
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ["DB_NAME"],
+        "USER": os.environ["DB_USER"],
+        "PASSWORD": os.environ["DB_PASSWORD"],
+        "HOST": os.environ["DB_HOST"],
+        "PORT": os.environ["DB_PORT"],
     }
 }
 
@@ -127,7 +123,7 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -156,10 +152,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL =  "static/"
+STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",    
+    BASE_DIR / "static",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

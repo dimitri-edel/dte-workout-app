@@ -1,6 +1,8 @@
 {
-    "markdown.extension.toc.updateOnSave": true,    
+    "markdown.extension.toc.updateOnSave": true,
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.linting.pylintArgs": ["--max-line-length=79"],
+    "python.linting.pylintArgs": [
+        "--max-line-length=88"
+    ],
 }

@@ -13,7 +13,9 @@ from .summaries import Summarizer
 
 
 class StartWorkout(View):
-    """View for adding a new Workout session"""
+    """
+    View for adding a new Workout session
+    """
 
     # Reference to the form class for the model class Workout
     workout_form_class = WorkoutForm
@@ -50,16 +52,19 @@ class StartWorkout(View):
             workout_form.save()
 
             return HttpResponseRedirect(
-                reverse("edit_workout", kwargs={'workout_id': workout_form.instance.id}))
+                reverse("edit_workout", kwargs={"workout_id": workout_form.instance.id})
+            )
 
-        # If the form was not valid, render the template. The workout_from will contain
-        # the validation messages for the user, which had been generated upon calling the
-        # is_valid() method
+        # If the form was not valid, render the template.
+        # The workout_from will contain the validation messages for the user,
+        # which had been generated upon calling the is_valid() method
         return render(request, self.template_name, {"workout_form": workout_form})
 
 
 class EditWorkout(View):
-    """class for editing the list of exercises that the workout session is comprised of"""
+    """
+    Class for editing the list of exercises that the workout session is comprised of
+    """
 
     # Reference to the name of the form class for the model class Workout
     workout_form_class = WorkoutForm
@@ -77,52 +82,71 @@ class EditWorkout(View):
             return HttpResponseRedirect("/accounts/login/")
 
         # Pull the workout.id from kwargs
-        workout_id = kwargs['workout_id']
+        workout_id = kwargs["workout_id"]
         # Instantiate the forms.
-        # The prefix is mandatory whhen using several forms in the same view.
+        # The prefix is mandatory when using several forms in the same view.
         # When initializing a form, using the data in the POST-request object, prefix
         # helps setting the forms apart, as you can see in the post method below.
         workout = Workout.objects.get(id=workout_id)
 
-        workout_exercise_list = WorkoutExercise.objects.filter(
-            workout_id=workout.id)
-        # Create a form for the last WrokoutExercise object
+        workout_exercise_list = WorkoutExercise.objects.filter(workout_id=workout.id)
+        # Create a form for the last WorkoutExercise object
         workout_exercise_form = self.workout_exercise_form_class(
-            user_id=request.user.id)
+            user_id=request.user.id
+        )
 
         # Render the dedicated template
         return render(
-            request, self.template_name, {"workout_id": workout_id,
-                                          "workout_name": workout.name,
-                                          "workout_exercise_list": workout_exercise_list,
-                                          "workout_exercise_form": workout_exercise_form})
+            request,
+            self.template_name,
+            {
+                "workout_id": workout_id,
+                "workout_name": workout.name,
+                "workout_exercise_list": workout_exercise_list,
+                "workout_exercise_form": workout_exercise_form,
+            },
+        )
 
     def post(self, request, workout_id, *args, **kwargs):
         """Process a POST-Request"""
 
         workout_exercise_form = self.workout_exercise_form_class(
-            request.POST, user_id=request.user.id)
+            request.POST, user_id=request.user.id
+        )
 
         if workout_exercise_form.is_valid():
             workout_exercise_form.instance.workout_id = workout_id
-            workout_exercise = WorkoutExercise.objects.create(owner=request.user,
-                                                              workout_id=workout_id,
-                                                              exercise_id=workout_exercise_form.instance.exercise_id)
+            workout_exercise = WorkoutExercise.objects.create(
+                owner=request.user,
+                workout_id=workout_id,
+                exercise_id=workout_exercise_form.instance.exercise_id,
+            )
             workout_exercise.exercise_id = workout_exercise_form.instance.exercise_id
             workout_exercise.save()
 
             if workout_exercise.exercise.exercise_type == 0:
-                return HttpResponseRedirect(reverse('weight_lifting_list',
-                                                    kwargs={'workout_exercise_id': workout_exercise.id}))
-            return HttpResponseRedirect(reverse('workload_list',
-                                                kwargs={'workout_exercise_id': workout_exercise.id}))
+                return HttpResponseRedirect(
+                    reverse(
+                        "weight_lifting_list",
+                        kwargs={"workout_exercise_id": workout_exercise.id},
+                    )
+                )
+            return HttpResponseRedirect(
+                reverse(
+                    "workload_list", kwargs={"workout_exercise_id": workout_exercise.id}
+                )
+            )
 
-        return HttpResponseRedirect(reverse('edit_workout',
-                                            kwargs={'workout_id': workout_id}))
+        return HttpResponseRedirect(
+            reverse("edit_workout", kwargs={"workout_id": workout_id})
+        )
 
 
 class RenameWorkout(View):
-    """class for editing the list of exercises that the workout session is comprised of"""
+    """
+    Class for editing the list of exercises that the workout
+    session is comprised of
+    """
 
     # Reference to the name of the form class for the model class Workout
     workout_form_class = WorkoutForm
@@ -139,28 +163,24 @@ class RenameWorkout(View):
             return HttpResponseRedirect("/accounts/login/")
 
         # Pull the workout.id from kwargs
-        workout_id = kwargs['workout_id']
+        workout_id = kwargs["workout_id"]
         # Instantiate the forms.
-        # The prefix is mandatory whhen using several forms in the same view.
+        # The prefix is mandatory when using several forms in the same view.
         # When initializing a form, using the data in the POST-request object, prefix
         # helps setting the forms apart, as you can see in the post method below.
         workout = Workout.objects.get(id=workout_id)
         # Create form for the workout object
-        workout_form = self.workout_form_class(
-            instance=workout)
+        workout_form = self.workout_form_class(instance=workout)
 
         # Render the dedicated template
-        return render(
-            request, self.template_name, {"workout_form": workout_form})
+        return render(request, self.template_name, {"workout_form": workout_form})
 
     def post(self, request, workout_id, *args, **kwargs):
         """Process a POST-Request"""
-        # @parameter : id = workout_id
         # Get the workout using the id parameter
         workout = Workout.objects.get(id=workout_id)
         # Instantiate the forms.
-        workout_form = self.workout_form_class(
-            request.POST, instance=workout)
+        workout_form = self.workout_form_class(request.POST, instance=workout)
 
         if workout_form.is_valid():
             # Assign the form to the current user.
@@ -170,11 +190,15 @@ class RenameWorkout(View):
             # Commit the model object to the database
             workout_form.save()
         else:
-            return HttpResponseRedirect(reverse('rename_workout',
-                                                kwargs={'workout_id': workout_form.instance.id}))
+            return HttpResponseRedirect(
+                reverse(
+                    "rename_workout", kwargs={"workout_id": workout_form.instance.id}
+                )
+            )
 
-        return HttpResponseRedirect(reverse('edit_workout',
-                                            kwargs={'workout_id': workout_form.instance.id}))
+        return HttpResponseRedirect(
+            reverse("edit_workout", kwargs={"workout_id": workout_form.instance.id})
+        )
 
 
 class DeleteWorkoutExercise(View):
@@ -186,7 +210,9 @@ class DeleteWorkoutExercise(View):
         # Only allow owners of the workout to remove exercises from the list
         if workout_exercise.owner == request.user:
             workout_exercise.delete()
-        return HttpResponseRedirect(reverse('edit_workout', kwargs={'workout_id': workout_id}))
+        return HttpResponseRedirect(
+            reverse("edit_workout", kwargs={"workout_id": workout_id})
+        )
 
 
 class WorkoutList(View):
@@ -230,4 +256,4 @@ class DeleteWorkout(View):
         workout = Workout.objects.get(id=workout_id)
         if workout.user == request.user:
             workout.delete()
-        return HttpResponseRedirect(reverse('workout_list'))
+        return HttpResponseRedirect(reverse("workout_list"))
