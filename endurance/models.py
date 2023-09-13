@@ -2,6 +2,7 @@
 # pylint: disable=no-name-in-module
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 from workout.models import WorkoutExercise
 
 
@@ -22,7 +23,15 @@ class Endurance(models.Model):
     # The number of repetitions in the set
     reps = models.IntegerField(default="0")
     # The time it took to complete the set, if it is a cardio exercise
-    time = models.CharField(default="00:00:00:0")
+    time = models.CharField(
+        default="00:00:00:0",
+        validators=[
+            RegexValidator(
+                regex="^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]:[0-9]$",
+                message="The time must be entered like 00:00:00:0 ",
+            ),
+        ],
+    )
 
     def __str__(self):
         return f"{self.workout_exercise.__str__()}"

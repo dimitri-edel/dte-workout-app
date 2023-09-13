@@ -5,6 +5,7 @@
 # pylint: disable=unused-argument
 from django.shortcuts import render, reverse
 from django.views import View
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from exercise.models import Exercise
 from workout.models import WorkoutExercise
@@ -67,6 +68,13 @@ class EnduranceList(View):
         # If the submitted form is valid then save it
         if endurance_form.is_valid():
             return self.__save_form(request, workout_exercise, endurance_form)
+        # If the form has errors report them to the user
+        if endurance_form.errors:
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                f"{endurance_form.errors.as_text()}",
+            )
         # Else render the template over
         return render(
             request,

@@ -15,23 +15,25 @@
   - [Deleting a workout session from the list](#deleting-a-workout-session-from-the-list)
   - [Weight Lifting](#weight-lifting)
     - [Edit Page](#edit-page)
+    - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions)
+    - [Opening the exercise in a workout session](#opening-the-exercise-in-a-workout-session)
     - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode)
     - [Adding a set](#adding-a-set)
     - [Deleting a set](#deleting-a-set)
-    - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions)
-    - [Opening the exercise in a workout session](#opening-the-exercise-in-a-workout-session)
   - [Running](#running)
-    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-1)
-    - [Adding a set](#adding-a-set-1)
-    - [Using a Timer](#using-a-timer)
-    - [Deleting a set](#deleting-a-set-1)
     - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions-1)
+    - [Opening the exercise in a workout session](#opening-the-exercise-in-a-workout-session-1)
+    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-1)
+    - [Using a Timer](#using-a-timer)
+    - [Adding a set](#adding-a-set-1)
+    - [Deleting a set](#deleting-a-set-1)
   - [Endurance](#endurance)
-    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-2)
-    - [Adding a set](#adding-a-set-2)
-    - [Using a Timer](#using-a-timer-1)
-    - [Deleting a set](#deleting-a-set-2)
     - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions-2)
+    - [Opening the exercise in a workout session](#opening-the-exercise-in-a-workout-session-2)
+    - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-2)
+    - [Using a Timer](#using-a-timer-1)
+    - [Adding a set](#adding-a-set-2)
+    - [Deleting a set](#deleting-a-set-2)
 - [Pylint and PEP8](#pylint-and-pep8)
 - [Creating django project](#creating-django-project)
   - [Setting up the environment](#setting-up-the-environment)
@@ -220,9 +222,9 @@ User sees the updated list
 
 ![image of Wire-Frame](documentation/images/wireframes/workout/listing.png)
 
-|         |       |       |
-|---------|-------|-------|
-| [Template](#template-6) | [View](#list-of-workout-sessions) | [Table of Contents](#table-of-contents) | 
+|                         |                                   |                                         |
+| ----------------------- | --------------------------------- | --------------------------------------- |
+| [Template](#template-6) | [View](#list-of-workout-sessions) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Starting a new workout session
@@ -258,9 +260,9 @@ Page for **editing** the new workout opens and the User can see the **name** the
 
 ---
 
-|         |       |       |
-|---------|-------|-------|
-| [Template](#template) | [View](#creating-and-editing-a-workout-session)  | [Table of Contents](#table-of-contents) | [Table of Contents](#table-of-contents) | 
+|                       |                                                 |                                         |
+| --------------------- | ----------------------------------------------- | --------------------------------------- |
+| [Template](#template) | [View](#creating-and-editing-a-workout-session) | [Table of Contents](#table-of-contents) | [Table of Contents](#table-of-contents) |
 
 ---
 
@@ -294,8 +296,8 @@ User clicks on the **Add Exercise** button.
 **4.**
 Depending on the exercise type of the exercises that has been added a respective page is going to open for editing the exercise sets.
 
-|   |   |   |
-|---|---|---|
+|                                    |                     |                         |
+| ---------------------------------- | ------------------- | ----------------------- |
 | [Weight-Lifting ](#weight-lifting) | [Running](#running) | [Endurance](#endurance) |
 
 ---
@@ -388,9 +390,9 @@ User confirms the Deletion!
 **3.**
 User sees the updated list of workout sessions
 
-|         |       |       |
-|---------|-------|-------|
-| No template | [View](#delete-workout-session) |[Table of Contents](#table-of-contents) |
+|             |                                 |                                         |
+| ----------- | ------------------------------- | --------------------------------------- |
+| No template | [View](#delete-workout-session) | [Table of Contents](#table-of-contents) |
 
 
 ---
@@ -399,6 +401,38 @@ User sees the updated list of workout sessions
 ### Edit Page
 
 ![edit weight lifting exercise](documentation/images/wireframes/weightlifting/edit_1.png)
+
+
+---
+### Opening the exercise from the list of workout sessions
+
+![First step opening from workout list](documentation/images/wireframes/weightlifting/open_from_list_1.png)
+
+**1.**
+User clicks on the summary of the exercise in the workout list
+
+
+![Second step opening from workout list](documentation/images/wireframes/weightlifting/open_from_list_2.png)
+
+**2.**
+The exercise opens for editing
+
+---
+### Opening the exercise in a workout session
+
+![First step opening from workout list](documentation/images/wireframes/weightlifting/open_in_workout_1.png)
+
+**1.**
+On the **edit page** of a workout session user clicks on an exercise of type **weight-lifting**
+
+![Second step opening from workout list](documentation/images/wireframes/weightlifting/open_in_workout_2.png)
+
+**2.**
+The exercise opens for editing
+
+
+---
+
 
 ### Keeping the screen from suspending to sleep mode
 
@@ -446,55 +480,135 @@ User confirms the deletion
 User sees the updated list
 
 
-
----
-### Opening the exercise from the list of workout sessions
-
-![First step opening from workout list](documentation/images/wireframes/weightlifting/open_from_list_1.png)
-
-**1.**
-User clicks on the summary of the exercise in the workout list
-
-
-![Second step opening from workout list](documentation/images/wireframes/weightlifting/open_from_list_2.png)
-
-**2.**
-The exercise opens for editing
-
----
-### Opening the exercise in a workout session
-
-![First step opening from workout list](documentation/images/wireframes/weightlifting/open_in_workout_1.png)
-
-**1.**
-On the **edit page** of a workout session user clicks on an exercise of type **weight-lifting**
-
-![Second step opening from workout list](documentation/images/wireframes/weightlifting/open_in_workout_2.png)
-
-**2.**
-The exercise opens for editing
-
-
----
 ## Running
 
 ![Edit a running exercise](documentation/images/wireframes/running/edit_1.png)
 
 
-
-### Keeping the screen from suspending to sleep mode
-### Adding a set
-### Using a Timer
-### Deleting a set
+---
 ### Opening the exercise from the list of workout sessions
+
+![First step opening a running exercise from workout list](documentation/images/wireframes/running/select_from_list_1.png)
+
+**1.**
+User clicks on **Workouts** in the **Navigation Bar** and then clicks on the **exercise** in the list
+
+![Second step opening a running exercise from workout list](documentation/images/wireframes/running/select_from_list_2.png)
+
+**2.**
+The exercise opens
+
+---
+### Opening the exercise in a workout session
+
+![First step opening a running exercise in workout](documentation/images/wireframes/running/open_in_workout_1.png)
+
+**1.**
+User clicks on an exercise on the workout edit page
+
+![Second step opening a running exercise in workout](documentation/images/wireframes/running/open_in_workout_2.png)
+
+**2.**
+The exercise opens
+
+
+---
+### Keeping the screen from suspending to sleep mode
+
+![Keep screen from suspending](documentation/images/wireframes/running/screen_awake.png)
+
+User checks the box in the **Keep SCREEN AWAKE** field
+
+---
+### Using a Timer
+
+![First step using timer](documentation/images/wireframes/running/timer_1.png)
+
+**1.**
+User clicks on the **Timer** start button
+
+![Second step using timer](documentation/images/wireframes/running/timer_2.png)
+
+**2.**
+The time starts running in the new field of the exercise. Start button turns into a stop button.
+
+
+![Third step using timer](documentation/images/wireframes/running/timer_3.png)
+
+**3.**
+User clicks on the **Timer** stop button
+
+![Results of using timer](documentation/images/wireframes/running/timer_4.png)
+
+**4.**
+The time is logged into the time field and the **Timer** stop button turns back into a start button
+
+----
+### Adding a set
+
+![First step of adding a set](documentation/images/wireframes/running/add_1.png)
+
+**1.**
+User enters the distance
+
+![Second step of adding a set](documentation/images/wireframes/running/add_2.png)
+
+**2.**
+User clicks on **Add** button
+
+![Results of adding a set](documentation/images/wireframes/running/add_3.png)
+
+**3.**
+The list is updated
+
+---
+### Deleting a set
+
+![First step deleting a set](documentation/images/wireframes/running/delete_1.png)
+
+**1.**
+User clicks on **Delete** button
+
+![Second step deleting a set](documentation/images/wireframes/running/delete_2.png)
+
+**2.**
+User **confirms** deletion
+
+![Results of deleting a set](documentation/images/wireframes/running/delete_3.png)
+
+**3.**
+The list is updated
 
 ---
 ## Endurance 
-### Keeping the screen from suspending to sleep mode
-### Adding a set
-### Using a Timer
-### Deleting a set
+
+
+---
 ### Opening the exercise from the list of workout sessions
+
+
+
+---
+### Opening the exercise in a workout session
+
+
+---
+### Keeping the screen from suspending to sleep mode
+
+
+---
+### Using a Timer
+
+
+---
+### Adding a set
+
+
+---
+### Deleting a set
+
+
+
 ---
 # Pylint and PEP8
 I have used Pylint and PEP8 for linting. 
@@ -795,9 +909,9 @@ class CreateExercise(View):
 
 #### Template
 
-|   |   |   |
-|---|---|---|
-| [Open Template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html)| [User Story](#starting-a-new-workout-session) | [Table of Contents](#table-of-contents) |
+|                                                                                                                               |                                               |                                         |
+| ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------- |
+| [Open Template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html) | [User Story](#starting-a-new-workout-session) | [Table of Contents](#table-of-contents) |
 
 #### Authentication check
 The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
@@ -1018,8 +1132,8 @@ The **link** to **StartWorkout** will be added to the list of links in the **Nav
 
 When the user clicks on **start workout** in the **Navigation Bar**, the **StartWorkout** view will be executed and will render a **template**. In this template the user will **name** the **Workout session** and click on **start**. In turn, the user will be forwarded to the **editing page**, where they can compile a list of exercises for the workout session.
 
-|   |   |   |
-|---|---|---|
+|                                                                                                        |                                               |                                         |
+| ------------------------------------------------------------------------------------------------------ | --------------------------------------------- | --------------------------------------- |
 | [Open views.py in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py) | [User Story](#starting-a-new-workout-session) | [Table of Contents](#table-of-contents) |
 
 ---
@@ -1028,9 +1142,9 @@ Template for creating a workout is called **start_workout.html**. Basically, all
 
 Template for editing a workout session is called **edit_workout.html**. The top most row contains a **Rename** button, which when clicked will open a corresponding page, that allows the user to rename the workout. [See the View](#renaming-a-workout).It displays a list of exercises for the workout session, provided that there is a list. If there is no list yet, then the user now has the chance to define one. It uses  the **WorkoutExercise** model, which allows the user to pick one of the exercises they defined and add them to the workout session. If they pick an exercise from from the list of the exercises they defined and click on the **add** button, the exercises will be added to the list and appear in the list above.
 
-|   |   |   |   |   |
-|---|---|---|---|---|
-| [Template for creating](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html) | [Template for editing](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html) |   [User Story for creating](#starting-a-new-workout-session) | [User Story for editing](#editing-a-workout-session)  | [Table of Contents](#table-of-contents) |
+|                                                                                                                         |                                                                                                                       |                                                            |                                                      |                                         |
+| ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------- |
+| [Template for creating](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/start_workout.html) | [Template for editing](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html) | [User Story for creating](#starting-a-new-workout-session) | [User Story for editing](#editing-a-workout-session) | [Table of Contents](#table-of-contents) |
 
 
 ---
@@ -1085,23 +1199,23 @@ The view **WorkoutList** extracts all workouts that belong to the user. The **te
 [Table of Contents](#table-of-contents)
 
 #### Template
-|   |   |   |
-|---|---|---|
+|                                                                                                                           |                                                     |                                         |
+| ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------------------------------------- |
 | [Open template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html) | [User Story](#viewing-the-list-of-workout-sessions) | [Table of Contents](#table-of-contents) |
 
 ##### Testing 
 The list renders and shows all workouts that belong to the user in the way it was intended.
-|   |   |
-|---|---|
-| [Details of Testing](#workout-list) |[Table of Contents](#table-of-contents) |
+|                                     |                                         |
+| ----------------------------------- | --------------------------------------- |
+| [Details of Testing](#workout-list) | [Table of Contents](#table-of-contents) |
 
 ---
 #### Delete Workout session
 I have added a view **DeleteWorkout** and registered it at a **URL**. The view deletes a workout if it belongs to the user in the request.
 
-|   |   |
-|---|---|
-| [User Story](#deleting-a-workout-session-from-the-list) |[Table of Contents](#table-of-contents) |
+|                                                         |                                         |
+| ------------------------------------------------------- | --------------------------------------- |
+| [User Story](#deleting-a-workout-session-from-the-list) | [Table of Contents](#table-of-contents) |
 
 
 ##### Testing
@@ -1337,58 +1451,58 @@ The timer will be used for two types of workload: running and endurance. The use
 
 ---
 ## Workout List
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| Show **list** of workouts | Click on Workouts in the Navigation Bar | Only **Workouts** of the **User** are displayed  | &check; |
-| Show list of list of **summaries** for each **exercise set** | Rendering the list | Each exercise set is summarized in a separate row of the exercise **description**  | &check; |
-| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list | A respective **icon** is displayed | &check; |
-| **Denial** of access for **unauthenticated users** | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**  | &check; |
-| Link to **edit** page for each **workout** | **User** clicks on a link to a specific workout | User gets **redirected** to the  page for **editing** the workout | &check; |
-| Link to **edit** page for each **exercise set** of a **workout session** | **User** clicks on a link to a specific **exercise set** | User gets **redirected** to the  page for **editing** the exercise set | &check; |
-| **Pagination** | **User** clicks on a navigation button | The list shows the correct **page** | &check; |
-| **Delete** button | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
+| Feature                                                                                 | Input                                                                                             | Expected Output                                                                                                                                     | Success |
+| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Show **list** of workouts                                                               | Click on Workouts in the Navigation Bar                                                           | Only **Workouts** of the **User** are displayed                                                                                                     | &check; |
+| Show list of list of **summaries** for each **exercise set**                            | Rendering the list                                                                                | Each exercise set is summarized in a separate row of the exercise **description**                                                                   | &check; |
+| Show an **icon** for the **type** of each **exercise** next to the name of the exercise | Rendering the list                                                                                | A respective **icon** is displayed                                                                                                                  | &check; |
+| **Denial** of access for **unauthenticated users**                                      | **Unauthenticated User** enters the **URL** in their browser or the **session** has **timed out** | User gets **redirected** to the login **page**                                                                                                      | &check; |
+| Link to **edit** page for each **workout**                                              | **User** clicks on a link to a specific workout                                                   | User gets **redirected** to the  page for **editing** the workout                                                                                   | &check; |
+| Link to **edit** page for each **exercise set** of a **workout session**                | **User** clicks on a link to a specific **exercise set**                                          | User gets **redirected** to the  page for **editing** the exercise set                                                                              | &check; |
+| **Pagination**                                                                          | **User** clicks on a navigation button                                                            | The list shows the correct **page**                                                                                                                 | &check; |
+| **Delete** button                                                                       | **User** clicks on one of the delete **buttons** next to the name of the **workout** session      | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
 
 [Table of Contents](#table-of-contents)
 
 ---
 ## Start Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar | The for for starting a new Workout session opens| &check;|
-| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | &check; |
-| Open for **Editing** |User fills out the form and clicks on **start** | The workout is opened inside the page for editing workout sessions | &check; |
+| Feature                            | Input                                                                | Expected Output                                                                                          | Success |
+| ---------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| **Link** in the **Navigation Bar** | **User** click on the **Start Workout** link in the Navigation Bar   | The for for starting a new Workout session opens                                                         | &check; |
+| **Validation**                     | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | &check; |
+| Open for **Editing**               | User fills out the form and clicks on **start**                      | The workout is opened inside the page for editing workout sessions                                       | &check; |
 
 [Table of Contents](#table-of-contents)
 
 ---
 ## Edit Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| **Rename** | A **new name** is entered into the name field and **rename** button is clicked | The user gets redirected to the rename page | &check; |
+| Feature          | Input                                                                                     | Expected Output                                                                                                | Success |
+| ---------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
+| **Rename**       | A **new name** is entered into the name field and **rename** button is clicked            | The user gets redirected to the rename page                                                                    | &check; |
 | **Add exercise** | **Name** field is not empty and **exercise** has been **selected** from the dropdown list | The form for **editing** the **exercise set** is opened. The form is in accordance with the **exercise type**. | &check; |
-| **Add exercise** | **Name** field is **empty** | Tooltip with an according message is prompting the user to fill out the name field| &check; |
-| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to **select** an **exercise**| &check; |
-| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected** | Tooltip with an according message is prompting the user to fill out the name field| &check; |
+| **Add exercise** | **Name** field is **empty**                                                               | Tooltip with an according message is prompting the user to fill out the name field                             | &check; |
+| **Add exercise** | Name field has a value, but **exercise** has **not** been **selected**                    | Tooltip with an according message is prompting the user to **select** an **exercise**                          | &check; |
+| **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected**                | Tooltip with an according message is prompting the user to fill out the name field                             | &check; |
 
 [Table of Contents](#table-of-contents)
 
 ---
 # Rename Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
-| **Renaming** | **User** enters a new name and clicks on rename **button** | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | &check; |
-| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | &check; |
-| **Cancel** | **User** clicks on the Cancel **button** | **User** gets redirected back to the **edit** page of the workout | &check; |
+| Feature        | Input                                                                | Expected Output                                                                                                  | Success |
+| -------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| **Renaming**   | **User** enters a new name and clicks on rename **button**           | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | &check; |
+| **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**.         | &check; |
+| **Cancel**     | **User** clicks on the Cancel **button**                             | **User** gets redirected back to the **edit** page of the workout                                                | &check; |
 
 [Table of Contents](#table-of-contents)
 
 ---
 ## Delete Workout
-| Feature | Input | Expected Output | Success |
-|---------|-------|-----------------|---------|
+| Feature                               | Input                                                                                        | Expected Output                                                                                                                                     | Success |
+| ------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
-| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Workout List** | &check;|
-| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own | **User** gets redirected to their own **Login page** | &check;|
+| **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own           | **User** gets redirected to their own **Workout List**                                                                                              | &check; |
+| **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own         | **User** gets redirected to their own **Login page**                                                                                                | &check; |
 
 [Table of Contents](#table-of-contents)
 
