@@ -26,7 +26,7 @@ class WeightLiftingList(View):
         Process GET-Request. Retrieve the requested data and
         pass it to the template
         """
-        print("weight lifting in progress!!!!!!!!!!!")
+
         # If the user is not logged in, then redirect them to the login page
         if not request.user.is_authenticated:
             return HttpResponseRedirect("accounts/login/")

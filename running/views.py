@@ -69,13 +69,6 @@ class RunningList(View):
         # If the form is valid save it
         if running_form.is_valid():
             return self.__save_form(request, workout_exercise, running_form)
-        # If the form has errors report them to the user
-        if running_form.errors:
-            messages.add_message(
-                request,
-                messages.SUCCESS,
-                f"{running_form.errors.as_text()}",
-            )
 
         return render(
             request,

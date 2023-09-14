@@ -84,12 +84,12 @@ h3 {
 /* --------------------------------------------------------------------------------------------- */
 
 /* APPLICATION ELEMENTS ######################################################################### */
-div .table-header {    
+div .table-header {
     background-image: linear-gradient(to right, #a2a3a6bf, white, #a2a3a6ed);
     color: #3e3c58;
     font-weight: bold;
     font-size: 1.2em;
-    
+
 }
 
 .data-row {
@@ -168,12 +168,12 @@ button.timer-button {
     border-color: #144a3521;
     border-radius: 5px;
     width: 100%;
-    margin-top: 5px; 
+    margin-top: 5px;
 }
 
-button.add-button{
+button.add-button {
     padding-top: 5px;
-    padding-bottom: 5px; 
+    padding-bottom: 5px;
     width: 100%;
 }
 
@@ -274,7 +274,7 @@ i {
 .col-4,
 .col-5,
 .col-6,
-.col-7 {    
+.col-7 {
     border: solid 2px;
     border-color: transparent;
     border-radius: 3px;
@@ -289,7 +289,7 @@ i {
     font-weight: bold;
 }
 
-.col-3.label{
+.col-3.label {
     color: rgb(0, 27, 27);
     background-image: linear-gradient(to right, transparent, white, white, transparent);
     font-weight: bold;
@@ -298,7 +298,7 @@ i {
 /* label with exercise type in exercise_list.html*/
 .col-3.exercise-type {
     min-height: 40px;
-    padding-top: 10px;    
+    padding-top: 10px;
     outline: 1px solid rgb(5, 45, 45);
     outline-offset: -5px;
     font-size: small;
@@ -368,9 +368,9 @@ i {
 
 /* Message board in base template */
 
-div.alert {  
+div.alert {
     outline: 1px solid rgb(5, 45, 45);
-    outline-offset: -2px;  
+    outline-offset: -2px;
     display: inline-block;
 }
 
@@ -378,4 +378,16 @@ div.alert {
     margin: 10px;
     vertical-align: middle;
     float: right;
+}
+
+/* Error messages for the time field in endurance-list and running-list*/
+.error-message-field {
+    background-color: rgba(255, 0, 0, 0.944);
+    color: white;
+    font-weight: bold;
+}
+
+.invalid-field-frame {
+    border: 2px solid red;
+    color: red;
 }

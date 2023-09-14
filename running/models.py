@@ -27,6 +27,7 @@ class Running(models.Model):
             RegexValidator(
                 regex="^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]:[0-9]$",
                 message="The time must be entered like 00:00:00:0 ",
+                code="time_invalid",
             ),
         ],
     )

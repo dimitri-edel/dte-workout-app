@@ -10,7 +10,7 @@
     <input id="wakelock_active" type="checkbox" name="wakelock_active" value="false">
 </span>
 <form action="{% url 'endurance_list' workout_exercise.id %}" method="POST">
-    {% csrf_token %}    
+    {% csrf_token %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-4 table-header">
@@ -71,7 +71,7 @@
             <div class="col-4 entry-column">
                 {{ endurance_form.reps }}
             </div>
-            <div class="col-4 entry-column">
+            <div class="col-4 entry-column {% if endurance_form.errors %} invalid-field-frame {% endif %}">
                 {{ endurance_form.time }}
             </div>
             <script>
@@ -84,13 +84,22 @@
                 </button>
             </div>
         </div>
+        <!-- Error messages for the time field -->
+        {% if endurance_form.errors %}
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 error-message-field">
+                {{ endurance_form.errors.as_text }}
+            </div>
+            <div class="" col"></div>
+        </div>
+        {% endif %}
     </div>
 </form>
 <div class="container-fluid" style="margin-top: 10px;">
     <div class="row">
         <div class="col-4">
-            <a href="{% url 'edit_workout' workout_exercise.workout_id %}" class="url-link"
-                id="close-button">
+            <a href="{% url 'edit_workout' workout_exercise.workout_id %}" class="url-link" id="close-button">
                 <i class="fa-solid fa-circle-left"></i>Back
             </a>
         </div>
