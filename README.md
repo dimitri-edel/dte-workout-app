@@ -140,6 +140,7 @@
     - [Delete Endurance set](#delete-endurance-set)
 - [DEPLOYMENT ON HEROKU](#deployment-on-heroku)
   - [Serving static files](#serving-static-files)
+    - [PROCFILE](#procfile)
     - [REQUIREMENTS.TXT](#requirementstxt)
   - [SET UP APP](#set-up-app)
     - [Create new app on heroku](#create-new-app-on-heroku)
@@ -1714,6 +1715,11 @@ STATIC_URL = "static/"
 Next, we need to have django collect static files and put them in the specified folder.
 
 <code>python manage.py collectstatic</code>
+
+### PROCFILE
+Inside the root directory there is a file named Procfile, which is used by heroku for starting the application. In this file a developer can define a set of commands for the server.
+Contents of my file:
+<code>web: gunicorn myproject.wsgi</code>
 
 ### REQUIREMENTS.TXT
 Now it is mandatory to compile a list of packages used by the application for the server, so get installed in the virtual environment of the python interpreter.
