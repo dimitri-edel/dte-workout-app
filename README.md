@@ -147,6 +147,8 @@
   - [SET UP APP](#set-up-app)
     - [Create new app on heroku](#create-new-app-on-heroku)
     - [CONFIGURATION VARIABLES](#configuration-variables)
+    - [DEPLOY](#deploy)
+    - [ADD URL to ALLOWED\_HOSTS](#add-url-to-allowed_hosts)
 - [CREDITS](#credits)
   
 # Introduction
@@ -1777,6 +1779,9 @@ On your dashboard click on **New->Create new app**
 
 **3.** Add the variables for the database
 
+### DEPLOY
+
+### ADD URL to ALLOWED_HOSTS
 
 
 # CREDITS
