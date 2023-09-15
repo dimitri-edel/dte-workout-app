@@ -41,7 +41,7 @@ SECRET_KEY = "django-insecure-#p4ta48im%en4g6uqqy2b8tn%$7-klt!@1s=g0$_eu4+kzq9@-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "https://dte-workout-app-f31a484200c4.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "dte-workout-app-f31a484200c4.herokuapp.com"]
 
 
 # Application definition
