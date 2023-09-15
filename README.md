@@ -127,8 +127,22 @@
   - [Workout List](#workout-list)
   - [Start Workout](#start-workout)
   - [Edit Workout](#edit-workout)
-- [Rename Workout](#rename-workout)
+  - [Rename Workout](#rename-workout)
   - [Delete Workout](#delete-workout)
+  - [List of Weight-Lifting sets](#list-of-weight-lifting-sets)
+    - [Add Weight-Lifting set](#add-weight-lifting-set)
+    - [Delete Weight-Lifting set](#delete-weight-lifting-set)
+  - [List of Running sets](#list-of-running-sets)
+    - [Add Running set](#add-running-set)
+    - [Delete Running set](#delete-running-set)
+  - [List of Endurance sets](#list-of-endurance-sets)
+    - [Add Endurance set](#add-endurance-set)
+    - [Delete Endurance set](#delete-endurance-set)
+- [DEPLOYMENT ON HEROKU](#deployment-on-heroku)
+  - [Serving static files](#serving-static-files)
+    - [REQUIREMENTS.TXT](#requirementstxt)
+  - [SET UP APP](#set-up-app)
+    - [Create new app on heroku](#create-new-app-on-heroku)
 - [CREDITS](#credits)
   
 # Introduction
@@ -582,32 +596,99 @@ The list is updated
 ---
 ## Endurance 
 
+![Edit page](documentation/images/wireframes/endurance/edit.png)
 
 ---
 ### Opening the exercise from the list of workout sessions
 
+![First step opening from workout list](documentation/images/wireframes/endurance/select_from_list_1.png)
 
+**1.**
+User clicks on **Workouts** in the **Navigation Bar** and then clicks on the **exercise** in the list
+
+![Second step opening from workout list](documentation/images/wireframes/endurance/select_from_list_2.png)
+
+**2.**
+Exercise opens for editing
 
 ---
 ### Opening the exercise in a workout session
 
+![First step opening exercise in a workout session](documentation/images/wireframes/endurance/open_in_workout_1.png)
+
+**1.**
+User clicks on the exercise on the edit page of the workout session
+
+![Second step opening exercise in a workout session](documentation/images/wireframes/endurance/open_in_workout_2.png)
+
+**2.**
+The exercise opens for editing
 
 ---
 ### Keeping the screen from suspending to sleep mode
 
+![Keep screen from suspending](documentation/images/wireframes/endurance/screen_awake.png)
+
+User checks the box in the **Keep SCREEN AWAKE** field
 
 ---
 ### Using a Timer
 
+![Step one using Timer](documentation/images/wireframes/endurance/timer_1.png)
+
+**1.**
+User clicks on start timer button
+
+![Step two using Timer](documentation/images/wireframes/endurance/timer_2.png)
+
+**2.**
+The timer starts and the start button turns into a stop button
+
+![Step three using Timer](documentation/images/wireframes/endurance/timer_3.png)
+
+**3.**
+User clicks on the stop button
+
+![Step four using Timer](documentation/images/wireframes/endurance/timer_4.png)
+
+**4.**
+Timer stops and the stop button turns back into a start button
 
 ---
 ### Adding a set
 
+![Step one adding an exercise set](documentation/images/wireframes/endurance/add_1.png)
+
+**1.**
+User enters the number of repetitions
+
+![Step tow adding an exercise set](documentation/images/wireframes/endurance/add_2.png)
+
+**2.**
+User click on **Add** button
+
+![Step three adding an exercise set](documentation/images/wireframes/endurance/add_3.png)
+
+**3.**
+The list is updated
 
 ---
 ### Deleting a set
 
+![Step one deleting an exercise set](documentation/images/wireframes/endurance/delete_1.png)
 
+**1.**
+User clicks on **Delete** button next to the set they want to delete
+
+![Step two deleting an exercise set](documentation/images/wireframes/endurance/delete_2.png)
+
+**2.**
+User confirms the **Deletion**
+
+![Step three deleting an exercise set](documentation/images/wireframes/endurance/delete_3.png)
+
+**3.**
+The list is updated
 
 ---
 # Pylint and PEP8
@@ -1487,7 +1568,7 @@ The timer will be used for two types of workload: running and endurance. The use
 [Table of Contents](#table-of-contents)
 
 ---
-# Rename Workout
+## Rename Workout
 | Feature        | Input                                                                | Expected Output                                                                                                  | Success |
 | -------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
 | **Renaming**   | **User** enters a new name and clicks on rename **button**           | **User** gets redirected to the **edit** page of the workout and the new name appears in the heading of the page | &check; |
@@ -1500,11 +1581,165 @@ The timer will be used for two types of workload: running and endurance. The use
 ## Delete Workout
 | Feature                               | Input                                                                                        | Expected Output                                                                                                                                     | Success |
 | ------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
+| Delete item from the **Workout List** | **User** clicks on one of the delete **buttons** next to the name of the **workout** session | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked, the dialog closes and the item remains in the list | &check; |
 | **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own           | **User** gets redirected to their own **Workout List**                                                                                              | &check; |
 | **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own         | **User** gets redirected to their own **Login page**                                                                                                | &check; |
 
 [Table of Contents](#table-of-contents)
+
+---
+## List of Weight-Lifting sets
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+### Add Weight-Lifting set
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+### Delete Weight-Lifting set
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+## List of Running sets
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+### Add Running set
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+### Delete Running set
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+## List of Endurance sets
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+### Add Endurance set
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+### Delete Endurance set
+| Feature | Input | Expected Output | Success |
+| ------- | ----- | --------------- | ------- |
+
+
+[Table of Contents](#table-of-contents)
+
+---
+
+# DEPLOYMENT ON HEROKU
+
+## Serving static files
+On a server, like Apache, you would have had to create a Virtual Host for that purpose and specify the folder, in which the static files would be stored. This folder would also need to be specified in the settings.py file. Furthermore, you would have had to assign a URL for the static files folder on the virtual host and in settings.py.
+
+On Heroku we do not have that possibility, yet we can use an middleware library called **whitenoise** instead. 
+
+In order to do that, **whitenoise** must be installed using **pip**:
+
+<code>pip install whitenoise</code>
+
+Secondly, whitenoise must be added to **MIDDLEWARE** list in **settings.py**
+
+<code>
+
+
+MIDDLEWARE = [
+
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
+]
+
+</code>
+
+Then, **DEBUG** mode must be turned off for deployment in **setting.py**
+
+<code>DEBUG = False</code>
+
+
+
+Thirdly, a folder needs to be specified, which all static files will be copied to for the deployed version. Also, the URL for requests needs to be specified, but it can remain the same as was used in the DEBUG mode.
+
+<code>
+
+\# FOLDER FOR PRODUCTION STATIC FILES
+
+STATIC_ROOT = BASE_DIR / "production_files"
+
+STATIC_URL = "static/"
+
+</code>
+
+
+Next, we need to have django collect static files and put them in the specified folder.
+
+<code>python manage.py collectstatic</code>
+
+### REQUIREMENTS.TXT
+Now it is mandatory to compile a list of packages used by the application for the server, so get installed in the virtual environment of the python interpreter.
+**Heroku** expects a file named **requirements.txt**. To compile this file run this command inside the root folder of the project:
+<code>pip freeze > requirements.txt</code>
+
+## SET UP APP
+### Create new app on heroku
+
+![Step one creating a new project](documentation/images/heroku/new.png)
+**1.**
+On your dashboard click on **New->Create new app**
+
+![Step two creating a new project](documentation/images/heroku/new_1.png)
+**2.**
+- Enter app name
+- Choose region
+- Click on **Create app**
+
+![Step three creating a new project](documentation/images/heroku/new_2.png)
+**3.**
+- Choose **GitHub** for **Deployment Method**
+- Enter **name of repository** in the **Connect to GitHub** section
+- Click on **Connect**
+
+
 
 # CREDITS
 - [**diagram.net**](https://app.diagrams.net/) Free online tool for drawing Diagrams and Wire-Frames
