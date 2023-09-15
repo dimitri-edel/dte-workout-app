@@ -141,6 +141,7 @@
 - [DEPLOYMENT ON HEROKU](#deployment-on-heroku)
   - [Serving static files](#serving-static-files)
     - [PROCFILE](#procfile)
+    - [GUNICORN](#gunicorn)
     - [REQUIREMENTS.TXT](#requirementstxt)
     - [RUNTIME.TXT](#runtimetxt)
   - [SET UP APP](#set-up-app)
@@ -1723,10 +1724,19 @@ Inside the root directory there is a file named Procfile, which is used by herok
 Contents of my file:
 <code>web: gunicorn myproject.wsgi</code>
 
+### GUNICORN
+Heroku requires gunicorn as a server for django. So, before deploying it must be added to the required package. The quickest way to go is to actually **install** gunicorn into the virtual environment.
+
+<code>pip install gunicorn</code>
+
 ### REQUIREMENTS.TXT
 Now it is mandatory to compile a list of packages used by the application for the server, so get installed in the virtual environment of the python interpreter.
 **Heroku** expects a file named **requirements.txt**. To compile this file run this command inside the root folder of the project:
-<code>pip freeze > requirements.txt</code>
+<code>
+
+pip freeze > requirements.txt
+
+</code>
 
 ### RUNTIME.TXT
 Heroku will always use the new version of python. This project uses python version 3.8.6.
