@@ -142,8 +142,10 @@
   - [Serving static files](#serving-static-files)
     - [PROCFILE](#procfile)
     - [REQUIREMENTS.TXT](#requirementstxt)
+    - [RUNTIME.TXT](#runtimetxt)
   - [SET UP APP](#set-up-app)
     - [Create new app on heroku](#create-new-app-on-heroku)
+    - [CONFIGURATION VARIABLES](#configuration-variables)
 - [CREDITS](#credits)
   
 # Introduction
@@ -1726,6 +1728,13 @@ Now it is mandatory to compile a list of packages used by the application for th
 **Heroku** expects a file named **requirements.txt**. To compile this file run this command inside the root folder of the project:
 <code>pip freeze > requirements.txt</code>
 
+### RUNTIME.TXT
+Heroku will always use the new version of python. This project uses python version 3.8.6.
+It needs to be specified in a file named runtime.txt
+
+<code>python-3.8.6</code>
+
+
 ## SET UP APP
 ### Create new app on heroku
 
@@ -1744,6 +1753,19 @@ On your dashboard click on **New->Create new app**
 - Choose **GitHub** for **Deployment Method**
 - Enter **name of repository** in the **Connect to GitHub** section
 - Click on **Connect**
+
+---
+### CONFIGURATION VARIABLES
+
+**1.** Go to **Settings**
+
+![Step two configuring heroku](documentation/images/heroku/settings_1.png)
+
+**2.** Click on **Reveal ConfigVars** in the ConfigVars section
+
+![Step three configuring heroku](documentation/images/heroku/settings_2.png)
+
+**3.** Add the variables for the database
 
 
 
