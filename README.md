@@ -123,21 +123,14 @@
   - [Exercise List](#exercise-list-1)
   - [Create Exercise](#create-exercise-1)
   - [Update Exercise](#update-exercise)
-  - [Delete Exercise](#delete-exercise-1)
   - [Workout List](#workout-list)
   - [Start Workout](#start-workout)
   - [Edit Workout](#edit-workout)
   - [Rename Workout](#rename-workout)
   - [Delete Workout](#delete-workout)
   - [List of Weight-Lifting sets](#list-of-weight-lifting-sets)
-    - [Add Weight-Lifting set](#add-weight-lifting-set)
-    - [Delete Weight-Lifting set](#delete-weight-lifting-set)
   - [List of Running sets](#list-of-running-sets)
-    - [Add Running set](#add-running-set)
-    - [Delete Running set](#delete-running-set)
   - [List of Endurance sets](#list-of-endurance-sets)
-    - [Add Endurance set](#add-endurance-set)
-    - [Delete Endurance set](#delete-endurance-set)
 - [DEPLOYMENT ON HEROKU](#deployment-on-heroku)
   - [Serving static files](#serving-static-files)
     - [PROCFILE](#procfile)
@@ -148,7 +141,9 @@
     - [Create new app on heroku](#create-new-app-on-heroku)
     - [CONFIGURATION VARIABLES](#configuration-variables)
     - [DEPLOY](#deploy)
+  - [Open deployed Website](#open-deployed-website)
     - [ADD URL to ALLOWED\_HOSTS](#add-url-to-allowed_hosts)
+- [Technologies](#technologies)
 - [CREDITS](#credits)
   
 # Introduction
@@ -1043,7 +1038,7 @@ The **name** of each exercise is wrapped inside a **link** with a fontawsome **i
 #### Testing
 The list shows exercises that belong to the user that is logged in, otherwise it comes up empty(Meaning if I enter the URL whilst not authenticated)
 
-[See Details of Testing](#exercise-list)
+[See Details of Testing](#exercise-list-1)
 
 [Table of Contents](#table-of-contents)
 
@@ -1521,20 +1516,48 @@ The timer will be used for two types of workload: running and endurance. The use
 
 
 
-
+---
 # MANUAL TESTS
 
 ---
 ## Exercise List
+| Feature                        | Input                                                                                            | Expected Output                                                                                                                                                                          | Success |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Show list of defined Exercises | User clicks on **Exercises** in the **Navigation Bar**                                           | A list of exercises appears. **Names** of exercises in the first column, **types** of exercises in the second column and a **delete** button in the last column.                         | &check; |
+| New Exercise button            | User clicks on the button                                                                        | The page for creating a new exercise opens                                                                                                                                               | &check; |
+| **Links** to edit exercises    | User clicks on the **name** of exercise in the list                                              | The page for editing the exercise opens                                                                                                                                                  | &check; |
+| **Delete** button              | User clicks on the **Delete** button for an exercise                                             | A dialog appears asking the user to confirm the deletion. If the user confirms the item is removed from the list and a message is shown informing them about which item has been deleted | &check; |
+| **Integrity check**            | User clicks on the **Delete** button for an exercise that is used in an existing workout session | User sees an error message, explaining that they cannot delete this exercise because it is used in an existing workout session                                                           | &check; |
+
+|                        |                         |                                         |
+| ---------------------- | ----------------------- | --------------------------------------- |
+| [View](#exercise-list) | [Template](#template-1) | [Table of Contents](#table-of-contents) |
+
+---
 
 ---
 ## Create Exercise
+| Feature       | Input                            | Expected Output                                                                                                                                         | Success |
+| ------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Creating      | User clicks on **Save** button   | User is redirected to the exercise list page. User sees a message informing them about the success. Also, the item appears on the last page of the list | &check; |
+| Cancel button | User clicks on **Cancel**        | User gets redirected back to the list of exercises                                                                                                      | &check; |
+| Validation    | User leaves the name field empty | A tool tip appears prompting them to fill in the field                                                                                                  | &check; |
+
+|                          |                       |                                         |
+| ------------------------ | --------------------- | --------------------------------------- |
+| [View](#create-exercise) | [Template](#template) | [Table of Contents](#table-of-contents) |
+
+---
 
 ---
 ## Update Exercise
+| Feature       | Input                                 | Expected Output                                                                                            | Success |
+| ------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| Changing name | User changes the name of the exercise | User is redirected back to the list of exercises and sees a message which says which item has been updated | &check; |
+| Cancel button | User clicks on **Cancel**             | User gets redirected back to the exercise list                                                             | &check; |
+| Validation    | User changes name to an empty field   | User sees a message prompting them to fill in the field                                                    | &check; |
 
----
-## Delete Exercise
+[Table of Contents](#table-of-contents)
 
 ---
 ## Workout List
@@ -1595,72 +1618,42 @@ The timer will be used for two types of workload: running and endurance. The use
 
 ---
 ## List of Weight-Lifting sets
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
-
-
-[Table of Contents](#table-of-contents)
-
----
-### Add Weight-Lifting set
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
-
-
-[Table of Contents](#table-of-contents)
-
----
-### Delete Weight-Lifting set
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
+| Feature        | Input                                                                           | Expected Output                                                                           | Success |
+| -------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| Adding a set   | User enters valid values into the fields and clicks on **Add**                  | The set appears in the list                                                               | &check; |
+| Validation     | User leaves a field empty and clicks on **Add**                                 | User is prompted to fill in the field                                                     | &check; |
+| Deleting a set | User clicks on delete                                                           | User is asked to confirm in a dialog and if they confirm the set is removed from the list | &check; |
+| Wake Lock      | User activates the Wake Lock by checking the box in **Keep SCREEN AWAKE** filed | The monitor stays on past the settings in the OS                                          | &check; |
 
 
 [Table of Contents](#table-of-contents)
 
 ---
 ## List of Running sets
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
-
-
-[Table of Contents](#table-of-contents)
-
----
-### Add Running set
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
-
-
-[Table of Contents](#table-of-contents)
-
----
-### Delete Running set
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
+| Feature                   | Input                                                                           | Expected Output                                                                                | Success |
+| ------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| Adding a set              | User enters valid values into the fields and clicks on **Add**                  | The set appears in the list                                                                    | &check; |
+| Validation of empty field | User leaves a field empty and clicks on **Add**                                 | User is prompted to fill in the field                                                          | &check; |
+| Validation of time format | User enters an incorrect value into the time field                              | The field is highlighted and a message prompts the user to enter a value in the correct format | &check; |
+| Timer start               | User clicks on start timer button                                               | The timer is running and the elapsed time is being displayed in the respective field           | &check; |
+| Timer stop                | User clicks on the stop timer button                                            | The timer stops and the elapsed time is being displayed in the respective field                | &check; |
+| Deleting a set            | User clicks on delete                                                           | User is asked to confirm in a dialog and if they confirm the set is removed from the list      | &check; |
+| Wake Lock                 | User activates the Wake Lock by checking the box in **Keep SCREEN AWAKE** filed | The monitor stays on past the settings in the OS                                               | &check; |
 
 
 [Table of Contents](#table-of-contents)
 
 ---
 ## List of Endurance sets
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
-
-
-[Table of Contents](#table-of-contents)
-
----
-### Add Endurance set
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
-
-
-[Table of Contents](#table-of-contents)
-
----
-### Delete Endurance set
-| Feature | Input | Expected Output | Success |
-| ------- | ----- | --------------- | ------- |
+| Feature                   | Input                                                                           | Expected Output                                                                                | Success |
+| ------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| Adding a set              | User enters valid values into the fields and clicks on **Add**                  | The set appears in the list                                                                    | &check; |
+| Validation of empty field | User leaves a field empty and clicks on **Add**                                 | User is prompted to fill in the field                                                          | &check; |
+| Validation of time format | User enters an incorrect value into the time field                              | The field is highlighted and a message prompts the user to enter a value in the correct format | &check; |
+| Timer start               | User clicks on start timer button                                               | The timer is running and the elapsed time is being displayed in the respective field           | &check; |
+| Timer stop                | User clicks on the stop timer button                                            | The timer stops and the elapsed time is being displayed in the respective field                | &check; |
+| Deleting a set            | User clicks on delete                                                           | User is asked to confirm in a dialog and if they confirm the set is removed from the list      | &check; |
+| Wake Lock                 | User activates the Wake Lock by checking the box in **Keep SCREEN AWAKE** filed | The monitor stays on past the settings in the OS                                               | &check; |
 
 
 [Table of Contents](#table-of-contents)
@@ -1781,9 +1774,42 @@ On your dashboard click on **New->Create new app**
 
 ### DEPLOY
 
+Go to **Deploy** and scroll down to the **Manual Deploy** section.
+
+![Step one deploy](documentation/images/heroku/deploy_1.png)
+
+Click on **Deploy branch**
+
+---
+[Open deployed Website](https://dte-workout-app-f31a484200c4.herokuapp.com/)
+---
+
+---
 ### ADD URL to ALLOWED_HOSTS
+Inside settings.py lives a list named ALLOWED_HOSTS. The deployed URL must be added to that list, otherwise the application will display a **Bad Request** message.
 
+---
+# Technologies
+- Django
+- Bootstrap
+- Apache2 Web-Server
+- PostgresSQL
+- Visual Studio Code
+- Python
+- JavaScript
+- HTML & CSS
+- FontAwsome
+- Google Fonts
+- MS Paint
 
+---
 # CREDITS
+- Code Institute
+- Django Documentation
+- Bootstrap Documentation
+- w3schools.com
+- stackoverflow.com
+- DigitalOcean
+- www.pexels.com
+- developer.chrome.com
 - [**diagram.net**](https://app.diagrams.net/) Free online tool for drawing Diagrams and Wire-Frames
-
