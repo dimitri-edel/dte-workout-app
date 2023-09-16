@@ -331,6 +331,36 @@ i {
     text-align: center;
 }
 
+/* Draw a frame around an element */
+.enframe {
+    outline: 1px solid rgb(5, 45, 45);
+    outline-offset: -2px;
+}
+
+/* Draw an ellipse around an element */
+.encircle {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+/* Number tag */
+.number-tag {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+}
+
+
+/* Paragraphs underneath a figure on home page */
+.image-caption {
+    margin: 10px;
+    min-height: 40px;
+    padding: 10px;
+}
+
+
+
 /* Date field on the workout list */
 .date-field {
     font-family: 'Roboto Condensed', sans-serif;

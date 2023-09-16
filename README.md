@@ -4,6 +4,7 @@
 - [ERD](#erd)
 - [Model Class Diagram](#model-class-diagram)
 - [User Stories (Wire-Frames)](#user-stories-wire-frames)
+  - [Viewing the list of defined exercises](#viewing-the-list-of-defined-exercises)
   - [Defining a new Exercise](#defining-a-new-exercise)
   - [Editing an exercise](#editing-an-exercise)
   - [Viewing the list of workout sessions](#viewing-the-list-of-workout-sessions)
@@ -164,6 +165,18 @@ The ERD shows the relationships among tables, which remains the same among model
 ---
 # User Stories (Wire-Frames)
 
+## Viewing the list of defined exercises
+
+![Viewing list of exercises](documentation/images/wireframes/exercise/open_exercise_list.png)
+
+After clicking on **Exercises** in the **Navigation Br** user can see a list of exercises they have defined. The figure displays an empty list, because the user has not defined any exercises yet.
+
+|                        |                         |                                         |
+| ---------------------- | ----------------------- | --------------------------------------- |
+| [View](#exercise-list) | [Template](#template-1) | [Table of Contents](#table-of-contents) |
+
+---
+
 ## Defining a new Exercise
 ![First step defining an exercise](documentation/images/wireframes/exercise/create_exercise_1.png)
 
@@ -194,6 +207,11 @@ User clicks on **Save** button
 **5.**
 The list of Exercises opens and the added **exercise** appears in the **list**
 
+|                          |                       |                                         |
+| ------------------------ | --------------------- | --------------------------------------- |
+| [View](#create-exercise) | [Template](#template) | [Table of Contents](#table-of-contents) |
+
+---
 
 ---
 ## Editing an exercise
@@ -232,14 +250,19 @@ User clicks on **Save**
 **5.**
 User sees the updated list
 
+|                        |                         |                                         |
+| ---------------------- | ----------------------- | --------------------------------------- |
+| [View](#edit-exercise) | [Template](#template-2) | [Table of Contents](#table-of-contents) |
+
+
 ---
 ## Viewing the list of workout sessions
 
 ![image of Wire-Frame](documentation/images/wireframes/workout/listing.png)
 
-|                         |                                   |                                         |
-| ----------------------- | --------------------------------- | --------------------------------------- |
-| [Template](#template-6) | [View](#list-of-workout-sessions) | [Table of Contents](#table-of-contents) |
+|                                   |                         |                                         |
+| --------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#list-of-workout-sessions) | [Template](#template-6) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Starting a new workout session
@@ -273,11 +296,9 @@ User clicks on **Start** button
 **4.**
 Page for **editing** the new workout opens and the User can see the **name** they entered in the heading of the page
 
----
-
-|                       |                                                 |                                         |
-| --------------------- | ----------------------------------------------- | --------------------------------------- |
-| [Template](#template) | [View](#creating-and-editing-a-workout-session) | [Table of Contents](#table-of-contents) | [Table of Contents](#table-of-contents) |
+|                                                 |                       |                                         |
+| ----------------------------------------------- | --------------------- | --------------------------------------- |
+| [View](#creating-and-editing-a-workout-session) | [Template](#template) | [Table of Contents](#table-of-contents) | [Table of Contents](#table-of-contents) |
 
 ---
 
@@ -349,6 +370,9 @@ User confirms deletion
 **4.**
 User sees the updated list of exercises
 
+|                                                    |             |
+| -------------------------------------------------- | ----------- |
+| [View](#remove-an-exercise-from-a-workout-session) | no template | [Table of contents](#table-of-contents) |
 
 ---
 ### Renaming workout sessions
@@ -382,8 +406,10 @@ User clicks on **Rename** button
 **5.**
 The page for **editing** opens and the **new name** appears in the **heading** of the page
 
+|               |                         |                                         |
+| ------------- | ----------------------- | --------------------------------------- |
+| [View](#view) | [Template](#template-4) | [Table of Contents](#table-of-contents) |
 
-[Table of Contents](#table-of-contents)
 
 ---
 
@@ -417,6 +443,7 @@ User sees the updated list of workout sessions
 
 ![edit weight lifting exercise](documentation/images/wireframes/weightlifting/edit_1.png)
 
+| [View](#views-2) | [Template](#template-7) | [Table of Contents](#table-of-contents)|
 
 ---
 ### Opening the exercise from the list of workout sessions
@@ -499,6 +526,9 @@ User sees the updated list
 
 ![Edit a running exercise](documentation/images/wireframes/running/edit_1.png)
 
+|                  |                         |                                         |
+| ---------------- | ----------------------- | --------------------------------------- |
+| [View](#views-3) | [Template](#template-8) | [Table of Contents](#table-of-contents) |
 
 ---
 ### Opening the exercise from the list of workout sessions
@@ -599,6 +629,11 @@ The list is updated
 
 ![Edit page](documentation/images/wireframes/endurance/edit.png)
 
+|                  |                         |                                         |
+| ---------------- | ----------------------- | --------------------------------------- |
+| [View](#views-4) | [Template](#template-9) | [Table of Contents](#table-of-contents) |
+
+
 ---
 ### Opening the exercise from the list of workout sessions
 
@@ -693,7 +728,7 @@ The list is updated
 
 ---
 # Pylint and PEP8
-I have used Pylint and PEP8 for linting. 
+I have used Pylint and PEP8 for linting. The line length is 88 characters. Eighty-eight characters is the recommended setting for **black**, which is a formatting tool.
 
 [Table of Contents](#table-of-contents)
 
@@ -930,7 +965,7 @@ There will be three types of exercises:
 ## Exercise Form
 For creating and editing an exercise I will use django forms, because they offer an easy way of validating and saving the data. I will define the form in **forms.py**, whose name will be **ExerciseForm**
 
-[See exercise.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/forms.py)
+[Open forms.py in browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/forms.py)
 
 [Table of Contents](#table-of-contents)
 
@@ -939,7 +974,7 @@ For creating and editing an exercise I will use django forms, because they offer
 The views will cover the CRUD functionality and use templates for rendering, and be mapped to URLs.
 All views for this django-app will be defined in **exercise/views.py**
 
-[See exercise.views.py ](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/views.py)
+[Open views.py in browser ](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/views.py)
 
 [Table of Contents](#table-of-contents)
 
@@ -991,9 +1026,9 @@ class CreateExercise(View):
 
 #### Template
 
-|                                                                                                                               |                                               |                                         |
-| ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------- |
-| [Open Template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html) | [User Story](#starting-a-new-workout-session) | [Table of Contents](#table-of-contents) |
+|                                                                                                                               |                                        |                                         |
+| ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | --------------------------------------- |
+| [Open Template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html) | [User Story](#defining-a-new-exercise) | [Table of Contents](#table-of-contents) |
 
 #### Authentication check
 The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
@@ -1001,7 +1036,7 @@ The view contains a check for authentication in its get method. If a user is not
 #### Testing
 I have created a few exercises and they were correctly committed to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as expected.
 
-[See Details of Testing](#create-exercise)
+[See Details of Testing](#create-exercise-1)
 
 [Table of Contents](#table-of-contents)
 
@@ -1031,7 +1066,7 @@ The template provides a **delete button** for each exercise.There is also a **Mo
 
 The **name** of each exercise is wrapped inside a **link** with a fontawsome **icon**, that allows the user to open the exercise and edit it.
 
-[See exercise.templates.exercise_list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
+[Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
 
 [Table of Contents](#table-of-contents)
 
@@ -1109,7 +1144,7 @@ class EditExercise(View):
 #### Template
 The template simply renders the two fields of the form name and exercise_type. Which allows the user to change the values of these fields. It also provides a **save button** and a **Go back** button.
 
-[See exercise.templates.edit_exercise.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html)
+[Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html)
 
 [Table of Contents](#table-of-contents)
 
@@ -1171,7 +1206,7 @@ class DeleteExercise(View):
 #### Testing
 I have successfully deleted several exercises and the messages were relayed as expected.
 
-[See Details of Testing](#delete-exercise)
+[See Details of Testing](#exercise-list-1)
 
 [Table of Contents](#table-of-contents)
 
@@ -1186,7 +1221,7 @@ To add the app to the django project I entered this command in the terminal:
 I defined two classes: **Workout** and **WorkoutExercise**. 
 
 **Workout** is a representation of a workout session. Whereas, **WorkoutExercise** is a many-to-many relationship. Even though **django** offers a **Many-to-many** relationship, that solution does not quite fit the bill. Because this relationship will be used as a foreign key in another model that is yet to be defined. I did some research and have tried a few things but none of those methods worked like I needed them to. So I decided to use the good old normalization rule and defined the relationship in a separate model.
-[See workout.models.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/models.py)
+[Open models.py in browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/models.py)
 
 Now all that is left to do is add the app to INSTALLED_APPS in settings.py and migrate the model to the database.
 <code>
@@ -1197,7 +1232,7 @@ python manage.py migrate
 ---
 ## Forms
 I defined two forms, one for each of the model classes. 
-[See workout.forms.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/forms.py)
+[Open forms.py in browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/forms.py)
 
 [Table of Contents](#table-of-contents)
 
@@ -1276,7 +1311,7 @@ I have opened a workout for editing and deleted a few items from it.
 ### List of workout sessions
 The view **WorkoutList** extracts all workouts that belong to the user. The **template** gets a list of **workouts** and renders the names of the workouts. Furthermore, it iterates through a list of **exercises** that are linked to the workout and renders their **name** and corresponding **type**. There are three types: Weight-Lifting, Running and Endurance which are represented with an **icon** that is sitting next to the name of the exercise. The  The list is **paginated**. 
 
-[See the workout.views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
+[Open views.py in browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
 [Table of Contents](#table-of-contents)
 
