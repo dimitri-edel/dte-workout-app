@@ -98,7 +98,6 @@
       - [Testing](#testing-9)
     - [Deleting a weight-lifting set](#deleting-a-weight-lifting-set)
   - [Testing](#testing-10)
-  - [](#)
 - [RUNNING APP](#running-app)
   - [Model](#model-3)
   - [Views](#views-3)
@@ -1306,6 +1305,7 @@ It is used in the template from editing a workout session. The link is placed in
 
 #### Testing
 I have opened a workout for editing and deleted a few items from it.
+[See Details of Testing](#edit-workout)
 
 ---
 ### List of workout sessions
@@ -1420,6 +1420,8 @@ Lastly, the template is rendered.
 ---
 #### Testing
 
+[See Details of Testing](#list-of-weight-lifting-sets)
+
 ---
 ### Deleting a weight-lifting set
 The view deletes the weight-lifting-set whose id is passed as a parameter under **exercise_set_id**.
@@ -1429,8 +1431,8 @@ In the end it redirects the user back to the list of sets using the **workout_ex
 ---
 ## Testing
 
+[See Details of Testing](#list-of-weight-lifting-sets)
 
-##
 ---
 # RUNNING APP
 Logging the actual workload for each set of an exercise of type Running.
@@ -1482,6 +1484,8 @@ Lastly, the template is rendered.
 ---
 #### Testing
 
+[See Details of Testing](#list-of-running-sets)
+
 ---
 ### Deleting a running set
 The view deletes the running-set whose id is passed as a parameter under **exercise_set_id**.
@@ -1490,7 +1494,7 @@ In the end it redirects the user back to the list of sets using the **workout_ex
 
 ---
 #### Testing
-
+[See Details of Testing](#list-of-running-sets)
 
 ---
 # ENDURANCE APP
@@ -1540,6 +1544,7 @@ Lastly, the template is rendered.
 
 ---
 ## Testing
+[See Details of Testing](#list-of-endurance-sets)
 
 ---
 # Timer JavaScript
@@ -1547,9 +1552,7 @@ Timer is a class that I defined in a separate Java-Script file named **timer.js*
 The timer will be used for two types of workload: running and endurance. The user will  have a start button form the timer, which will turn into a stop button as soon as the timer gets started. When the timer is stopped the results will be copied to the respective field in the form that is used for adding a new set to the exercise.
 
 ## Testing
-
-
-
+It is very simple and straight forward code and it works. I had it run for over an hour on end and the time format looks fine and it works in either templates for endurance and for running.
 
 ---
 # MANUAL TESTS
@@ -1592,7 +1595,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | Cancel button | User clicks on **Cancel**             | User gets redirected back to the exercise list                                                             | &check; |
 | Validation    | User changes name to an empty field   | User sees a message prompting them to fill in the field                                                    | &check; |
 
-[Table of Contents](#table-of-contents)
+|                        |                         |                                         |
+| ---------------------- | ----------------------- | --------------------------------------- |
+| [View](#edit-exercise) | [Template](#template-2) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Workout List
@@ -1607,7 +1612,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | **Pagination**                                                                          | **User** clicks on a navigation button                                                            | The list shows the correct **page**                                                                                                                 | &check; |
 | **Delete** button                                                                       | **User** clicks on one of the delete **buttons** next to the name of the **workout** session      | A **confirm** dialog appears. If **yes** is clicked the item gets deleted. If **No** is clicked the dialog closes and the items remains in the list | &check; |
 
-[Table of Contents](#table-of-contents)
+|                                   |                         |                                         |
+| --------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#list-of-workout-sessions) | [Template](#template-6) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Start Workout
@@ -1617,7 +1624,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | **Validation**                     | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**. | &check; |
 | Open for **Editing**               | User fills out the form and clicks on **start**                      | The workout is opened inside the page for editing workout sessions                                       | &check; |
 
-[Table of Contents](#table-of-contents)
+|                                                 |                         |                                         |
+| ----------------------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#creating-and-editing-a-workout-session) | [Template](#template-3) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Edit Workout
@@ -1629,7 +1638,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | **Add exercise** | Name field has a value, but **exercise** has **not** been **selected**                    | Tooltip with an according message is prompting the user to **select** an **exercise**                          | &check; |
 | **Add exercise** | **Name** field is **empty** and **exercise** has **not** been **selected**                | Tooltip with an according message is prompting the user to fill out the name field                             | &check; |
 
-[Table of Contents](#table-of-contents)
+|                                                 |                         |                                         |
+| ----------------------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#creating-and-editing-a-workout-session) | [Template](#template-3) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Rename Workout
@@ -1639,7 +1650,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | **Validation** | **User** leaves the **name** field **blank** and clicks on **start** | An according **message** is displayed in a tooltip to the user. The form does **not** get **submitted**.         | &check; |
 | **Cancel**     | **User** clicks on the Cancel **button**                             | **User** gets redirected back to the **edit** page of the workout                                                | &check; |
 
-[Table of Contents](#table-of-contents)
+|                             |                         |                                         |
+| --------------------------- | ----------------------- | --------------------------------------- |
+| [View](#renaming-a-workout) | [Template](#template-4) | [Table of Contents](#table-of-contents) |
 
 ---
 ## Delete Workout
@@ -1649,7 +1662,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | **Defense** against **URL injection** | **Authenticated User** enters a url requesting to delete a workout they do not own           | **User** gets redirected to their own **Workout List**                                                                                              | &check; |
 | **Defense** against **URL injection** | **unauthenticated User** enters a url requesting to delete a workout they do not own         | **User** gets redirected to their own **Login page**                                                                                                | &check; |
 
-[Table of Contents](#table-of-contents)
+|                                 |             |                                         |
+| ------------------------------- | ----------- | --------------------------------------- |
+| [View](#delete-workout-session) | no template | [Table of Contents](#table-of-contents) |
 
 ---
 ## List of Weight-Lifting sets
@@ -1660,8 +1675,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | Deleting a set | User clicks on delete                                                           | User is asked to confirm in a dialog and if they confirm the set is removed from the list | &check; |
 | Wake Lock      | User activates the Wake Lock by checking the box in **Keep SCREEN AWAKE** filed | The monitor stays on past the settings in the OS                                          | &check; |
 
-
-[Table of Contents](#table-of-contents)
+|                                                     |                         |                                         |
+| --------------------------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#listing-and-adding-a-set-of-weight-lifting) | [Template](#template-7) | [Table of Contents](#table-of-contents) |
 
 ---
 ## List of Running sets
@@ -1675,8 +1691,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | Deleting a set            | User clicks on delete                                                           | User is asked to confirm in a dialog and if they confirm the set is removed from the list      | &check; |
 | Wake Lock                 | User activates the Wake Lock by checking the box in **Keep SCREEN AWAKE** filed | The monitor stays on past the settings in the OS                                               | &check; |
 
-
-[Table of Contents](#table-of-contents)
+|                                   |                         |                                         |
+| --------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#listing-and-adding-a-set) | [Template](#template-8) | [Table of Contents](#table-of-contents) |
 
 ---
 ## List of Endurance sets
@@ -1690,8 +1707,9 @@ The timer will be used for two types of workload: running and endurance. The use
 | Deleting a set            | User clicks on delete                                                           | User is asked to confirm in a dialog and if they confirm the set is removed from the list      | &check; |
 | Wake Lock                 | User activates the Wake Lock by checking the box in **Keep SCREEN AWAKE** filed | The monitor stays on past the settings in the OS                                               | &check; |
 
-
-[Table of Contents](#table-of-contents)
+|                                     |                         |                                         |
+| ----------------------------------- | ----------------------- | --------------------------------------- |
+| [View](#listing-and-adding-a-set-1) | [Template](#template-9) | [Table of Contents](#table-of-contents) |
 
 ---
 
