@@ -34,7 +34,7 @@ class CreateExercise(View):
         """Process a GET-Request and return a rendered template"""
         # Check if the user is authenticated, if not redirect them to home page
         if not request.user.is_authenticated:
-            return HttpResponseRedirect(reverse("home"))
+            return HttpResponseRedirect(reverse("account_login"))
         # Instantiate the form
         exercise_form = self.exercise_form_class()
         # Render the specified template
@@ -77,6 +77,9 @@ class EditExercise(View):
     template_name = "edit_exercise.html"
 
     def get(self, request, *args, **kwargs):
+        # Check if the user is authenticated, if not redirect them to home page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse("account_login"))
         """Process a GET-Request"""
         exercise_id = kwargs["exercise_id"]
         # Retrieve dataset

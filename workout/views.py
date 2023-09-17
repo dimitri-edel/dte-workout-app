@@ -210,6 +210,7 @@ class DeleteWorkoutExercise(View):
         # Only allow owners of the workout to remove exercises from the list
         if workout_exercise.owner == request.user:
             workout_exercise.delete()
+
         return HttpResponseRedirect(
             reverse("edit_workout", kwargs={"workout_id": workout_id})
         )

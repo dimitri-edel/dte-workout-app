@@ -27,6 +27,7 @@
     - [Keeping the screen from suspending to sleep mode](#keeping-the-screen-from-suspending-to-sleep-mode-1)
     - [Using a Timer](#using-a-timer)
     - [Adding a set](#adding-a-set-1)
+  - [| View |](#-view-)
     - [Deleting a set](#deleting-a-set-1)
   - [Endurance](#endurance)
     - [Opening the exercise from the list of workout sessions](#opening-the-exercise-from-the-list-of-workout-sessions-2)
@@ -116,6 +117,7 @@
       - [Listing in the get-method](#listing-in-the-get-method-2)
       - [Adding in the post-method](#adding-in-the-post-method-2)
   - [Template](#template-9)
+    - [Deleting an endurance set](#deleting-an-endurance-set)
   - [Testing](#testing-13)
 - [Timer JavaScript](#timer-javascript)
   - [Testing](#testing-14)
@@ -499,6 +501,10 @@ User clicks on **Add** button
 **3.**
 User sees the updated list
 
+|                                                     |
+| --------------------------------------------------- |
+| [View](#listing-and-adding-a-set-of-weight-lifting) |
+
 ---
 ### Deleting a set
 
@@ -520,6 +526,9 @@ User confirms the deletion
 **3.**
 User sees the updated list
 
+|                                        |
+| -------------------------------------- |
+| [View](#deleting-a-weight-lifting-set) |
 
 ## Running
 
@@ -605,6 +614,9 @@ User clicks on **Add** button
 **3.**
 The list is updated
 
+|                                   |
+| --------------------------------- |
+| [View](#listing-and-adding-a-set) |
 ---
 ### Deleting a set
 
@@ -622,6 +634,10 @@ User **confirms** deletion
 
 **3.**
 The list is updated
+
+|                                 |
+| ------------------------------- |
+| [View](#deleting-a-running-set) |
 
 ---
 ## Endurance 
@@ -707,6 +723,10 @@ User click on **Add** button
 **3.**
 The list is updated
 
+|                                     |
+| ----------------------------------- |
+| [View](#listing-and-adding-a-set-1) |
+
 ---
 ### Deleting a set
 
@@ -724,6 +744,10 @@ User confirms the **Deletion**
 
 **3.**
 The list is updated
+
+|                                    |
+| ---------------------------------- |
+| [View](#deleting-an-endurance-set) |
 
 ---
 # Pylint and PEP8
@@ -833,7 +857,7 @@ DATABASES = {
 
 ---
 # Setting up the project
-Now that I have the project and the database for the project has been specified, I need to migrate all the django models to the database and create a superuser. All of them will be mapped to the database.
+Now that I have the project and the database for the project has been specified, I need to migrate all the django models to the database and create a superuser.
 
 In the terminal I enter the following instructions:
 1) python manage.py migrate
@@ -925,11 +949,11 @@ MESSAGE_TAGS = {
 ---
 # Authentication forms
 Allauth offers an application that handles authentication, so it is not necessary to create everything from scratch.
-In order to modify the looks of the forms used in the process I copied all the templates from the app in to the projects 
+In order to modify the looks of the forms I copied all the templates from the app in to the projects 
 templates folder, as documented two sections above in **Setting up Allauth**. To make the login, logout and sign-up forms
-look different from the default allauth design, I need to edit them and apply the styles that I previously prepared in
+look different from the default allauth design, I edited them and applied the styles that I had previously prepared in
 **static/css/styles.css**.
-Furthermore, I need to remove a few things from those forms and add a different layout using **bootstrap**.
+Furthermore, I removed a few things from those forms and added a different layout using **bootstrap**.
 
 [Table of Contents](#table-of-contents)
 
@@ -970,8 +994,8 @@ For creating and editing an exercise I will use django forms, because they offer
 
 ---
 ## Views
-The views will cover the CRUD functionality and use templates for rendering, and be mapped to URLs.
-All views for this django-app will be defined in **exercise/views.py**
+The views cover the CRUD functionality and use templates for rendering, and are mapped to URLs.
+All views for this django-app are defined in **exercise/views.py**
 
 [Open views.py in browser ](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/views.py)
 
@@ -979,49 +1003,8 @@ All views for this django-app will be defined in **exercise/views.py**
 
 ---
 ### Create Exercise
-I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets Instantiated and passed to the template for rendering. And one for processing the POST-Request where the form gets committed to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
+I named the view **CreateExercise**. It has two methods. One for processing the GET-Request, wherein the form gets instantiated and passed to the template for rendering. Second one for processing the POST-Request where the form gets committed to the database if it is valid. If the form is not valid, the user will see a validation message that points out an empty field or the like.
 
-<code>
-
-class CreateExercise(View):
-
-    """ View for creating an exercise """
-    # Reference to the form
-    exercise_form_class = ExerciseForm
-    # Reference to the template
-    template_name = "create_exercise.html"
-
-    def get(self, request, *args, **kwargs):
-        """ Process a GET-Request and return a rendered template"""
-        # Check if the user is authenticated, if not redirect them to home page
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('home'))
-        # Instantiate the form
-        exercise_form = self.exercise_form_class()
-        # Render the specified template
-        return render(request, self.template_name, {"exercise_form": exercise_form})
-
-    def post(self, request,  *args, **kwargs):
-        """Process a POST-Request" for creating an exercise"""
-        # Retrieve form from REQUEST
-        exercise_form = self.exercise_form_class(request.POST)
-        # If the form is valid
-        if exercise_form.is_valid():
-            # Assign the form to the current user.
-            # The instance property of the forms is a reference to the model class
-            # that is being used and allows us to access its properties and methods
-            exercise_form.instance.owner = request.user
-            # Commit the model object to the database
-            exercise_form.save()
-            messages.add_message(
-            request, messages.SUCCESS, f"A new exercise: '{exercise_form.instance.name}'\
-                 has been created   !")
-            return HttpResponseRedirect(reverse("exercise_list"))
-        # If the form was not valid, render the template. The workout_from will contain the
-        # validation messages for the user, which had been generated upon calling the 
-        # is_valid() method
-        return render(request, self.template_name, {"exercise_form": exercise_form})
-</code>
 
 #### Template
 
@@ -1030,7 +1013,7 @@ class CreateExercise(View):
 | [Open Template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/create_exercise.html) | [User Story](#defining-a-new-exercise) | [Table of Contents](#table-of-contents) |
 
 #### Authentication check
-The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the home page.
+The view contains a check for authentication in its get method. If a user is not logged in they will be redirected to the login page.
 
 #### Testing
 I have created a few exercises and they were correctly committed to the database. The validation also works and will not let me submit the form unless it has the required fields. The validation messages appear as expected.
@@ -1058,6 +1041,8 @@ class ExerciseList(generic.ListView):
         return self.model.objects.filter(owner=self.request.user.id)
 </code>
 
+[User Story](#viewing-the-list-of-defined-exercises)
+
 #### Template
 The template uses **pagination** facilities at the bottom. 
 
@@ -1065,7 +1050,7 @@ The template provides a **delete button** for each exercise.There is also a **Mo
 
 The **name** of each exercise is wrapped inside a **link** with a fontawsome **icon**, that allows the user to open the exercise and edit it.
 
-[Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
+[Open Template in the Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/exercise_list.html)
 
 [Table of Contents](#table-of-contents)
 
@@ -1100,6 +1085,9 @@ class EditExercise(View):
     template_name = "edit_exercise.html"
 
     def get(self, request, *args, **kwargs):
+        # Check if the user is authenticated, if not redirect them to login page
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse("account_login"))
         """ Process a GET-Request"""
         exercise_id = kwargs["exercise_id"]
         # Retrieve dataset
@@ -1137,15 +1125,17 @@ class EditExercise(View):
         return render(request, self.template_name, {"exercise_form": exercise_form})
 </code>
 
-[Table of Contents](#table-of-contents)
+|                                    |                                         |
+| ---------------------------------- | --------------------------------------- |
+| [User Story](#editing-an-exercise) | [Table of Contents](#table-of-contents) |
 
 ---
 #### Template
 The template simply renders the two fields of the form name and exercise_type. Which allows the user to change the values of these fields. It also provides a **save button** and a **Go back** button.
 
-[Template](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html)
-
-[Table of Contents](#table-of-contents)
+|                                                                                                                                     |                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| [Open the Template in the browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/exercise/templates/edit_exercise.html) | [Table of Contents](#table-of-contents) |
 
 ---
 #### Testing
@@ -1278,13 +1268,13 @@ I have created several workouts and they showed up in the page for editing. I co
 
 #### View
 The View for renaming workouts is **RenameWorkout**. It renders a **WorkoutForm** upon a GET-Request. 
-The POST-Request is processed in the usual way the form is validated. If it is valid, firstly it will be commit to the database. Secondly, the user will get redirected back to the **edit_workout.html** page.
+When the POST-Request is processed the form is validated. If it is valid, firstly it will be committed to the database. Secondly, the user will get redirected back to the **edit_workout.html** page.
 
-If the form is not valid a validation message will appear in the browser and form will not be submitted.
+If the form is not valid a validation message will appear in the browser and the form will not be submitted.
 
 ---
 #### Template
-The template **rename_workout.html** is basically a copy of **create_workout.html** with a few minor changes.
+The template **rename_workout.html**  only has one field for the name. It also has a **Save** button and a **Cancel** button.
 
 #### Testing
 
@@ -1294,10 +1284,10 @@ The template **rename_workout.html** is basically a copy of **create_workout.htm
 
 ---
 ### Remove an Exercise from a Workout session
-The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed two it via **URL**. One is the id of the workout session and the other is the id of the dataset in **WorkoutExercise** . 
+The view is called **DeleteWorkoutExercise**. It gets two **parameters** passed to it via **URL**. One is the id of the workout session and the other is the id of the dataset in **WorkoutExercise** . Before removing the item it checks if the user is the owner of the item. If the user is not the owner, then nothing will happen.
 
 #### Template
-It is used in the template from editing a workout session. The link is placed inside a Modal dialog, that makes sure that the user confirms the delete.
+The link to this view is used in the template for editing a workout session. The link is placed inside a Modal dialog, so it only gets called if the user confirms the delete.
 
 [See workout.templates.edit_workout.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/edit_workout.html)
 
@@ -1309,7 +1299,7 @@ I have opened a workout for editing and deleted a few items from it.
 
 ---
 ### List of workout sessions
-The view **WorkoutList** extracts all workouts that belong to the user. The **template** gets a list of **workouts** and renders the names of the workouts. Furthermore, it iterates through a list of **exercises** that are linked to the workout and renders their **name** and corresponding **type**. There are three types: Weight-Lifting, Running and Endurance which are represented with an **icon** that is sitting next to the name of the exercise. The  The list is **paginated**. 
+The view **WorkoutList** extracts all workouts that belong to the user. The **template** gets a list of **workouts** and renders the names of the workouts. Furthermore, it iterates through a list of **exercises** that are linked to the workout and renders their **name** and corresponding **type**. There are three types: Weight-Lifting, Running and Endurance which are represented with an **icon** that is sitting next to the name of the exercise. The list is **paginated**. 
 
 [Open views.py in browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/views.py)
 
@@ -1321,7 +1311,7 @@ The view **WorkoutList** extracts all workouts that belong to the user. The **te
 | [Open template in Browser](https://github.com/dimitri-edel/dte-workout-app/blob/main/workout/templates/workout_list.html) | [User Story](#viewing-the-list-of-workout-sessions) | [Table of Contents](#table-of-contents) |
 
 ##### Testing 
-The list renders and shows all workouts that belong to the user in the way it was intended.
+The list shows all workouts that belong to the user in the way it was intended.
 |                                     |                                         |
 | ----------------------------------- | --------------------------------------- |
 | [Details of Testing](#workout-list) | [Table of Contents](#table-of-contents) |
@@ -1344,7 +1334,7 @@ The workouts can be successfully deleted from the list.
 
 ---
 #### Classes with summaries of each workout session used in the template
-Initially I intended to use computed fields for this purpose, yet I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields comes down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference  **WeightLifting, Running** or **Endurance** models in **WorkoutExercise**. To cut the long story short, I will need to create a set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries in **workout/summaries.py**. 
+Initially I intended to use computed fields for this purpose, yet I have run into a problem. The **list of workouts** is meant to provide summaries for each workout, so the user can see at one glance what was done in a given workout session. The problem with computed fields comes down to python. Being a script language,  it initializes model classes sequentially, one by one. So I cannot reference  **WeightLifting, Running** or **Endurance** models in **WorkoutExercise**. To cut the long story short, I will need to create a set of classes for that purpose and have the summaries created inside the **WorkoutList** view itself. I will store the classes for creating such a list of summaries inside objects, whose classes are defined in **workout/summaries.py**. 
 
 ---
 ##### Summarizer class
@@ -1387,6 +1377,7 @@ The model has four fields: owner, workout_exercise, reps, weight.
 ## Views
 It is only necessary to have two views. One for listing and adding sets and one for deleting sets. There will be no view for updating sets, because changing results retrospectively does not make sense.
 
+
 [See views.py](https://github.com/dimitri-edel/dte-workout-app/blob/main/weight_lifting/views.py)
 
 [Table of Contents](#table-of-contents)
@@ -1395,11 +1386,15 @@ It is only necessary to have two views. One for listing and adding sets and one 
 ### Listing and adding a set of weight-lifting
 **WeightLiftingList** handles listing the sets in its **get**-method and **adding** a set in the **post** method.
 
+|                                      |                                        |
+| ------------------------------------ | -------------------------------------- |
+| [User Story for listing](#edit-page) | [User Story for adding](#adding-a-set) |
+
 #### Listing in the get-method 
 Firstly, the **id** of the relationship, which was passed as a parameter in the URL, is retrieved from **kwargs** and stored in **workout_exercise_id**.
 Secondly, the object of the **relationship** is retrieved from **WorkoutExercise** and stored in **workout_exercise**.
-Thirdly, an empty form for a new set is created. The form will be used in the template in order to add the next set and stored in **weight_lifting_form**.
-Fourthly, a list of **weight-lifting** sets that are linked to the previously retrieved **WorkoutExercise** relationship is retrieved and stored in **weight_lifting_list**.
+Thirdly, an empty form for a new set is created. The form will be used in the template in order to add the next set. The form is stored in **weight_lifting_form**.
+Fourthly, a list of **weight-lifting** sets, that are linked to the previously retrieved **WorkoutExercise** relationship, is retrieved and stored in **weight_lifting_list**.
 Then, the respective exercise object is retrieved and stored in **exercise**. The object will be used to display the name of the exercise in the heading.
 
 #### Adding in the post-method
@@ -1427,6 +1422,8 @@ Lastly, the template is rendered.
 The view deletes the weight-lifting-set whose id is passed as a parameter under **exercise_set_id**.
 It will only delete an item if the owner is the same as the user in the request.
 In the end it redirects the user back to the list of sets using the **workout_exercise_id** from the list of parameters.
+
+[User Story](#deleting-a-set)
 
 ---
 ## Testing
@@ -1541,6 +1538,14 @@ Lastly, the template is rendered.
 [View endurance-list.html](https://github.com/dimitri-edel/dte-workout-app/blob/main/endurance/templates/endurance-list.html)
 
 [Table of Contents](#table-of-contents)
+
+---
+### Deleting an endurance set
+The view deletes the endurance-set whose id is passed as a parameter under **exercise_set_id**.
+It will only delete an item if the owner is the same as the user in the request.
+In the end it redirects the user back to the list of sets using the **workout_exercise_id** from the list of parameters.
+
+[User Story](#deleting-a-set-2)
 
 ---
 ## Testing
@@ -1718,7 +1723,7 @@ It is very simple and straight forward code and it works. I had it run for over 
 ## Serving static files
 On a server, like Apache, you would have had to create a Virtual Host for that purpose and specify the folder, in which the static files would be stored. This folder would also need to be specified in the settings.py file. Furthermore, you would have had to assign a URL for the static files folder on the virtual host and in settings.py.
 
-On Heroku we do not have that possibility, yet we can use an middleware library called **whitenoise** instead. 
+On Heroku we do not have that possibility, yet we can use an middleware library called **whitenoise** instead (*However, the static content can be served from any other machine with a server for static content*).
 
 In order to do that, **whitenoise** must be installed using **pip**:
 
