@@ -65,7 +65,6 @@
       - [Template](#template-2)
       - [Testing](#testing-2)
     - [Delete Exercise](#delete-exercise)
-  - [User Story](#user-story)
       - [Testing](#testing-3)
 - [WORKOUT APP](#workout-app)
   - [Model](#model-1)
@@ -1217,6 +1216,7 @@ class DeleteExercise(View):
 </code>
 
 [User Story](#deleting-an-exercise)
+
 ---
 #### Testing
 I have successfully deleted several exercises and the messages were relayed as expected.
