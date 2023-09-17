@@ -7,6 +7,7 @@
   - [Viewing the list of defined exercises](#viewing-the-list-of-defined-exercises)
   - [Defining a new Exercise](#defining-a-new-exercise)
   - [Editing an exercise](#editing-an-exercise)
+  - [Deleting an exercise](#deleting-an-exercise)
   - [Viewing the list of workout sessions](#viewing-the-list-of-workout-sessions)
   - [Starting a new workout session](#starting-a-new-workout-session)
   - [Editing a workout session](#editing-a-workout-session)
@@ -64,6 +65,7 @@
       - [Template](#template-2)
       - [Testing](#testing-2)
     - [Delete Exercise](#delete-exercise)
+  - [User Story](#user-story)
       - [Testing](#testing-3)
 - [WORKOUT APP](#workout-app)
   - [Model](#model-1)
@@ -254,6 +256,29 @@ User sees the updated list
 |                        |                         |                                         |
 | ---------------------- | ----------------------- | --------------------------------------- |
 | [View](#edit-exercise) | [Template](#template-2) | [Table of Contents](#table-of-contents) |
+
+
+---
+## Deleting an exercise
+
+![First step deleting an exercise](documentation/images/wireframes/exercise/delete_1.png)
+
+**1.**
+User clicks on the **Delete** button
+
+![Second step deleting an exercise](documentation/images/wireframes/exercise/delete_2.png)
+
+**2.**
+User confirms the **Delete**
+
+![Third step deleting an exercise](documentation/images/wireframes/exercise/delete_3.png)
+
+**3.**
+The list is updated
+
+|                          |                         |                                         |
+| ------------------------ | ----------------------- | --------------------------------------- |
+| [View](#delete-exercise) | [Template](#template-1) | [Table of Contents](#table-of-contents) |
 
 
 ---
@@ -1191,6 +1216,7 @@ class DeleteExercise(View):
 
 </code>
 
+[User Story](#deleting-an-exercise)
 ---
 #### Testing
 I have successfully deleted several exercises and the messages were relayed as expected.
