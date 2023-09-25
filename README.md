@@ -151,6 +151,12 @@
   
 # Introduction
 
+If you work out, it is always good practice to keep a journal, so you can keep track of your results.
+
+This application allows users to keep a workout journal where they can document their performance. Users can define exercises that they are going to do, by naming them and categorizing them. 
+
+Each workout can be documented in such a way that the user can document which exercises they did during a workout. Furthermore,for each exercise of type **Weight-lifting** they can record information such as the number of sets and the number of repetitions in each set. For an exercise of type **Endurance** then they can log the number of repetitions and how long it took them to complete that number of repetitions. And last but not least, if the exercise type is **Running** then they can record how long a distance they ran and how much time it took them to traverse that distance.
+
 ---
 # ERD
 The diagram depicts the actual tables in the database. Only, django will add the name of the respective app, which the model was declared within, at the beginning of each table name.
